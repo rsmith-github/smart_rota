@@ -1,0 +1,63 @@
+{% extends "main/layout.html" %}
+
+{% block body %}
+
+    <h2 class="registerH2">Register {{user_type}}</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+
+    {% ifequal user_type "employer" %}
+        <form action="{% url 'register_manager' %}" method="post">
+            {% csrf_token %}
+
+            <div>
+                <p class="info" title="Please enter the code provided by your employer">?</p>
+                <input name="employer-code" class="" type="text" name="code" placeholder="Company code">
+            </div>
+            <div>
+                <input class="" autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <div>
+                <input class="" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div>
+                <input class="" type="password" name="password" placeholder="Password">
+            </div>
+            <div>
+                <input class="" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <input class="btn" type="submit" value="Register">
+        </form>
+    {% else %}
+
+
+
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <p class="info" title="Please enter the code provided by your employer">?</p>
+                <input name="employer-code" class="" type="text" name="code" placeholder="Company code">
+            </div>
+            <div>
+                <input class="" autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <div>
+                <input class="" type="email" name="email" placeholder="Email Address">
+            </div>
+            <div>
+                <input class="" type="password" name="password" placeholder="Password">
+            </div>
+            <div>
+                <input class="" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <input class="btn" type="submit" value="Register">
+        </form>
+    {% endifequal %}
+    
+
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+
+{% endblock %}

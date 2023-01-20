@@ -1,0 +1,57 @@
+{% extends "main/layout.html" %} {% block body %}
+{% load static %}
+
+<div class="welcome-text">
+    <h2>Welcome</h2>
+    
+    <h4>Rota management made simple and straightforward for all parties.</h4>
+    <!-- Rota management system where equality comes first. -->
+</div>
+
+
+<div class="rota"></div>
+
+<script type="text/babel">
+let jsDate = new Date('2022-01-01')
+function Calendar() {
+    const [state, setState] = React.useState({
+        date: jsDate.toString(),
+    });
+    function updateInput() {
+        setState({
+            ...state,
+            date: state.date.setDate(date.getDate() + 1)
+        })
+    }
+
+    return (
+        <div class="date-div">
+            <p>{ state.date }</p>
+        </div>
+    );
+
+}
+
+function ManyDays() {
+    return (
+        <div>
+            <Calendar />
+            <Calendar />
+            <Calendar />
+            <Calendar />
+        </div>
+    );
+}
+
+// document.querySelector('#my-rota').addEventListener("click", () => {
+
+//     // hide welcome text
+//     let welcomeText = document.querySelector(".welcome-text")
+//     welcomeText.style.display = "none";
+
+//     // show on dom
+//     // ReactDOM.render(<ManyDays />, document.querySelector(".rota"))
+// })
+</script>
+
+{% endblock %}
