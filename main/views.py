@@ -149,6 +149,10 @@ def get_team(request):
     if request.method == "GET":
         return HttpResponse("Access Denied")
 
+    if request.user.user_type != "Manager":
+        print("Non-manager requested team data")
+        return
+    
     # get manager who sent request
     user_object = User.objects.get(username=request.user)
 

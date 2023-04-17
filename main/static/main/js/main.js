@@ -56,6 +56,8 @@ function createMonthsObj() {
 createMonthsObj();
 
 function viewRota() {
+    hidePages();
+
     document.querySelector(".welcome-text").style.display = "none";
 
     let rota = document.querySelector(".rota")
@@ -117,11 +119,12 @@ function isLeapYear(date) {
 
 
 
+// get all users where user_type == Employee and company code is the same as request sender's (manager's) company code.
 const viewTeam = async () => {
-    // get all users where user_type = Employee and company code is the same as manager's company code.
-
-
+    hidePages();
     let teamContainer = document.querySelector("#team")
+    teamContainer.style.display = "block";
+
     if (teamContainer.childNodes.length) {
         return;
     }
@@ -151,4 +154,14 @@ function get_current_user() {
     };
 
     return user
+}
+
+// hide all pages, to be called when switching in between asynchronously loaded pages.
+function hidePages() {
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(page => {
+        page.style.display = "none";
+    })
+
 }
