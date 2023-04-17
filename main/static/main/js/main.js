@@ -1,11 +1,11 @@
 
-// Dropdown menu.
+// Select dropdown menu and hide it if it exists
 let dMenu = document.querySelector(".dropdown-menu");
 if (dMenu) {
     dMenu.style.display = "none";
 }
 
-// Call onclick
+// Function to toggle dropdown menu visibility when clicked
 function showMenu() {
     if (dMenu.style.display == "none") {
         dMenu.style.display = "flex";
@@ -14,13 +14,12 @@ function showMenu() {
     }
 }
 
-
-// Sticky navbar
+// Select navbar and set sticky position
 window.onscroll = function () { stickyNav() };
-
 let navbar = document.querySelector(".navContainer");
 let sticky = navbar.offsetTop;
 
+// Function to add or remove 'sticky' class based on scroll position
 function stickyNav() {
     if (window.pageYOffset > sticky) {
         navbar.classList.add("sticky")
@@ -29,6 +28,7 @@ function stickyNav() {
     }
 }
 
+// Function to add or remove 'change' class to logo based on scroll position
 function checkPos() {
     if (scrollY >= 420) {
         document.querySelectorAll("#logo").forEach((element) => element.classList.add("change")) //.classList.add("change")
@@ -37,8 +37,8 @@ function checkPos() {
     }
 }
 
-document.addEventListener("scroll", checkPos)
-
+// Add 'checkPos' function to scroll event listener
+document.addEventListener("scroll", checkPos);
 
 
 
@@ -55,43 +55,68 @@ function createMonthsObj() {
 }
 createMonthsObj();
 
+
+// Define the start and end dates of the current week
+let startOfWeek = null;
+let endOfWeek = null;
 function viewRota() {
-    hidePages();
+  // Hide all other pages and display the rota page
+  hidePages();
+  document.querySelector(".welcome-text").style.display = "none";
+  let rota = document.querySelector(".rota");
+  rota.style.display = "block";
 
-    document.querySelector(".welcome-text").style.display = "none";
+  // Initialize the start and end dates of the current week if they haven't been set yet
+  if (!startOfWeek || !endOfWeek) {
+    let today = new Date();
+    startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+    endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 6);
+  }
 
-    let rota = document.querySelector(".rota")
-    rota.style.display = "block";
-
-
-    date = new Date('2022-01-01')
-
-    datelist = []
-
-    while (date.getFullYear() != 2026) {
-        let day = date.getDate()
-        if (day.toString().length < 2) {
-            day = "0" + day
-        }
-        let formattedDate = day + " - " + months[date.getMonth()] + " - " + date.getFullYear()
-        datelist.push(formattedDate)
-
-        date.setDate(date.getDate() + 1)
-
+  // Loop through all the dates between 2022 and 2025 and format them using the months object
+  let date = new Date(startOfWeek.getFullYear(), startOfWeek.getMonth(), startOfWeek.getDate());
+  let datelist = [];
+  while (date <= endOfWeek) {
+    let day = date.getDate();
+    if (day.toString().length < 2) {
+      day = "0" + day;
     }
+    let formattedDate = day + " - " + months[date.getMonth()] + " - " + date.getFullYear();
+    datelist.push(formattedDate);
+    date.setDate(date.getDate() + 1);
+  }
 
-    datelist.forEach((element) => {
-        let div = document.createElement("div")
-        div.className = "date-div"
-        div.innerHTML = element
-        rota.append(div)
-    })
+  // Display the filtered dates on the page
+  rota.innerHTML = "";
+  datelist.forEach((element) => {
+    let div = document.createElement("div");
+    div.className = "date-div";
+    div.innerHTML = element;
+    rota.append(div);
+  });
 
-    // date = date.setFullYear(date - 100)
+  // Add buttons to navigate to the previous and next weeks
+  let prevButton = document.createElement("button");
+  prevButton.innerHTML = "Previous Week";
+  prevButton.addEventListener("click", () => {
+    startOfWeek.setDate(startOfWeek.getDate() - 7);
+    endOfWeek.setDate(endOfWeek.getDate() - 7);
+    viewRota();
+  });
+  rota.prepend(prevButton);
+
+  let nextButton = document.createElement("button");
+  nextButton.innerHTML = "Next Week";
+  nextButton.addEventListener("click", () => {
+    startOfWeek.setDate(startOfWeek.getDate() + 7);
+    endOfWeek.setDate(endOfWeek.getDate() + 7);
+    viewRota();
+  });
+  rota.append(nextButton);
 }
 
 
-// *****************************************
+
 function countLeapYears(date) {
     date.setFullYear(date.getFullYear())
     let leapYearCount = 0
@@ -114,8 +139,6 @@ function isLeapYear(date) {
     // If month doesn't switch to march, return true.
     return date.getMonth() == 1 && date.getDate() == 29
 }
-
-// *********************************************
 
 
 
