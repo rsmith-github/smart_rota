@@ -12,4 +12,5 @@ urlpatterns = [
     path("register-employer", views.register, name="register_manager"),
     path("register-employee", views.register, name="register"),
     path("register-company", views.register_company, name="register-company"),
+    path("api/team", views.get_team, name="get-team"),
 ]

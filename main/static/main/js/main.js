@@ -114,3 +114,41 @@ function isLeapYear(date) {
 }
 
 // *********************************************
+
+
+
+const viewTeam = async () => {
+    // get all users where user_type = Employee and company code is the same as manager's company code.
+
+
+    let teamContainer = document.querySelector("#team")
+    if (teamContainer.childNodes.length) {
+        return;
+    }
+
+    let team = await fetchData("team");
+    document.querySelector(".welcome-text").style.display = "none";
+    teamContainer.style.display = "block";
+
+    // Add team member to frontend
+    team.forEach(member => {
+        let div = document.createElement("div");
+        div.innerHTML = `${member.fields.username} ${member.fields.email} ${member.fields.user_type}`;
+        teamContainer.append(div);
+    })
+
+
+}
+
+// get current user based on hidden html elements.
+function get_current_user() {
+    let current_username = document.getElementById("current-user").value;
+    let current_user_employer_code = document.getElementById("current-user-company").value;
+
+    let user = {
+        username: current_username,
+        employer_code: current_user_employer_code,
+    };
+
+    return user
+}

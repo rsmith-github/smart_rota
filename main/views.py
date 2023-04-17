@@ -7,6 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django import forms
 
+from django.core import serializers
+
+
 from manage import main
 from .models import Company, User
 import uuid
@@ -126,7 +129,7 @@ def register_company(request):
         else:
             new_company.save()
             message = "Registered successfuly! your company code is: " + \
-                str(unique_id) + ". Don't lose it cunt."
+                str(unique_id) + ". Please write it down and do not lose it."
 
         # return HttpResponseRedirect(reverse('register-company'))
         return render(request, "main/company.html", {"message": message})
@@ -135,3 +138,24 @@ def register_company(request):
     else:
 
         return render(request, "main/company.html", {"message": message})
+
+
+# API endpoints
+
+# get team members (users whose company code matches the request sender.)
+def get_team(request):
+
+    # allow only post requests
+    if request.method == "GET":
+        return HttpResponse("Access Denied")
+
+    # get manager who sent request
+    user_object = User.objects.get(username=request.user)
+
+    # filter team based on company code.
+    team = User.objects.filter(
+        employer_code=user_object.employer_code, user_type="Employee")
+
+    # send back json.
+    new = serializers.serialize('json', team)
+    return HttpResponse(new)

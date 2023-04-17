@@ -5,64 +5,95 @@
   <head>
     <title>{% block title %}Smart Rota{% endblock %}</title>
     <link href="{% static 'main/styles.css' %}" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href = "https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700" rel = "stylesheet" />
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
+      rel="stylesheet"
+    />
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    
   </head>
 
-  <body>
-    
+  <input type="hidden" id="current-user" value="{{ user }}" />
+  <input type="hidden" id="current-user-company" value="{{ user.employer_code }}" />
 
+
+  <body>
     <nav>
       <div class="navContainer">
-        
         <!-- <div class="logoContainer"><img id="logo" src="{% static 'main/logo3.png' %}" alt="logo"></div> -->
-        <div class="logoContainer"><a href="/"><h2 id="logo">SMART ROTA</h2></a><h2 id="logo">SMART ROTA</h2></div>
+        <div class="logoContainer">
+          <a href="/"><h2 id="logo">SMART ROTA</h2></a>
+          <h2 id="logo">SMART ROTA</h2>
+        </div>
         <div>
           <ul class="navBar">
-                {% if user.is_authenticated %}
-                <li>
-                  <a  href="/"><strong>{{ user.username }}</strong></a>
-                </li>
-                {% endif %}
-                <li>
-                  <a  href="{% url 'index' %}">Home</a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                  <a href="#" id="my-rota" onclick="viewRota" >My Rota</a>
-                </li>
-                <li>
-                  <a  href="{% url 'logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li>
-                  <p id="register-dropdown" class="nav-link dropdown-toggle" onclick="showMenu()">Register</p>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/register-employer">Employer Profile</a>
-                    <a class="dropdown-item" href="/register-employee">Employee Profile</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/register-company">Register Company</a>
-                  </div>
-                </li>
-                
-                <li>
-                  <a  href="{% url 'login' %}">Login</a>
-                </li>
-                
-                {% endif %}
-              </ul>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="/"><strong>{{ user.username }}</strong></a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{% url 'index' %}">Home</a>
+            </li>
+            {% if user.is_authenticated %} {% if user.user_type == "Manager" %}
+            <li>
+              <a href="#" id="viewTeam" onclick="viewTeam()">Team</a>
+            </li>
+            {% endif %}
+
+            <li>
+              <a href="#" id="rota" onclick="viewRota()">My Rota</a>
+            </li>
+            <li>
+              <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+              <p
+                id="register-dropdown"
+                class="nav-link dropdown-toggle"
+                onclick="showMenu()"
+              >
+                Register
+              </p>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/register-employer"
+                  >Employer Profile</a
+                >
+                <a class="dropdown-item" href="/register-employee"
+                  >Employee Profile</a
+                >
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/register-company"
+                  >Register Company</a
+                >
+              </div>
+            </li>
+
+            <li>
+              <a href="{% url 'login' %}">Login</a>
+            </li>
+
+            {% endif %}
+          </ul>
         </div>
       </div>
-      
     </nav>
-    
-    <div class="body">{% block body %} {% endblock %}</div>
-    
-    <script src="{% static 'main/main.js' %}" rel="text/javscript"></script>
 
+    <div class="body">{% block body %} {% endblock %}</div>
+
+    <script src="{% static 'main/js/main.js' %}" rel="text/javscript"></script>
+    <script
+      src="{% static 'main/js/APIhelper.js' %}"
+      rel="text/javscript"
+    ></script>
   </body>
 </html>
