@@ -222,22 +222,110 @@ h4 {
 	}
 }
 
-
 .rota {
-    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: white;
 }
 
 .date-div {
     border: solid 2px rgba(45, 26, 121, 0.553);
-    height: 50px;
+    border-radius: 10px;
+    width: 95%;
+    height: 100px;
     font-size: 20px;
     padding: 10px;
     margin: 10px;
     background-color: rgba(45, 26, 121, 0.553);
+
 }
 
+.slide-up {
+    animation: slide-up 1s;
+    /* transition: transform 0.5s ease-out; */
+    transform: translateY(100%);
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        
+        transform: translateY(0%);
+    }
+}
+
+.slide-in-left {
+    animation: slide-in-left 1s forwards;
+    transform: translateX(0%);
+}
+@keyframes slide-in-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.slide-in-right {
+    animation: slide-in-right 1s backwards;
+    transform: translateX(-100%);
+}
+@keyframes slide-in-right {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+.fade {
+    animation: fade 0.5s;
+    opacity: 100%;
+}
+@keyframes fade {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0%;
+    }
+}
+
+/* .slide-in-left {
+    transform: translateX(-100%);
+}
+
+.slide-in-right {
+    transform: translateX(100%);
+} */
 
 .registerH2 {
     margin-bottom: 0;
+}
+
+.weeks-button {
+    background-color: transparent;
+    border: 3.5px solid white;
+    border-radius: 10px;
+    color: white;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: bold;
+    
+}
+
+.weeks-button:hover {
+    background-color: rgba(255, 255, 255, 0.536);
+}
+
+#buttons-container {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
 }
