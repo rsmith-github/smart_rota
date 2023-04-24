@@ -10,20 +10,24 @@
       href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
       rel="stylesheet"
     />
-    <script
-      src="https://unpkg.com/react@17/umd/react.production.min.js"
-      crossorigin
-    ></script>
-    <script
-      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
-      crossorigin
-    ></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script src="{% static 'main/favicon.ico'%}" type="favicon"></script>
+    <!-- <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.136.0/build/three.module.js",
+          "RGBELoader": "./main/static/js/RGBELoaderjs"
+        }
+      }
+    </script> -->
   </head>
 
   <input type="hidden" id="current-user" value="{{ user }}" />
-  <input type="hidden" id="current-user-company" value="{{ user.employer_code }}" />
-
+  <input
+    type="hidden"
+    id="current-user-company"
+    value="{{ user.employer_code }}"
+  />
 
   <body>
     <nav>
@@ -37,7 +41,9 @@
           <ul class="navBar">
             {% if user.is_authenticated %}
             <li>
-              <a href="/" style="font-size: larger;"><strong>{{ user.username }}</strong></a>
+              <a href="/" style="font-size: larger"
+                ><strong>{{ user.username }}</strong></a
+              >
             </li>
             {% endif %}
             <li>
@@ -90,6 +96,10 @@
 
     <div class="body">{% block body %} {% endblock %}</div>
 
+    <!-- <script
+      src="{% static 'main/js/RGBELoader.js' %}"
+      rel="text/javscript"
+    ></script> -->
     <script src="{% static 'main/js/main.js' %}" rel="text/javscript"></script>
     <script
       src="{% static 'main/js/APIhelper.js' %}"

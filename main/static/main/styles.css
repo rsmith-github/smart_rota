@@ -282,16 +282,17 @@ h4 {
         transform: translateX(0%);
     }
 }
+
 .fade {
     animation: fade 0.5s;
-    opacity: 100%;
+    opacity: 1;
 }
 @keyframes fade {
     from {
-        opacity: 100%;
+        opacity: 1;
     }
     to {
-        opacity: 0%;
+        opacity: 0;
     }
 }
 
@@ -328,4 +329,9 @@ h4 {
     display: flex;
     width: 80%;
     justify-content: space-evenly;
+}
+
+#canvas-container {
+    display: flex;
+    justify-content: center;
 }

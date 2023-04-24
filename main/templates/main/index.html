@@ -2,14 +2,36 @@
 <input type="hidden" id="current-user" value="{{user}}" />
 
 <div class="welcome-text">
-  <h2>Welcome</h2>
-
-  <h4>Rota management made simple and straightforward for all parties.</h4>
+  <h2 style="margin-top: 0;">Welcome</h2>
+  <h4 >Rota management made simple and straightforward for all parties.</h4>
   <!-- Rota management system where equality comes first. -->
 </div>
+<div id="canvas-container"></div>
 
 <div id="team" class="page"></div>
-
 <div class="rota page"></div>
+
+
+<!-- <div class="banner"></div> -->
+
+
+<!-- <script
+  async
+  src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
+></script>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.151.3/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.151.3/examples/jsm/"
+    }
+  }
+</script> -->
+
+<!-- <script src="{% static 'main/cannon_1k_blurred.hdr' %}"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
+
+<script type="module" src="{% static 'main/js/three.js' %}"></script>
 
 {% endblock %}
