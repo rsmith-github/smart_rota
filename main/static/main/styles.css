@@ -99,7 +99,17 @@ nav {
   border-radius: 0.25rem;
   padding: 0.5rem 0;
   margin: 0.4rem 0 0;
-  z-index: 1000;
+  z-index: 2;
+  animation: opacity 0.5s ease-in-out; /* add a transition for opacity */
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .dropdown-item {
@@ -344,11 +354,11 @@ h4 {
   color: white;
   font-size: 2rem;
   text-align: center;
-  width: 35%;
+  width: 38%;
 }
 
 .banner span {
-    color: green;
+  color: green;
 }
 
 /* Footer */
@@ -404,4 +414,35 @@ h4 {
   .container li {
     text-align: center;
   }
+}
+
+/* Team */
+
+#team {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.team-member {
+  border: 2px solid rgba(45, 26, 121, 0.553);
+  border-radius: 10px;
+  background-color: rgba(45, 26, 121, 0.553);
+  padding: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.team-member h3 {
+  margin-top: 0;
+}
+
+.team-member p {
+  margin-bottom: 0;
+}
+
+.username {
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 10px;
 }

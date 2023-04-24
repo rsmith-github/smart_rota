@@ -23,7 +23,7 @@ let wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
 // Add the wireframe mesh to the scene
 scene.add(wireframe);
 
-const light = new THREE.PointLight("red", 1, 100);
+const light = new THREE.PointLight("white", 1, 100);
 light.position.set(10, 10, 10);
 scene.add(light);
 

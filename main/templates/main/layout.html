@@ -51,12 +51,24 @@
             </li>
             {% if user.is_authenticated %} {% if user.user_type == "Manager" %}
             <li>
-              <a href="#" id="viewTeam" onclick="viewTeam()">Team</a>
-            </l
+              <a
+                href="javascript:void(0)"
+                id="viewTeam"
+                class="spa-link"
+                data-page="team"
+                >Team</a
+              >
+            </li>
             {% endif %}
 
             <li>
-              <a href="#" id="rota" onclick="viewRota()">My Rota</a>
+              <a
+                href="javascript:void(0)"
+                id="rota"
+                class="spa-link"
+                data-page="rota"
+                >My Rota</a
+              >
             </li>
             <li>
               <a href="{% url 'logout' %}">Logout</a>
@@ -96,66 +108,67 @@
 
     <div class="body">{% block body %} {% endblock %}</div>
 
+    <footer class="text-center footer text-center">
+      <div class="container">
+        <!--Logo Start-->
+        <div class="col-md-4">
+          <h4 class="">R. W. <span class="Analyst">Smith </span></h4>
+
+          <p class="copy-right">
+            Copyright © 2008-2019 R. Smith Technology. All Rights Reserved.
+          </p>
+        </div>
+        <!--Logo end-->
+
+        <!--Solutions Start-->
+        <div class="footer-column">
+          <h5 class="">Solutions</h5>
+          <ul class="list-style">
+            <li class="">Staff Management</li>
+            <li class="">Equal Opportunity</li>
+            <li class="">R&D / Market Intelligence</li>
+            <li class="">M&A Opportunity and Due Diligence</li>
+            <li class="">Litigation Risk Assessment and Strategy</li>
+            <li class="">Patent Prosecution</li>
+          </ul>
+        </div>
+        <!--Solutions end-->
+
+        <!--Quick links Start-->
+        <div class="footer-column">
+          <h5 class="">Quick links</h5>
+          <ul class="list-style">
+            <li class="">Empower</li>
+            <li class="">Insight</li>
+            <li class="">Corporation</li>
+          </ul>
+        </div>
+        <!--QUick links end-->
+
+        <!--Other Start-->
+        <div class="footer-column">
+          <h5 class="">Other</h5>
+          <ul class="list-style">
+            <li class="">Privacy Policy</li>
+            <li class="">Terms of Use</li>
+            <li class="">Features</li>
+            <li class="">Success Stories</li>
+            <li class="">Contact Us</li>
+          </ul>
+        </div>
+        <!--Other end-->
+      </div>
+    </footer>
     <!-- <script
       src="{% static 'main/js/RGBELoader.js' %}"
       rel="text/javscript"
     ></script> -->
     <script src="{% static 'main/js/main.js' %}" rel="text/javscript"></script>
+    <script src="{% static 'main/js/rota.js' %}" rel="text/javscript"></script>
+    <script src="{% static 'main/js/team.js' %}" rel="text/javscript"></script>
     <script
       src="{% static 'main/js/APIhelper.js' %}"
       rel="text/javscript"
     ></script>
   </body>
-
-  <footer class="text-center footer text-center">
-    <div class="container">
-      <!--Logo Start-->
-      <div class="col-md-4">
-        <h4 class="">R. W. <span class="Analyst">Smith </span></h4>
-
-        <p class="copy-right">
-          Copyright © 2008-2019 R. Smith Technology. All Rights Reserved.
-        </p>
-      </div>
-      <!--Logo end-->
-
-      <!--Solutions Start-->
-      <div class="footer-column">
-        <h5 class="">Solutions</h5>
-        <ul class="list-style">
-          <li class="">Staff Management</li>
-          <li class="">Equal Opportunity</li>
-          <li class="">R&D / Market Intelligence</li>
-          <li class="">M&A Opportunity and Due Diligence</li>
-          <li class="">Litigation Risk Assessment and Strategy</li>
-          <li class="">Patent Prosecution</li>
-        </ul>
-      </div>
-      <!--Solutions end-->
-
-      <!--Quick links Start-->
-      <div class="footer-column">
-        <h5 class="">Quick links</h5>
-        <ul class="list-style">
-          <li class="">Empower</li>
-          <li class="">Insight</li>
-          <li class="">Corporation</li>
-        </ul>
-      </div>
-      <!--QUick links end-->
-
-      <!--Other Start-->
-      <div class="footer-column">
-        <h5 class="">Other</h5>
-        <ul class="list-style">
-          <li class="">Privacy Policy</li>
-          <li class="">Terms of Use</li>
-          <li class="">Features</li>
-          <li class="">Success Stories</li>
-          <li class="">Contact Us</li>
-        </ul>
-      </div>
-      <!--Other end-->
-    </div>
-  </footer>
 </html>
