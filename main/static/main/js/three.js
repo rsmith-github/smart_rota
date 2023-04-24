@@ -62,13 +62,17 @@ animate();
 
 // update the camera aspect ratio on window resize
 function onWindowResize() {
-  const canvasContainer = document.getElementById("canvas-container");
-  const canvasWidth = canvasContainer.clientWidth;
-  const canvasHeight = canvasContainer.clientHeight;
-
-  camera.aspect = canvasWidth / canvasHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(canvasWidth, 100);
-}
+    const canvasContainer = document.getElementById("canvas-container");
+    const canvasWidth = canvasContainer.clientWidth;
+    const canvasHeight = canvasContainer.clientHeight;
+  
+    camera.aspect = canvasWidth / canvasHeight;
+    camera.updateProjectionMatrix();
+  
+    // calculate the new height based on the new width and aspect ratio
+    const newHeight = Math.round(canvasWidth / camera.aspect);
+  
+    renderer.setSize(canvasWidth, newHeight);
+  }
 
 window.addEventListener('resize', onWindowResize);
