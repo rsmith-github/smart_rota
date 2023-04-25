@@ -19,6 +19,13 @@
         }
       }
     </script> -->
+
+    <!-- The order of these matters. -->
+    <script src="{% static 'main/js/APIhelper.js' %}" type="module"></script>
+    <script src="{% static 'main/js/main.js' %}" type="module"></script>
+    <script src="{% static 'main/js/team.js' %}" type="module"></script>
+    <script src="{% static 'main/js/rota.js' %}" type="module"></script>
+    <script src="{% static 'main/js/d3.js' %}" type="module"></script>
   </head>
 
   <input type="hidden" id="current-user" value="{{ user }}" />
@@ -162,13 +169,13 @@
       src="{% static 'main/js/RGBELoader.js' %}"
       rel="text/javscript"
       ></script> -->
-    <script
+    <!-- <script
       src="{% static 'main/js/APIhelper.js' %}"
       rel="text/javscript"
     ></script>
     <script src="{% static 'main/js/team.js' %}" rel="text/javscript"></script>
     <script src="{% static 'main/js/rota.js' %}" rel="text/javscript"></script>
     <script src="{% static 'main/js/main.js' %}" rel="text/javscript"></script>
-    <script src="{% static 'main/js/d3.js' %}" type="module"></script>
+    <script src="{% static 'main/js/d3.js' %}" type="module"></script> -->
   </body>
 </html>
