@@ -1,3 +1,5 @@
+import { viewTeam } from "./team.js";
+import { viewRota } from "./rota.js";
 
 // Select dropdown menu and hide it if it exists
 let dMenu = document.querySelector(".dropdown-menu");
@@ -72,12 +74,12 @@ window.onpopstate = function (event) {
     showPage(event.state.page);
 }
 
-function showPage(page) {
+async function showPage(page) {
 
     switch (page) {
         case "team":
 
-            viewTeam();
+            await viewTeam();
             break;
 
         case "rota":
@@ -137,3 +139,5 @@ function handleEndpoint() {
     showPage(pathname)
 }
 handleEndpoint()
+
+export { hidePages, showPage, showMenu }

@@ -31,7 +31,7 @@ function getCookie(cname) {
 }
 
 
-async function fetchData(name) {
+export async function fetchData(name) {
 
     const headers = {
         Accept: 'application/json',

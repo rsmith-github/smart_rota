@@ -1,3 +1,6 @@
+import { hidePages } from "./main.js";
+import { fetchData } from './APIhelper.js';
+
 // get all users where user_type == Employee and company code is the same as request sender's (manager's) company code.
 const viewTeam = async () => {
     hidePages();
@@ -22,3 +25,5 @@ const viewTeam = async () => {
         teamContainer.append(div);
     })
 }
+
+export { viewTeam }

@@ -1,6 +1,8 @@
 
 
-
+import { showTimeline } from './d3.js';
+import { hidePages } from './main.js';
+import { fetchData } from './APIhelper.js';
 
 // Create months object to format months in date.
 let months = {}
@@ -18,7 +20,7 @@ createMonthsObj();
 // Define the start and end dates of the current week
 let startOfWeek = null;
 let endOfWeek = null;
-function viewRota(button = "up") {
+export function viewRota(button = "up") {
     // Hide all other pages and display the rota page
     hidePages();
 
@@ -117,6 +119,8 @@ function viewRota(button = "up") {
     // append buttons parent.
     rota.prepend(buttonsContainer);
 
+    showTimeline();
+
 }
 
 
@@ -142,8 +146,3 @@ function isLeapYear(date) {
     // If month doesn't switch to march, return true.
     return date.getMonth() == 1 && date.getDate() == 29
 }
-
-function showTimeline() {
-    
-}
-
