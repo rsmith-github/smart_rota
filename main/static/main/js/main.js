@@ -69,7 +69,6 @@ function hidePages() {
 
 // When back arrow is clicked, show previous section
 window.onpopstate = function (event) {
-    console.log(event.state.page);
     showPage(event.state.page);
 }
 
@@ -116,7 +115,8 @@ document.querySelectorAll('.spa-link').forEach(spa_link => {
 // check if user is logged in. If not, hide overflow. and canvas.
 function handleLoggedIn() {
     if (get_current_user().username !== "AnonymousUser") {
-        document.querySelector("canvas").style.display = "auto";
+        let canvas = document.querySelector("canvas");
+        if (canvas) canvas.style.display = "auto";
         document.querySelector("body").style.overflow = "auto";
     } else {
         window.scrollTo({
@@ -128,3 +128,12 @@ function handleLoggedIn() {
     }
 }
 handleLoggedIn()
+
+// show page depending on endpoint in url
+
+function handleEndpoint() {
+    let pathname = window.location.pathname;
+    pathname = pathname.replace("/", "")
+    showPage(pathname)
+}
+handleEndpoint()
