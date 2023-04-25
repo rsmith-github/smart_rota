@@ -13,4 +13,6 @@ urlpatterns = [
     path("register-employee", views.register, name="register"),
     path("register-company", views.register_company, name="register-company"),
     path("api/team", views.get_team, name="get-team"),
+    path("team", views.team, name="team"),
+    path("rota", views.rota, name="rota"),
 ]
