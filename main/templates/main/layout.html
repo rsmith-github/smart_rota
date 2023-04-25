@@ -10,8 +10,7 @@
       href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
       rel="stylesheet"
     />
-
-    <script src="{% static 'main/favicon.ico'%}" type="favicon"></script>
+    <link rel="icon" type="image/png" href="{% static 'main/logo2.png' %}" />
     <!-- <script type="importmap">
       {
         "imports": {
@@ -170,11 +169,6 @@
     <script src="{% static 'main/js/team.js' %}" rel="text/javscript"></script>
     <script src="{% static 'main/js/rota.js' %}" rel="text/javscript"></script>
     <script src="{% static 'main/js/main.js' %}" rel="text/javscript"></script>
-
-    <script type="module">
-      import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
-      const div = d3.selectAll(".date-div");
-    </script>
+    <script src="{% static 'main/js/d3.js' %}" type="module"></script>
   </body>
 </html>

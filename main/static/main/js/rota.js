@@ -143,5 +143,7 @@ function isLeapYear(date) {
     return date.getMonth() == 1 && date.getDate() == 29
 }
 
-
+function showTimeline() {
+    
+}
 
