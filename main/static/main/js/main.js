@@ -24,7 +24,7 @@ let sticky = navbar.offsetTop;
 // Function to add or remove 'sticky' class based on scroll position
 function stickyNav() {
     if (window.pageYOffset > sticky) {
-        navbar.classList.add("sticky")
+        navbar.classList.add("sticky");
     } else {
         navbar.classList.remove("sticky");
     }
@@ -70,8 +70,8 @@ function hidePages() {
 // CS50W history API.
 
 // When back arrow is clicked, show previous section
-window.onpopstate = function (event) {
-    showPage(event.state.page);
+window.onpopstate = async function (event) {
+    await showPage(event.state.page);
 }
 
 async function showPage(page) {
@@ -102,7 +102,7 @@ async function showPage(page) {
 
 
 document.querySelectorAll('.spa-link').forEach(spa_link => {
-    spa_link.onclick = function (event) {
+    spa_link.onclick = async function (event) {
         event.preventDefault()
 
 
@@ -110,7 +110,7 @@ document.querySelectorAll('.spa-link').forEach(spa_link => {
 
         // Add the current state to the history
         history.pushState({ page: page }, "", `${page}`);
-        showPage(page);
+        await showPage(page);
     };
 });
 
@@ -133,10 +133,10 @@ handleLoggedIn()
 
 // show page depending on endpoint in url
 
-function handleEndpoint() {
+async function handleEndpoint() {
     let pathname = window.location.pathname;
     pathname = pathname.replace("/", "")
-    showPage(pathname)
+    await showPage(pathname)
 }
 handleEndpoint()
 

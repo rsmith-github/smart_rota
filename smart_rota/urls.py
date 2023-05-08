@@ -16,8 +16,23 @@ Including another URLconf
 from django.urls import include
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+
+)
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # this could be changed to api/main as per the tutorial
     path('', include("main.urls")),
+    # path('front', include("main.urls")),
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/token/verify/', TokenVerifyView.as_view()),
+    path('manifest.json', TemplateView.as_view(
+        template_name="manifest.json", content_type='application/json')),
 ]

@@ -2,7 +2,6 @@
 
 import { showTimeline } from './d3.js';
 import { hidePages } from './main.js';
-import { fetchData } from './APIhelper.js';
 
 // Create months object to format months in date.
 let months = {}
