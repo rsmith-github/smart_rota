@@ -15,7 +15,8 @@ urlpatterns = [
 
     path("register-employer", views.RegisterView.as_view()),
     path("register-employee", views.RegisterView.as_view()),
-    path("register-company", views.index, name="register-company"),
+    # path("register-company", views.index, name="register-company"),
+    path("register-company", views.CompanyRegistrationView.as_view()),
     path("api/team", views.get_team, name="get-team"),
     path("team", views.index),
     path("rota", views.index),
