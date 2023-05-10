@@ -7,7 +7,7 @@ import Rota from './pages/rota';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterEmployee from './pages/register-employee';
 import RegisterManager from './pages/register-manager';
-import RegisterCompany from './pages/registerCompany';
+import RegisterCompany from './pages/register-company';
 import Login from './pages/login';
 
 import { useDispatch, Provider } from 'react-redux';
