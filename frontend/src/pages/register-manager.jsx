@@ -5,7 +5,6 @@ import { register } from "../features/user";
 import { Navigate } from "react-router-dom";
 
 const RegisterManager = () => {
-  console.log("react register manager");
   const dispatch = useDispatch();
   const { registered, loading } = useSelector((state) => state.user);
 

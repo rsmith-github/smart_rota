@@ -1,8 +1,6 @@
 import React from "react";
 
 function Register(props) {
-  console.log("react register");
-
   return (
     <div>
       <h2 className="registerH2">Register {props.user_type}</h2>
