@@ -134,25 +134,22 @@ def register_company(request):
 class CompanyRegistrationView(APIView):
 
     def post(self, request):
-        # Declare message
-        message = ""
         # Get company info
         company_name = request.data.get("company-name")
+
         # Create unique ID
         unique_id = uuid.uuid4()
 
         # Save company information
         new_company = Company(company_name=company_name,
                               company_code=unique_id)
-
         # Handle unique constraint
         if Company.objects.filter(company_name=company_name).exists():
             message = "Company already exists."
             return Response({'message': message}, status=status.HTTP_409_CONFLICT)
         else:
             new_company.save()
-            message = f"Registered successfuly! your company code is: {unique_id}. Please write it down and do not lose it."
-            return Response({'message': message}, status=status.HTTP_201_CREATED)
+            return Response({'code': unique_id}, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         print("get request")
