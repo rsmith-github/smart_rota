@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
 
 export const register = createAsyncThunk(
     "main/register",
@@ -95,8 +94,6 @@ export const login = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
-                // localStorage.setItem('access_token', data.access);
-                // localStorage.setItem('refresh_token', data.refresh);
 
                 setCookie('access_token', data.access, 1);
                 setCookie('refresh_token', data.refresh, 0.05);
@@ -149,8 +146,6 @@ export const checkAuth = createAsyncThunk(
 
 
 export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
-
-    console.log("logging outttt");
     try {
         const res = await fetch('/api/logout', {
             method: 'GET',
@@ -161,9 +156,6 @@ export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
 
         const data = await res.json();
 
-        // Remove access and refresh tokens from localStorage
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
         // Remove access and refresh tokens from cookies
         removeCookie('access_token');
         removeCookie('refresh_token');

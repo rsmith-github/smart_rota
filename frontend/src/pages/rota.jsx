@@ -115,11 +115,16 @@ function Rota() {
 
   useEffect(() => {
     if (accessToken) showTimeline();
+    // return () => {
+    //   console.log("Component unmounted");
+    // };
   }, [startOfWeek, endOfWeek]);
 
+  // this is not working yet.
   if (!accessToken) {
     return <Navigate to="/login" />;
   }
+
   return (
     <div className="rota">
       <div id="buttons-container">
