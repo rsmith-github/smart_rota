@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 import * as d3 from "d3";
 import { timelines } from "d3-timelines";
+import { getCookie } from "../features/user";
 
 function showTimeline() {
   let start = new Date();
@@ -110,7 +111,7 @@ function Rota() {
     }, 500);
   };
 
-  const accessToken = localStorage.getItem("access_token");
+  const accessToken = getCookie("access_token");
 
   useEffect(() => {
     if (accessToken) showTimeline();

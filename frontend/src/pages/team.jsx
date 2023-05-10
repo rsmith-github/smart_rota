@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
+import { getCookie } from "../features/user";
 
 function Team() {
   const [team, setTeam] = useState([]);
 
-  const accessToken = localStorage.getItem("access_token");
+  const accessToken = getCookie("access_token");
 
   useEffect(() => {
     async function fetchTeam() {

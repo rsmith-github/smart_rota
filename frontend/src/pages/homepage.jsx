@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import Ring from "../components/3dRing";
 import { getUser } from "../features/user";
+import { getCookie } from "../features/user";
 
 function Homepage() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
-  const accessToken = localStorage.getItem("access_token");
+  const accessToken = getCookie("access_token");
+
+  console.log(accessToken);
 
   if (!accessToken) {
     return <Navigate to="/login" />;

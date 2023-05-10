@@ -1,4 +1,6 @@
 
+from django.conf import settings
+from django.views.decorators.http import require_GET
 import os
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
@@ -85,6 +87,18 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+
+@require_GET
+def logout_api(request):
+    response = JsonResponse({'success': 'Logged out successfully'})
+
+    response.set_cookie('access_token', '', httponly=True, expires=0, path='/api/',
+                        samesite='Strict', secure=(request.is_secure() or settings.DEBUG))
+    response.set_cookie('refresh_token', '', httponly=True, expires=0, path='/api/',
+                        samesite='Strict', secure=(request.is_secure() or settings.DEBUG))
+
+    return response
 
 
 def register_company(request):

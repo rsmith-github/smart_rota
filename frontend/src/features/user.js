@@ -56,7 +56,7 @@ export const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                'Authorization': `Bearer ${getCookie('access_token')}`,
             },
         });
         const data = await res.json();
@@ -95,8 +95,11 @@ export const login = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
-                localStorage.setItem('access_token', data.access);
-                localStorage.setItem('refresh_token', data.refresh);
+                // localStorage.setItem('access_token', data.access);
+                // localStorage.setItem('refresh_token', data.refresh);
+
+                setCookie('access_token', data.access, 1);
+                setCookie('refresh_token', data.refresh, 0.05);
 
                 const { dispatch } = thunkAPI;
 
@@ -116,13 +119,13 @@ export const checkAuth = createAsyncThunk(
     'users/verify',
     async (_, thunkAPI) => {
 
-        const token = localStorage.getItem("access_token");
+        const accessToken = getCookie("access_token");
         try {
             const res = await fetch('/verify', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${accessToken}`
                 },
             });
 
@@ -146,8 +149,10 @@ export const checkAuth = createAsyncThunk(
 
 
 export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
+
+    console.log("logging outttt");
     try {
-        const res = await fetch('/api/users/logout', {
+        const res = await fetch('/api/logout', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -155,6 +160,13 @@ export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
         });
 
         const data = await res.json();
+
+        // Remove access and refresh tokens from localStorage
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        // Remove access and refresh tokens from cookies
+        removeCookie('access_token');
+        removeCookie('refresh_token');
 
         if (res.status === 200) {
             return data;
@@ -165,6 +177,21 @@ export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
         return thunkAPI.rejectWithValue(err.response.data);
     }
 });
+
+export const removeCookie = (name) => {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+
+export function getCookie(cname) {
+    const cookies = Object.fromEntries(
+        document.cookie.split(/; /).map(c => {
+            const [key, v] = c.split('=', 2);
+            return [key, decodeURIComponent(v)];
+        }),
+    );
+    return cookies[cname] || '';
+}
+
 
 const initialState = {
     isAuthenticated: false,
@@ -239,5 +266,17 @@ const userSlice = createSlice({
     },
 });
 
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
 export const { resetRegistered } = userSlice.actions;
 export default userSlice.reducer;
+
+

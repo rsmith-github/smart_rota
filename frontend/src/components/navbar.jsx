@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { pointer } from "d3";
+import { logout } from "../features/user";
+
+
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   const { isAuthenticated, user, username, _loading } = useSelector(
     (state) => state.user
@@ -35,12 +42,13 @@ function NavBar() {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  const logout = (event) => {
-    event.preventDefault();
-    localStorage.setItem("access_token", "");
-    localStorage.setItem("refresh_token", "");
-    // navigate("/login", { replace: true });
-  };
+  // const logout = (event) => {
+  //   event.preventDefault();
+  //   localStorage.setItem("access_token", "");
+  //   localStorage.setItem("refresh_token", "");
+
+  //   // navigate("/login", { replace: true });
+  // };
 
   const authLinks = (
     <>
@@ -68,7 +76,9 @@ function NavBar() {
         </NavLink>
       </li>
       <li>
-        <a onClick={logout}>Logout</a>
+        <a style={{ cursor: pointer }} onClick={() => dispatch(logout())}>
+          Logout
+        </a>
       </li>
     </>
   );
