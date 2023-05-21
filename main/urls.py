@@ -3,8 +3,6 @@ from django.urls import path
 
 from . import views
 
-from channels.db import database_sync_to_async
-
 # app_name = 'main'
 
 urlpatterns = [
