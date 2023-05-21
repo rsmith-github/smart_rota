@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 import { getCookie } from "../features/user";
+import TimeTable from "../components/timetable";
 
 function Team() {
-  const [team, setTeam] = useState([]);
+  const [team, setTeam] = useState([
+    { id: 123, fields: { username: "DEV", email: "DEV@gmail.com" } }, { id: 123, fields: { username: "jasper", email: "jasper@gmail.com" } }
+  ]);
+
+  const [formVisible, setFormVisible] = useState(false);
 
   const accessToken = getCookie("access_token");
 
@@ -26,8 +31,21 @@ function Team() {
     fetchTeam();
   }, []);
 
-  if (!accessToken) {
-    return <Navigate to="/login" />;
+  const [timeTableOwner, setTimeTableOwner] = useState("");
+  const openMemberForm = (e) => {
+    setTimeTableOwner(e.currentTarget.getAttribute("data-username"))
+    setFormVisible(true);
+  };
+
+  // DEV
+  // if (!accessToken) {
+  //   return <Navigate to="/login" />;
+  // }
+
+  if (formVisible) {
+    return (
+      <TimeTable formVisible={formVisible} setFormVisible={setFormVisible} timeTableOwner={timeTableOwner} />
+    );
   }
 
   return (
@@ -35,7 +53,13 @@ function Team() {
       {team.length > 0 ? (
         <div id="team">
           {team.map((member) => (
-            <div className="team-member" key={member.id}>
+            <div
+              className="team-member"
+              key={member.id}
+              id={"team-member-" + member.id}
+              data-username={member.fields.username}
+              onClick={openMemberForm}
+            >
               <span className="username">{member.fields.username}</span>
               <br />
               {member.fields.email}
