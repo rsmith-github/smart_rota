@@ -455,3 +455,71 @@ svg line {
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+
+.timetable {
+  border: 2px solid rgba(45, 26, 121, 0.553);
+  background-color: rgba(45, 26, 121, 0.553);
+  padding: 20px;
+  border-radius: 10px;
+  width: 95%;
+  height: max-content;
+  margin: 10px 10px 50px 10px;
+}
+
+.timetable-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timetable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+.timetable-header button {
+  height: 35px;
+  width: 35px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+
+.timepicker-container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+.start-end-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 85%;
+}
+
+.timepicker-container input {
+  width: max-content !important;
+  color: white;
+  
+}
+.custom-timepicker input {
+  width: 200px;
+}
+
+.day-of-the-week {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.br-as-line {
+  display: block;
+  height: 1px;
+  background-color: #ffffffc1;
+  border: none;
+  margin: 10px 0;
+}
+

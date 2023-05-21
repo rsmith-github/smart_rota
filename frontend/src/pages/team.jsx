@@ -37,17 +37,17 @@ function Team() {
     setFormVisible(true);
   };
 
-  // DEV
-  // if (!accessToken) {
-  //   return <Navigate to="/login" />;
-  // }
-
+  
   if (formVisible) {
     return (
       <TimeTable formVisible={formVisible} setFormVisible={setFormVisible} timeTableOwner={timeTableOwner} />
-    );
-  }
-
+      );
+    }
+    // DEV
+    // if (!accessToken) {
+    //   return <Navigate to="/login" />;
+    // }
+    
   return (
     <>
       {team.length > 0 ? (
