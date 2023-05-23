@@ -9,6 +9,7 @@ import RegisterEmployee from './pages/register-employee';
 import RegisterManager from './pages/register-manager';
 import RegisterCompany from './pages/register-company';
 import Login from './pages/login';
+import NotFound from './pages/notfound';
 
 import { useDispatch, Provider } from 'react-redux';
 import { useEffect } from 'react';
@@ -72,6 +73,8 @@ function AppContent() {
             <RegisterCompany />
           }
         />
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>

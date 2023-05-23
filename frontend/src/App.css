@@ -456,7 +456,6 @@ svg line {
   margin-bottom: 10px;
 }
 
-
 .timetable {
   border: 2px solid rgba(45, 26, 121, 0.553);
   background-color: rgba(45, 26, 121, 0.553);
@@ -487,7 +486,6 @@ svg line {
   color: white;
   border-radius: 50%;
   cursor: pointer;
-
 }
 
 .timepicker-container {
@@ -504,7 +502,6 @@ svg line {
 .timepicker-container input {
   width: max-content !important;
   color: white;
-  
 }
 .custom-timepicker input {
   width: 200px;
@@ -522,4 +519,3 @@ svg line {
   border: none;
   margin: 10px 0;
 }
-
