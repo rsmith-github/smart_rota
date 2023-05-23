@@ -3,6 +3,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
+import TimeRow from "./timeRow";
+
 const TimeTable = (props) => {
   const onClick = () => {
     props.setFormVisible(!props.formVisible);
@@ -10,43 +12,63 @@ const TimeTable = (props) => {
 
   const [timeTable, setTimeTable] = useState([]);
 
-  const handleStartTimeChange = (dayIndex, time) => {
+  const handleMorningShiftStartChange = (dayIndex, time) => {
+    const formattedTime = dayjs(time).format("HH:mm");
     setTimeTable((prevTable) => {
       const updatedTable = [...prevTable];
-      updatedTable[dayIndex].start = time;
+      updatedTable[dayIndex].morningShift.start = formattedTime;
       return updatedTable;
     });
   };
 
-  const handleEndTimeChange = (dayIndex, time) => {
+  const handleMorningShiftEndChange = (dayIndex, time) => {
+    const formattedTime = dayjs(time).format("HH:mm");
     setTimeTable((prevTable) => {
       const updatedTable = [...prevTable];
-      updatedTable[dayIndex].end = time;
+      updatedTable[dayIndex].morningShift.end = formattedTime;
       return updatedTable;
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleEveningShiftStartChange = (dayIndex, time) => {
+    const formattedTime = dayjs(time).format("HH:mm");
+    setTimeTable((prevTable) => {
+      const updatedTable = [...prevTable];
+      updatedTable[dayIndex].eveningShift.start = formattedTime;
+      return updatedTable;
+    });
+  };
+
+  const handleEveningShiftEndChange = (dayIndex, time) => {
+    const formattedTime = dayjs(time).format("HH:mm");
+    setTimeTable((prevTable) => {
+      const updatedTable = [...prevTable];
+      updatedTable[dayIndex].eveningShift.end = formattedTime;
+      return updatedTable;
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Send the timeTable data to the server
     console.log(timeTable);
-    // ... Rest of the logic
+    const response = await fetch("/api/update-timetable", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: props.timeTableOwner,
+        timeTable: timeTable,
+      }),
+    });
   };
 
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
   const generateNextWeekTimeTable = () => {
-    const startOfWeek = dayjs().startOf("week").add(1, "day"); // Start from next Monday
-    const endOfWeek = startOfWeek.add(6, "day"); // End on next Sunday
+    const startOfWeek = dayjs().startOf("week").add(7, "day"); // Start from next Monday
+    const endOfWeek = startOfWeek.add(7, "day"); // End on next Sunday
 
+    // console.log(startOfWeek, endOfWeek);
     const weekRange = [];
     let currentDate = startOfWeek;
 
@@ -57,8 +79,8 @@ const TimeTable = (props) => {
 
     const initialTable = weekRange.map((date) => ({
       date,
-      start: "08:00",
-      end: "17:00",
+      morningShift: { start: "99:99", end: "99:99" },
+      eveningShift: { start: "99:99", end: "99:99" },
     }));
 
     setTimeTable(initialTable);
@@ -78,34 +100,19 @@ const TimeTable = (props) => {
           <button onClick={onClick}>X</button>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} action="">
           {timeTable.map((day, index) => (
             <>
-              <div className="timepicker-container" key={day.date}>
-                <p className="day-of-the-week">{daysOfWeek[index]}:</p>
-                <div className="start-end-container">
-                  <div>
-                    <label>Start Time:</label>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <TimePicker
-                        value={day.start}
-                        onChange={(time) => handleStartTimeChange(index, time)}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                  <div>
-                    <label>End Time:</label>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <TimePicker
-                        value={day.end}
-                        onChange={(time) => handleEndTimeChange(index, time)}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                </div>
-              </div>
-              {index !== timeTable.length-1 ? (
-                  <span class="br-as-line"></span>
+              <TimeRow
+                day={day}
+                index={index}
+                handleEveningShiftStartChange={handleEveningShiftStartChange}
+                handleEveningShiftEndChange={handleEveningShiftEndChange}
+                handleMorningShiftStartChange={handleMorningShiftStartChange}
+                handleMorningShiftEndChange={handleMorningShiftEndChange}
+              />
+              {index !== timeTable.length - 1 ? (
+                <span className="br-as-line"></span>
               ) : (
                 <br />
               )}

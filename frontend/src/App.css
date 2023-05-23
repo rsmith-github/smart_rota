@@ -496,7 +496,16 @@ svg line {
 .start-end-container {
   display: flex;
   justify-content: space-evenly;
-  width: 85%;
+  width: 100%;
+}
+.start-end-container-first-child {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.start-end-item {
+  width: min-content;
 }
 
 .timepicker-container input {

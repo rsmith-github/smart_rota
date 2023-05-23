@@ -86,3 +86,12 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class TimeTable(models.Model):
+    fields = ('username', 'employer_code', 'date', 'morning_shift', 'evening_shift')
+    username = models.CharField(max_length=255)
+    employer_code =  models.CharField(max_length=255, null=True)
+    date = models.DateField()
+    morning_shift = models.CharField(max_length=255) # this is going to be a range hence charfield not time
+    evening_shift = models.CharField(max_length=255)
+

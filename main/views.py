@@ -22,7 +22,7 @@ import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from .serializers import RegisterSeriazlizer, UserSerializer
+from .serializers import RegisterSeriazlizer, TimeTableSerializer, UserSerializer
 
 # This can be passed into any template like other types of data. e.g.
 # return render(request, "main/index.html", {form: NewForm()})
@@ -276,3 +276,15 @@ def login_api(request):
         response = JsonResponse(e.response.json())
         response.status_code = e.response.status_code
         return response
+
+class UpdateTimetableView(APIView):
+    def post(self, request):
+        user_and_timetable = request.data
+
+        print(user_and_timetable)
+        
+        print(user_and_timetable['username'])
+        for time_object in user_and_timetable['timeTable']:
+            print(time_object)
+        serializer = TimeTableSerializer(data = request.data)
+        return Response("ok", status=status.HTTP_200_OK)
