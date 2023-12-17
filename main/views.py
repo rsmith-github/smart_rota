@@ -23,10 +23,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
 from .serializers import RegisterSeriazlizer, TimeTableSerializer, UserSerializer
+from rest_framework.serializers import ValidationError
 
 # This can be passed into any template like other types of data. e.g.
 # return render(request, "main/index.html", {form: NewForm()})
-
+from datetime import datetime
 import requests
 from django.http import JsonResponse
 
@@ -280,11 +281,39 @@ def login_api(request):
 class UpdateTimetableView(APIView):
     def post(self, request):
         user_and_timetable = request.data
-
-        print(user_and_timetable)
+        username = user_and_timetable['username']
+        time_table_data = user_and_timetable['timeTable']
         
-        print(user_and_timetable['username'])
-        for time_object in user_and_timetable['timeTable']:
-            print(time_object)
-        serializer = TimeTableSerializer(data = request.data)
-        return Response("ok", status=status.HTTP_200_OK)
+        for time_object in time_table_data:
+            morning_shift_start = time_object['morningShift']['start']
+            morning_shift_end = time_object['morningShift']['end']
+            evening_shift_start = time_object['eveningShift']['start']
+            evening_shift_end = time_object['eveningShift']['end']
+            
+            if (morning_shift_start != '99:99' and morning_shift_end != '99:99') or \
+                    (evening_shift_start != '99:99' and evening_shift_end != '99:99'):
+                # Convert the date format to "YYYY-MM-DD"
+                date = time_object['date']
+                formatted_date = datetime.strptime(date, "%m-%d-%Y").strftime("%Y-%m-%d")
+                
+                # Create a dictionary with the data to be saved
+                timetable_data = {
+                    'username': username,
+                    'employer_code': None,  # Update with the employer code if available
+                    'date': formatted_date,
+                    'morning_shift': f"{morning_shift_start}-{morning_shift_end}",
+                    'evening_shift': f"{evening_shift_start}-{evening_shift_end}"
+                }
+                print(timetable_data)
+                # Serialize and save the data
+                serializer = TimeTableSerializer(data=timetable_data)
+                try:
+                    serializer.is_valid(raise_exception=True)
+                    serializer.save()
+                except ValidationError as e:
+                    print(e)
+                    return Response("BAD REQUEST", status=status.HTTP_400_BAD_REQUEST)
+
+        
+        return Response("OK", status=status.HTTP_200_OK)
+

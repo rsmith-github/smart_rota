@@ -100,7 +100,9 @@ export const login = createAsyncThunk(
 
                 const { dispatch } = thunkAPI;
 
-                dispatch(getUser());
+                if (!user) {
+                    dispatch(getUser());
+                }
 
                 return data;
             } else {
@@ -129,9 +131,9 @@ export const checkAuth = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
-                const { dispatch } = thunkAPI;
+                // const { dispatch } = thunkAPI;
 
-                dispatch(getUser());
+                // dispatch(getUser());
 
                 return data;
             } else {
