@@ -14,9 +14,11 @@ const TimeRow = (props) => {
         "Saturday",
       ];
 
+    const date = props.day.date.split('-');
+    const formattedDate = `${date[1]}-${date[0]}-${date[2].at(-2)}${date[2].at(-1)}`
     return (
         <div className="timepicker-container" key={props.day.date}>
-        <p className="day-of-the-week">{daysOfWeek[props.index]}:</p>
+        <p className="day-of-the-week">{formattedDate} &nbsp; {daysOfWeek[props.index]}:</p>
         <div className="start-end-container">
           <div className="start-end-container-first-child">
             <div className="start-end-item">
