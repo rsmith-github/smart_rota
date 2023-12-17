@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
 import TimeRow from "./timeRow";
@@ -73,13 +71,13 @@ const TimeTable = (props) => {
     let currentDate = startOfWeek;
 
     while (currentDate.isBefore(endOfWeek)) {
-      weekRange.push(currentDate.format("YYYY-MM-DD"));
+      weekRange.push(currentDate.format("MM-DD-YYYY"));
       currentDate = currentDate.add(1, "day");
     }
 
     const initialTable = weekRange.map((date) => ({
       date,
-      morningShift: { start: "99:99", end: "99:99" },
+      morningShift: { start: "99:99", end: "99:99" }, // default times are invalid times.
       eveningShift: { start: "99:99", end: "99:99" },
     }));
 
