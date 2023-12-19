@@ -15,7 +15,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.core import serializers
 
-from .models import Company, User
+from .models import Company, User, TimeTable
 import uuid
 
 # REST imports
@@ -31,6 +31,7 @@ from datetime import datetime
 import requests
 from django.http import JsonResponse
 
+from pprint import pprint
 
 def verify(request):
 
@@ -282,6 +283,9 @@ class UpdateTimetableView(APIView):
     def post(self, request):
         user_and_timetable = request.data
         username = user_and_timetable['username']
+        employer_code = User.objects.get(username=username).employer_code
+        
+        
         time_table_data = user_and_timetable['timeTable']
         
         for time_object in time_table_data:
@@ -299,20 +303,30 @@ class UpdateTimetableView(APIView):
                 # Create a dictionary with the data to be saved
                 timetable_data = {
                     'username': username,
-                    'employer_code': None,  # Update with the employer code if available
+                    'employer_code': employer_code,
                     'date': formatted_date,
                     'morning_shift': f"{morning_shift_start}-{morning_shift_end}",
                     'evening_shift': f"{evening_shift_start}-{evening_shift_end}"
                 }
                 print(timetable_data)
-                # Serialize and save the data
-                serializer = TimeTableSerializer(data=timetable_data)
-                try:
-                    serializer.is_valid(raise_exception=True)
-                    serializer.save()
-                except ValidationError as e:
-                    print(e)
-                    return Response("BAD REQUEST", status=status.HTTP_400_BAD_REQUEST)
+                
+                
+                exists = TimeTable.objects.filter(date=formatted_date).exists()
+
+                if exists:
+                    work_shift_object = TimeTable.objects.get(date=formatted_date)
+                    work_shift_object.morning_shift = timetable_data['morning_shift']
+                    work_shift_object.evening_shift = timetable_data['evening_shift']
+                    work_shift_object.save()
+                else:
+                    # Serialize and save the data
+                    serializer = TimeTableSerializer(data=timetable_data)
+                    try:
+                        serializer.is_valid(raise_exception=True)
+                        serializer.save()
+                    except ValidationError as e:
+                        print(e)
+                        return Response("BAD REQUEST", status=status.HTTP_400_BAD_REQUEST)
 
         
         return Response("OK", status=status.HTTP_200_OK)
