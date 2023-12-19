@@ -310,11 +310,11 @@ class UpdateTimetableView(APIView):
                 }
                 print(timetable_data)
                 
-                
-                exists = TimeTable.objects.filter(date=formatted_date).exists()
+                # check if shift exists for user on specified date.
+                exists = TimeTable.objects.filter(date=formatted_date, username=username).exists()
 
                 if exists:
-                    work_shift_object = TimeTable.objects.get(date=formatted_date)
+                    work_shift_object = TimeTable.objects.get(date=formatted_date, username=username)
                     work_shift_object.morning_shift = timetable_data['morning_shift']
                     work_shift_object.evening_shift = timetable_data['evening_shift']
                     work_shift_object.save()

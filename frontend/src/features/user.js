@@ -100,9 +100,9 @@ export const login = createAsyncThunk(
 
                 const { dispatch } = thunkAPI;
 
-                if (!user) {
+                // if (!user) {
                     dispatch(getUser());
-                }
+                // }
 
                 return data;
             } else {
