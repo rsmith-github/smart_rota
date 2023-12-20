@@ -4,8 +4,27 @@ import { Navigate } from "react-router-dom";
 import * as d3 from "d3";
 import { timelines } from "d3-timelines";
 import { getCookie } from "../features/user";
+import { getTeamMemberShiftsData } from "../components/timetable";
+
+import { getUser } from "../features/user";
 
 function showTimeline() {
+  (async () => {
+    const userPromise = await fetch("/me", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${getCookie("access_token")}`,
+      },
+    });
+    const userData = await userPromise.json();
+
+    let shiftsData = await getTeamMemberShiftsData({
+      timeTableOwner: userData.username,
+    });
+    console.log("🚀 ~ file: rota.jsx:25 ~ shiftsData:", shiftsData);
+  })();
+
   let start = new Date();
   start.setHours(6, 0, 0, 0); // Set start time to 6am
 
@@ -114,11 +133,10 @@ function Rota() {
   const accessToken = getCookie("access_token");
 
   useEffect(() => {
-    if (accessToken) showTimeline();
-    // return () => {
-    //   console.log("Component unmounted");
-    // };
-  }, [startOfWeek, endOfWeek]);
+    if (accessToken && document.querySelector(".date-div")) {
+      showTimeline();
+    }
+  }, [startOfWeek, endOfWeek, accessToken]);
 
   // this is not working yet.
   if (!accessToken) {

@@ -4,6 +4,20 @@ import dayjs from "dayjs";
 import TimeRow from "./timeRow";
 import { DIGITAL_CLOCK_VIEW_HEIGHT } from "@mui/x-date-pickers/internals/constants/dimensions";
 
+export async function getTeamMemberShiftsData(props) {
+  const response = await fetch("/api/get-timetable", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: props.timeTableOwner,
+    }),
+  });
+
+  return await response.json();
+}
+
 const TimeTable = (props) => {
   const onClick = () => {
     props.setFormVisible(!props.formVisible);
@@ -76,7 +90,7 @@ const TimeTable = (props) => {
       currentDate = currentDate.add(1, "day");
     }
 
-    let currentUsersShifts = await getTeamMemberShiftsData();
+    let currentUsersShifts = await getTeamMemberShiftsData(props);
 
     const initialTable = weekRange.map((date) => {
       console.log(date, currentUsersShifts[date], "😃");
@@ -110,19 +124,6 @@ const TimeTable = (props) => {
     setTimeTable(initialTable);
   };
 
-  async function getTeamMemberShiftsData() {
-    const response = await fetch("/api/get-timetable", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: props.timeTableOwner,
-      }),
-    });
-
-    return await response.json();
-  }
 
   // Generate the initial time table for the next week
   useState(() => {
