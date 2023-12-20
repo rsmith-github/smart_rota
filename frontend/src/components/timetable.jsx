@@ -61,10 +61,9 @@ const TimeTable = (props) => {
         timeTable: timeTable,
       }),
     });
-    getTeamMemberShiftsData();
   };
 
-  const generateNextWeekTimeTable = () => {
+  const generateNextWeekTimeTable = async () => {
     const startOfWeek = dayjs().startOf("week").add(7, "day"); // Start from next Monday
     const endOfWeek = startOfWeek.add(7, "day"); // End on next Sunday
 
@@ -73,15 +72,40 @@ const TimeTable = (props) => {
     let currentDate = startOfWeek;
 
     while (currentDate.isBefore(endOfWeek)) {
-      weekRange.push(currentDate.format("MM-DD-YYYY"));
+      weekRange.push(currentDate.format("DD-MM-YY"));
       currentDate = currentDate.add(1, "day");
     }
 
-    const initialTable = weekRange.map((date) => ({
-      date,
-      morningShift: { start: "99:99", end: "99:99" }, // default times are invalid times.
-      eveningShift: { start: "99:99", end: "99:99" },
-    }));
+    let currentUsersShifts = await getTeamMemberShiftsData();
+
+    const initialTable = weekRange.map((date) => {
+      console.log(date, currentUsersShifts[date], "😃");
+
+      if (currentUsersShifts[date]) {
+
+        let shift = currentUsersShifts[date];
+
+        return {
+          date,
+          morningShift: {
+            start: shift.morning_shift.split("-")[0],
+            end: shift.morning_shift.split("-")[1],
+          },
+          eveningShift: {
+            start: shift.evening_shift.split("-")[0],
+            end: shift.evening_shift.split("-")[1],
+          },
+        };
+      }
+
+      return {
+        date,
+        morningShift: { start: "99:99", end: "99:99" }, // default times are invalid times.
+        eveningShift: { start: "99:99", end: "99:99" },
+      };
+    });
+
+    console.log("initial table------- \n", initialTable);
 
     setTimeTable(initialTable);
   };
@@ -97,10 +121,7 @@ const TimeTable = (props) => {
       }),
     });
 
-    console.log(
-      "🚀 ~ file: timetable.jsx:98 ~ getTeamMemberShiftsData ~ response:",
-      response
-    );
+    return await response.json();
   }
 
   // Generate the initial time table for the next week

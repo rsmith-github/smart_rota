@@ -182,11 +182,6 @@ def get_team(request):
     return HttpResponse(new)
 
 
-# def front(request):
-#     context = {}
-#     return render(request, "index.html", context)
-
-
 class RegisterView(APIView):
     def post(self, request):
         data = request.data
@@ -274,32 +269,33 @@ def login_api(request):
             {"error": "Something went wrong when logging in"},
             status=500
         )
-    except requests.exceptions.HTTPError as e:
-        response = JsonResponse(e.response.json())
-        response.status_code = e.response.status_code
-        return response
+    # except requests.exceptions.HTTPError as e:
+    #     response = JsonResponse(e.response.json())
+    #     response.status_code = e.response.status_code
+    #     return response
+
 
 class UpdateTimetableView(APIView):
     def post(self, request):
         user_and_timetable = request.data
         username = user_and_timetable['username']
         employer_code = User.objects.get(username=username).employer_code
-        
-        
+
         time_table_data = user_and_timetable['timeTable']
-        
+
         for time_object in time_table_data:
             morning_shift_start = time_object['morningShift']['start']
             morning_shift_end = time_object['morningShift']['end']
             evening_shift_start = time_object['eveningShift']['start']
             evening_shift_end = time_object['eveningShift']['end']
-            
+
             if (morning_shift_start != '99:99' and morning_shift_end != '99:99') or \
                     (evening_shift_start != '99:99' and evening_shift_end != '99:99'):
                 # Convert the date format to "YYYY-MM-DD"
                 date = time_object['date']
-                formatted_date = datetime.strptime(date, "%m-%d-%Y").strftime("%Y-%m-%d")
-                
+                formatted_date = datetime.strptime(
+                    date, "%d-%m-%y").strftime("%Y-%m-%d")
+
                 # Create a dictionary with the data to be saved
                 timetable_data = {
                     'username': username,
@@ -309,12 +305,14 @@ class UpdateTimetableView(APIView):
                     'evening_shift': f"{evening_shift_start}-{evening_shift_end}"
                 }
                 print(timetable_data)
-                
+
                 # check if shift exists for user on specified date.
-                exists = TimeTable.objects.filter(date=formatted_date, username=username).exists()
+                exists = TimeTable.objects.filter(
+                    date=formatted_date, username=username).exists()
 
                 if exists:
-                    work_shift_object = TimeTable.objects.get(date=formatted_date, username=username)
+                    work_shift_object = TimeTable.objects.get(
+                        date=formatted_date, username=username)
                     work_shift_object.morning_shift = timetable_data['morning_shift']
                     work_shift_object.evening_shift = timetable_data['evening_shift']
                     work_shift_object.save()
@@ -328,19 +326,23 @@ class UpdateTimetableView(APIView):
                         print(e)
                         return Response("BAD REQUEST", status=status.HTTP_400_BAD_REQUEST)
 
-        
         return Response("OK", status=status.HTTP_200_OK)
 
 
 class GetMemberShiftsData(APIView):
     def post(self, request):
-        
-        
+
         # Get timetable user that sent the request
         data = json.loads(request.body)
 
         # return user's shifts
+        shifts = TimeTable.objects.filter(username=data['username'])
+
+        shifts_as_dict = {'username': data['username']}
+
+        for shift in shifts:
+            shifts_as_dict[f'{shift.date.day}-{shift.date.month}-{str(shift.date.year)[2:]}'] = {
+                'morning_shift': shift.morning_shift, 'evening_shift': shift.evening_shift}
         
-    
-        return Response("OK", status=status.HTTP_200_OK)
-     
+        
+        return JsonResponse(shifts_as_dict, status=status.HTTP_200_OK)
