@@ -18,7 +18,8 @@ urlpatterns = [
     path('verify', views.verify, name='verify'),
     path("team", views.index),
     path("api/team", views.get_team, name="get-team"),
-    path("api/update-timetable", views.UpdateTimetableView.as_view())
+    path("api/update-timetable", views.UpdateTimetableView.as_view()),
+    path("api/get-timetable", views.GetMemberShiftsData.as_view())
 
 
 

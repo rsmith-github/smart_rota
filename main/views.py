@@ -331,3 +331,16 @@ class UpdateTimetableView(APIView):
         
         return Response("OK", status=status.HTTP_200_OK)
 
+
+class GetMemberShiftsData(APIView):
+    def post(self, request):
+        
+        
+        # Get timetable user that sent the request
+        data = json.loads(request.body)
+
+        # return user's shifts
+        
+    
+        return Response("OK", status=status.HTTP_200_OK)
+     

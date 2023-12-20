@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 
 import TimeRow from "./timeRow";
+import { DIGITAL_CLOCK_VIEW_HEIGHT } from "@mui/x-date-pickers/internals/constants/dimensions";
 
 const TimeTable = (props) => {
   const onClick = () => {
@@ -60,6 +61,7 @@ const TimeTable = (props) => {
         timeTable: timeTable,
       }),
     });
+    getTeamMemberShiftsData();
   };
 
   const generateNextWeekTimeTable = () => {
@@ -83,6 +85,23 @@ const TimeTable = (props) => {
 
     setTimeTable(initialTable);
   };
+
+  async function getTeamMemberShiftsData() {
+    const response = await fetch("/api/get-timetable", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: props.timeTableOwner,
+      }),
+    });
+
+    console.log(
+      "🚀 ~ file: timetable.jsx:98 ~ getTeamMemberShiftsData ~ response:",
+      response
+    );
+  }
 
   // Generate the initial time table for the next week
   useState(() => {
