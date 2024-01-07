@@ -3,7 +3,9 @@ function HourBlocks({ times }) {
 
   for (let i = 1; i <= 19; i++) {
     const className =
-      i >= times[0] && i <= times[1] ? "filled hour-block" : "hour-block";
+      (i >= times[0] && i <= times[1]) || (i >= times[2] && i <= times[3])
+        ? "filled hour-block"
+        : "hour-block";
     hourDivs.push(<div key={i} id={`hr-${i}`} className={className}></div>);
   }
 

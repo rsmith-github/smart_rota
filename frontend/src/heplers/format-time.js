@@ -4,7 +4,7 @@ const formatTime = (timeRange) => {
 
     let split = timeRange.split('-');
 
-    let hours = split.map(time => Number(time.split(':')[0]) - 5)
+    let hours = split.map(time => time === '00:00' ? 19 : Number(time.split(':')[0]) - 5)
 
     return hours;
 
