@@ -7,6 +7,8 @@ import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
 import Timeline from "../components/timeline";
 
+import convertId from "../heplers/convertId";
+
 function Rota() {
   const today = new Date();
   const [startOfWeek, setStartOfWeek] = useState(
@@ -103,6 +105,10 @@ function Rota() {
     }
   }, [startOfWeek, endOfWeek, accessToken]);
 
+  useEffect(() => {
+    console.log("🚀 ~ file: rota.jsx:92 ~ Rota ~ shiftsData:", shiftsData);
+  }, [shiftsData]);
+
   // this is not working yet.
   if (!accessToken) {
     return <Navigate to="/login" />;
@@ -126,9 +132,9 @@ function Rota() {
           onAnimationEnd={() => setAnimationClass("")}
         >
           <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
-          {/* {shiftsData[date.id] && ( */}
-          <Timeline dateId={date.id} shift={shiftsData[date.id]} />
-          {/* )}*/}
+          {shiftsData && (
+            <Timeline dateId={date.id} shift={shiftsData[convertId(date.id)]} />
+          )}
         </div>
       ))}
     </div>
