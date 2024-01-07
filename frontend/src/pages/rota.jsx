@@ -103,10 +103,6 @@ function Rota() {
     }
   }, [startOfWeek, endOfWeek, accessToken]);
 
-  useEffect(() => {
-    console.log("🚀 ~ file: rota.jsx:92 ~ Rota ~ shiftsData:", shiftsData);
-  }, [shiftsData]);
-
   // this is not working yet.
   if (!accessToken) {
     return <Navigate to="/login" />;
