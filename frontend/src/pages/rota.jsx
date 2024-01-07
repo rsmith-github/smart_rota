@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
-import * as d3 from "d3";
-import { timelines } from "d3-timelines";
 import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
 import Timeline from "../components/timeline";

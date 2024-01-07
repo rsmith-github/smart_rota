@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 
 import TimeRow from "./timeRow";
-import { DIGITAL_CLOCK_VIEW_HEIGHT } from "@mui/x-date-pickers/internals/constants/dimensions";
 import convertId from "../heplers/convertId";
 
 export async function getTeamMemberShiftsData(props) {
