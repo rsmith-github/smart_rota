@@ -45,9 +45,11 @@ function Rota() {
       });
 
       let formattedDate = {
-        string_format: `${dayOfWeek}<br/>${day} - ${
-          months[date.getMonth()]
-        } - ${year}`,
+        string_format: `
+        <span class='dow'>${dayOfWeek}</span> | 
+        <span class='date'>${day} - ${months[date.getMonth()]} - ${year}</span>
+        `,
+
         id: `${day}-${month}-${year}`,
       };
 

@@ -243,10 +243,14 @@ h4 {
   width: 95%;
   height: max-content;
   font-size: 20px;
-  padding: 10px;
+  padding: 20px 10px 20px 10px;
   margin: 10px;
   background-color: rgba(45, 26, 121, 0.553);
   color: white;
+}
+
+.date-div > div {
+  margin-bottom: 13px;
 }
 
 svg path,
@@ -554,4 +558,31 @@ iframe {
 
 .filled {
   background-color: springgreen;
+}
+
+.hour-block-container {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  width: 55px;
+  margin: 0px 5px 0 5px;
+  align-items: center;
+}
+
+.time-text {
+  margin-top: 2.5px;
+  font-size: small;
+}
+
+.dow {
+  color: rgba(255, 255, 255, 0.687);
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 2.5px;
+}
+
+.date {
+  font-size: 18px;
+  font-weight: 100;
+  margin-left: 2.5px;
 }

@@ -10,18 +10,9 @@ function HourBlocks({ times }) {
         : "hour-block";
     hourDivs.push(
       <>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "max-content",
-            width: "55px",
-            margin: "0px 5px 0 5px",
-            alignItems: "center",
-          }}
-        >
+        <div className="hour-block-container">
           <div key={i} id={`hr-${i}`} className={className}></div>
-          <span>{convertTo24HourFormat(i + 5)}</span>
+          <span className="time-text">{convertTo24HourFormat(i + 5)}</span>
         </div>
       </>
     );
