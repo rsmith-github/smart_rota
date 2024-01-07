@@ -591,6 +591,10 @@ iframe {
 }
 
 .shift-title {
-  font-weight: bold;
+  font-size: 18px;
+}
+
+.day-off {
+  color: rgb(151, 151, 151);
   font-size: 15px;
 }
