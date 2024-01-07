@@ -128,6 +128,21 @@ function Rota() {
           onAnimationEnd={() => setAnimationClass("")}
         >
           <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+          {shiftsData[convertId(date.id)] ? (
+            <>
+              <span className="shift-text">
+                <span className="shift-title">Morning:</span>
+                {shiftsData[convertId(date.id)]?.morning_shift}
+              </span>
+              <br />
+              <span className="shift-text">
+                <span className="shift-title">Evening:</span>
+                {shiftsData[convertId(date.id)]?.evening_shift}
+              </span>
+            </>
+          ) : (
+            <span className="shift-title">Day off</span>
+          )}
           {shiftsData && (
             <Timeline dateId={date.id} shift={shiftsData[convertId(date.id)]} />
           )}
