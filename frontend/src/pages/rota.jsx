@@ -125,10 +125,9 @@ function Rota() {
           className={`date-div ${animationClass}`}
           onAnimationEnd={() => setAnimationClass("")}
         >
-          <span>{date.id}</span>
           <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
           {/* {shiftsData[date.id] && ( */}
-          <Timeline dateId={date.id} shifts={shiftsData[date.id]} />
+          <Timeline dateId={date.id} shift={shiftsData[date.id]} />
           {/* )}*/}
         </div>
       ))}

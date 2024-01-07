@@ -534,8 +534,22 @@ iframe {
 }
 
 .timeline {
-  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(18, 11, 50, 0.692);
+
   margin-top: 5px;
-  height: 10px;
+  height: 15px;
   width: 100%;
+  border-radius: 2.5px;
+}
+
+
+.hour-block {
+  background-color: rgba(255, 255, 255, 0.723);
+  margin: 0px 5px 0 5px;
+  height: 15px;
+  width: 100%;
+  border-radius: 2.5px;
+
 }
