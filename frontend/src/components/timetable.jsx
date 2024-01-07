@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 
 import TimeRow from "./timeRow";
 import { DIGITAL_CLOCK_VIEW_HEIGHT } from "@mui/x-date-pickers/internals/constants/dimensions";
+import convertId from "../heplers/convertId";
 
 export async function getTeamMemberShiftsData(props) {
   const response = await fetch("/api/get-timetable", {
@@ -93,11 +94,13 @@ const TimeTable = (props) => {
     let currentUsersShifts = await getTeamMemberShiftsData(props);
 
     const initialTable = weekRange.map((date) => {
-      console.log(date, currentUsersShifts[date], "😃");
 
-      if (currentUsersShifts[date]) {
+      // format e.g. 09-01-24 to 9-1-24
+      const formattedKey = convertId(date);
 
-        let shift = currentUsersShifts[date];
+      if (currentUsersShifts[formattedKey]) {
+
+        let shift = currentUsersShifts[formattedKey];
 
         return {
           date,
@@ -123,7 +126,6 @@ const TimeTable = (props) => {
 
     setTimeTable(initialTable);
   };
-
 
   // Generate the initial time table for the next week
   useState(() => {
