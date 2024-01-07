@@ -528,3 +528,7 @@ svg line {
   border: none;
   margin: 10px 0;
 }
+
+iframe {
+  display: none;
+}

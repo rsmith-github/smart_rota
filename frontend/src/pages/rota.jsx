@@ -6,66 +6,6 @@ import { timelines } from "d3-timelines";
 import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
 
-import { getUser } from "../features/user";
-
-function showTimeline() {
-  (async () => {
-    const userPromise = await fetch("/me", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${getCookie("access_token")}`,
-      },
-    });
-    const userData = await userPromise.json();
-
-    let shiftsData = await getTeamMemberShiftsData({
-      timeTableOwner: userData.username,
-    });
-    console.log("🚀 ~ file: rota.jsx:25 ~ shiftsData:", shiftsData);
-  })();
-
-  let start = new Date();
-  start.setHours(6, 0, 0, 0); // Set start time to 6am
-
-  let end = new Date();
-  end.setHours(24, 0, 0, 0); // Set end time to 12am
-
-  let data = [
-    {
-      label: "Rota",
-      times: [
-        {
-          starting_time: start.getTime(),
-          ending_time: end.getTime(),
-        },
-        {
-          starting_time: start.getTime() + 4 * 60 * 60 * 1000,
-          ending_time: start.getTime() + 5 * 60 * 60 * 1000,
-          color: "lightgreen",
-        },
-        {
-          starting_time: start.getTime() + 11 * 60 * 60 * 1000,
-          ending_time: start.getTime() + 12 * 60 * 60 * 1000,
-          color: "coral",
-        },
-      ],
-    },
-  ];
-
-  let chart = timelines().labelFormat(() => undefined);
-  // .hover(console.log);
-
-  let svg = d3
-    .selectAll(".date-div")
-    .append("svg")
-    .attr("width", "100%")
-    .datum(data)
-    .call(chart);
-
-  svg.selectAll("text").style("fill", "black");
-}
-
 function Rota() {
   const today = new Date();
   const [startOfWeek, setStartOfWeek] = useState(
@@ -97,14 +37,19 @@ function Rota() {
 
     while (date <= endOfWeek) {
       let day = date.getDate().toString().padStart(2, "0");
-      let formattedDate =
-        new Date(date.getTime()).toLocaleString("en-US", { weekday: "short" }) +
-        "<br/>" +
-        day +
-        " - " +
-        months[date.getMonth()] +
-        " - " +
-        date.getFullYear();
+      let month = (date.getMonth() + 1).toString().padStart(2, "0");
+      let year = date.getFullYear().toString().substr(-2);
+      let dayOfWeek = new Date(date.getTime()).toLocaleString("en-US", {
+        weekday: "short",
+      });
+
+      let formattedDate = {
+        string_format: `${dayOfWeek}<br/>${day} - ${
+          months[date.getMonth()]
+        } - ${year}`,
+        id: `${day}-${month}-${year}`,
+      };
+
       datelist.push(formattedDate);
       date.setDate(date.getDate() + 1);
     }
@@ -132,6 +77,64 @@ function Rota() {
 
   const accessToken = getCookie("access_token");
 
+  const showTimeline = async () => {
+    const userPromise = await fetch("/me", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${getCookie("access_token")}`,
+      },
+    });
+    const userData = await userPromise.json();
+
+    let shiftsData = await getTeamMemberShiftsData({
+      timeTableOwner: userData.username,
+    });
+
+    console.log("🚀 ~ file: rota.jsx:25 ~ shiftsData:", shiftsData);
+
+    let start = new Date();
+    start.setHours(6, 0, 0, 0); // Set start time to 6am
+
+    let end = new Date();
+    end.setHours(24, 0, 0, 0); // Set end time to 12am
+
+    let data = [
+      {
+        label: "Rota",
+        times: [
+          {
+            starting_time: start.getTime(),
+            ending_time: end.getTime(),
+          },
+          // morning shift
+          {
+            starting_time: start.getTime() + 4 * 60 * 60 * 1000,
+            ending_time: start.getTime() + 5 * 60 * 60 * 1000,
+            color: "blue",
+          },
+          // evening shift
+          {
+            starting_time: start.getTime() + 11 * 60 * 60 * 1000,
+            ending_time: start.getTime() + 12 * 60 * 60 * 1000,
+            color: "coral",
+          },
+        ],
+      },
+    ];
+
+    let chart = timelines().labelFormat(() => undefined);
+
+    let svg = d3
+      .selectAll(".date-div")
+      .append("svg")
+      .attr("width", "100%")
+      .datum(data)
+      .call(chart);
+
+    svg.selectAll("text").style("fill", "black");
+  };
+
   useEffect(() => {
     if (accessToken && document.querySelector(".date-div")) {
       showTimeline();
@@ -155,10 +158,11 @@ function Rota() {
       </div>
       {getDates().map((date, index) => (
         <div
+          id={date.id}
           key={`${startOfWeek}-${index}`}
           className={`date-div ${animationClass}`}
           onAnimationEnd={() => setAnimationClass("")}
-          dangerouslySetInnerHTML={{ __html: date }}
+          dangerouslySetInnerHTML={{ __html: date.string_format }}
         />
       ))}
     </div>
