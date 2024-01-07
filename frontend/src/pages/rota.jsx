@@ -5,6 +5,7 @@ import * as d3 from "d3";
 import { timelines } from "d3-timelines";
 import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
+import Timeline from "../components/timeline";
 
 function Rota() {
   const today = new Date();
@@ -75,9 +76,9 @@ function Rota() {
     }, 500);
   };
 
-  const accessToken = getCookie("access_token");
+  const [shiftsData, setShiftsData] = useState({});
 
-  const showTimeline = async () => {
+  const fetchShiftData = async () => {
     const userPromise = await fetch("/me", {
       method: "GET",
       headers: {
@@ -87,57 +88,18 @@ function Rota() {
     });
     const userData = await userPromise.json();
 
-    let shiftsData = await getTeamMemberShiftsData({
+    const fetchedShiftsData = await getTeamMemberShiftsData({
       timeTableOwner: userData.username,
     });
 
-    console.log("🚀 ~ file: rota.jsx:25 ~ shiftsData:", shiftsData);
-
-    let start = new Date();
-    start.setHours(6, 0, 0, 0); // Set start time to 6am
-
-    let end = new Date();
-    end.setHours(24, 0, 0, 0); // Set end time to 12am
-
-    let data = [
-      {
-        label: "Rota",
-        times: [
-          {
-            starting_time: start.getTime(),
-            ending_time: end.getTime(),
-          },
-          // morning shift
-          {
-            starting_time: start.getTime() + 4 * 60 * 60 * 1000,
-            ending_time: start.getTime() + 5 * 60 * 60 * 1000,
-            color: "blue",
-          },
-          // evening shift
-          {
-            starting_time: start.getTime() + 11 * 60 * 60 * 1000,
-            ending_time: start.getTime() + 12 * 60 * 60 * 1000,
-            color: "coral",
-          },
-        ],
-      },
-    ];
-
-    let chart = timelines().labelFormat(() => undefined);
-
-    let svg = d3
-      .selectAll(".date-div")
-      .append("svg")
-      .attr("width", "100%")
-      .datum(data)
-      .call(chart);
-
-    svg.selectAll("text").style("fill", "black");
+    setShiftsData(fetchedShiftsData);
   };
 
+  const accessToken = getCookie("access_token");
+
   useEffect(() => {
-    if (accessToken && document.querySelector(".date-div")) {
-      showTimeline();
+    if (accessToken) {
+      fetchShiftData();
     }
   }, [startOfWeek, endOfWeek, accessToken]);
 
@@ -162,8 +124,13 @@ function Rota() {
           key={`${startOfWeek}-${index}`}
           className={`date-div ${animationClass}`}
           onAnimationEnd={() => setAnimationClass("")}
-          dangerouslySetInnerHTML={{ __html: date.string_format }}
-        />
+        >
+          <span>{date.id}</span>
+          <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+          {/* {shiftsData[date.id] && ( */}
+          <Timeline dateId={date.id} shifts={shiftsData[date.id]} />
+          {/* )}*/}
+        </div>
       ))}
     </div>
   );

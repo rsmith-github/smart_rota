@@ -532,3 +532,10 @@ svg line {
 iframe {
   display: none;
 }
+
+.timeline {
+  background-color: black;
+  margin-top: 5px;
+  height: 10px;
+  width: 100%;
+}
