@@ -4,7 +4,17 @@ const formatTime = (timeRange) => {
 
     let split = timeRange.split('-');
 
-    let hours = split.map(time => time === '00:00' ? 19 : Number(time.split(':')[0]) - 5)
+    let hours = split.map(time => {
+        const [hourStr, minStr] = time.split(':');
+        const hour = hourStr === '00' ? 19 : Number(hourStr) - 5;
+        const min = Number(minStr);
+        
+        return { hour, min };
+    });
+
+    console.log("🚀 ~ file: format-time.js:8 ~ formatTime ~ hours:", hours)
+
+
 
     return hours;
 

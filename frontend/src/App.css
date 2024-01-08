@@ -559,6 +559,15 @@ iframe {
   background-color: springgreen;
 }
 
+.minutes-30 {
+  background: none;
+  background-image: linear-gradient(
+    to right,
+    springgreen 50%,
+    rgba(255, 255, 255, 0.723) 50%
+  );
+}
+
 .hour-block-container {
   display: flex;
   flex-direction: column;
