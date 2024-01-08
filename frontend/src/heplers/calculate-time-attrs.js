@@ -1,19 +1,24 @@
 function calculateTimeAttributes(i, times) {
     let flip = '';
 
-    // Determine flip value
+    // Determine the flip value based on the current hour (i)
+    // No flip for times[1] and times[3], flip for times[0] and times[2]
     if (i === times[1]?.hour || i === times[3]?.hour) {
         flip = '';
     } else if (i === times[0]?.hour || i === times[2]?.hour) {
         flip = ' flip';
     }
 
-    // Check if the current hour matches any of the times and set values accordingly
+    // Find the time object that matches the current hour
     let matchedTime = times.find(time => i === time?.hour);
+
+    // If a matching time is found, set element_to_add_minutes and minutes_to_add
     let element_to_add_minutes = matchedTime ? i : null;
     let minutes_to_add = matchedTime ? matchedTime.min : null;
 
-    // Handle special cases for shift start and end times
+    // Handle special cases:
+    // - If it's the start of the shift and 45 minutes past the hour, adjust minutes and flip
+    // - If it's the end of the shift and 15 minutes past the hour, adjust minutes and flip
     if (matchedTime) {
         if (i === times[0]?.hour && times[0]?.min === 45) {
             minutes_to_add = 45;
@@ -24,6 +29,7 @@ function calculateTimeAttributes(i, times) {
         }
     }
 
+    // Return the calculated attributes
     return [element_to_add_minutes, minutes_to_add, flip];
 }
 
