@@ -595,6 +595,6 @@ iframe {
 }
 
 .day-off {
-  color: rgb(151, 151, 151);
+  color: rgba(255, 255, 255, 0.687);
   font-size: 15px;
 }
