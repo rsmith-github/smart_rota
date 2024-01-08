@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import Ring from "../components/3dRing";
 import { getCookie } from "../features/user";
+
+import Spline from "@splinetool/react-spline";
 
 function Homepage() {
   const { isAuthenticated, user, loading } = useSelector((state) => state.user);
@@ -25,12 +26,23 @@ function Homepage() {
         {/* Rota management system where equality comes first. */}
       </div>
       {isAuthenticated && (
-        <div className="banner page">
-          <p>
-            <span>Empower</span> your teams. <br />
-            Open the door for seamless <span>communication</span> between
-            management and team members, prioritizing <span>equality</span>.
-          </p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div className="spline-parent">
+            <Spline scene="https://prod.spline.design/hyBtrdl-OCArwfnd/scene.splinecode" />
+          </div>
+          <div className="banner page">
+            <p>
+              <span>Empower</span> your teams. <br />
+              Open the door for seamless <span>communication</span> between
+              management and team members, prioritizing <span>equality</span>.
+            </p>
+          </div>
         </div>
       )}
       <div id="team" className="page"></div>
