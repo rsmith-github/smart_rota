@@ -131,17 +131,20 @@ function Rota() {
           {shiftsData[convertId(date.id)] ? (
             <>
               <span className="shift-text">
-                <span className="shift-title">🌞{' '}: {' '}</span>
+                <span className="shift-title">🌞 : </span>
                 {shiftsData[convertId(date.id)]?.morning_shift}
               </span>
               <br />
               <span className="shift-text">
-                <span className="shift-title">🌙{' '}:{' '}</span>
+                <span className="shift-title">🌙 : </span>
                 {shiftsData[convertId(date.id)]?.evening_shift}
               </span>
             </>
           ) : (
-            <span className="shift-title day-off"> day off 😴</span>
+            <>
+              <span className="shift-title day-off"> day off</span>
+              <span className="emoji">😴</span>
+            </>
           )}
           {shiftsData && (
             <Timeline dateId={date.id} shift={shiftsData[convertId(date.id)]} />
