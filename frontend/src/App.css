@@ -590,6 +590,10 @@ iframe {
   rotate: 180deg;
 }
 
+.minutes-0 {
+
+}
+
 .hour-block-container {
   display: flex;
   flex-direction: column;

@@ -8,11 +8,9 @@ const formatTime = (timeRange) => {
         const [hourStr, minStr] = time.split(':');
         const hour = hourStr === '00' ? 19 : Number(hourStr) - 5;
         const min = Number(minStr);
-        
+
         return { hour, min };
     });
-
-    console.log("🚀 ~ file: format-time.js:8 ~ formatTime ~ hours:", hours)
 
 
 

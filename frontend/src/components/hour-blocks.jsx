@@ -13,8 +13,8 @@ function HourBlocks({ times }) {
     [element_to_add_minutes, minutes_to_add, flip] = calculateTimeAttributes(i, times, element_to_add_minutes, minutes_to_add, flip);
 
     let className =
-      (i >= times[0]?.hour && i <= times[1]?.hour) ||
-      (i >= times[2]?.hour && i <= times[3]?.hour)
+      (i >= times[0]?.hour && i < times[1]?.hour) ||
+      (i >= times[2]?.hour && i < times[3]?.hour)
         ? "filled hour-block"
         : "hour-block";
 
