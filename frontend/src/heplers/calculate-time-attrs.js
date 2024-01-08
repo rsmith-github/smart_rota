@@ -8,20 +8,21 @@ function calculateTimeAttributes(i, times, element_to_add_minutes, minutes_to_ad
         flip = ' flip';
     }
 
-    if (i === times[0]?.hour) {
+
+    if (i === times[0]?.hour || i === times[1]?.hour || i === times[2]?.hour || i === times[3]?.hour) {
         element_to_add_minutes = i;
+    }
+
+    if (i === times[0]?.hour) {
         minutes_to_add = times[0]?.min
     }
     if (i === times[1]?.hour) {
-        element_to_add_minutes = i;
         minutes_to_add = times[1]?.min;
     }
     if (i === times[2]?.hour) {
-        element_to_add_minutes = i;
         minutes_to_add = times[2]?.min
     }
     if (i === times[3]?.hour) {
-        element_to_add_minutes = i;
         minutes_to_add = times[3]?.min;
     }
 
