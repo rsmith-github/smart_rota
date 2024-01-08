@@ -25,16 +25,13 @@ function Homepage() {
         {/* Rota management system where equality comes first. */}
       </div>
       {isAuthenticated && (
-        <>
-          <Ring />
-          <div className="banner page">
-            <p>
-              <span>Empower</span> your teams. <br />
-              Open the door for seamless <span>communication</span> between
-              management and team members, prioritizing <span>equality</span>.
-            </p>
-          </div>
-        </>
+        <div className="banner page">
+          <p>
+            <span>Empower</span> your teams. <br />
+            Open the door for seamless <span>communication</span> between
+            management and team members, prioritizing <span>equality</span>.
+          </p>
+        </div>
       )}
       <div id="team" className="page"></div>
       <div className="rota page"></div>
