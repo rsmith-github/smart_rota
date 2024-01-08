@@ -4,13 +4,10 @@ import calculateTimeAttributes from "../heplers/calculate-time-attrs";
 function HourBlocks({ times }) {
   const hourDivs = [];
 
-  let element_to_add_minutes = null;
-  let minutes_to_add = null;
-  let flip = '';
   
   for (let i = 1; i <= 19; i++) {
 
-    [element_to_add_minutes, minutes_to_add, flip] = calculateTimeAttributes(i, times, element_to_add_minutes, minutes_to_add, flip);
+    let [element_to_add_minutes, minutes_to_add, flip] = calculateTimeAttributes(i, times);
 
     let className =
       (i >= times[0]?.hour && i < times[1]?.hour) ||
