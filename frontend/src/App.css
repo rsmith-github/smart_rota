@@ -568,7 +568,7 @@ iframe {
   );
 }
 
-.minutes-45 {
+.minutes-45, .minutes-15 {
   background: none;
   background-image: linear-gradient(
     to right,
@@ -586,13 +586,19 @@ iframe {
   );
 }
 
+.shift-end-45 {
+  background: none;
+  background-image: linear-gradient(
+    to right,
+    springgreen 25%,
+    rgba(255, 255, 255, 0.723) 0%
+  );
+}
+
 .flip {
   rotate: 180deg;
 }
 
-.minutes-0 {
-
-}
 
 .hour-block-container {
   display: flex;
