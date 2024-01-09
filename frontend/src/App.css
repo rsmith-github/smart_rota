@@ -359,6 +359,7 @@ svg line {
   width: 100%;
   height: max-content;
   background-color: rgba(0, 0, 0, 0.818);
+  z-index: 10;
 }
 
 .banner p {
@@ -569,7 +570,8 @@ iframe {
   );
 }
 
-.minutes-45, .minutes-15 {
+.minutes-45,
+.minutes-15 {
   background: none;
   background-image: linear-gradient(
     to right,
@@ -599,7 +601,6 @@ iframe {
 .flip {
   rotate: 180deg;
 }
-
 
 .hour-block-container {
   display: flex;
@@ -644,4 +645,78 @@ iframe {
 .emoji {
   font-size: 15px;
   margin-left: 8px;
+}
+
+:root {
+  --d: 5500ms;
+  --angle: 90deg;
+  --gradX: 100%;
+  --gradY: 50%;
+  --c1: rgba(168, 239, 255, 1);
+  --c2: rgba(168, 239, 255, 0.1);
+}
+
+#app-showcase-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-bg {
+  background: conic-gradient(
+    from 230.29deg at 51.63% 52.16%,
+    rgba(19, 0, 144, 0.37) 0deg,
+    rgba(0, 105, 196, 0.538) 67.5deg,
+    rgba(108, 39, 157, 0.173)198.75deg,
+    rgb(24, 38, 163) 251.25deg,
+    rgb(54, 103, 196) 301.88deg,
+    rgba(105, 30, 255, 0) 360deg
+  );
+  position: absolute;
+  filter: blur(160px);
+  width: 100%;
+  height: 100%;
+}
+
+#app-screenshot {
+  width: 850px;
+  border: 0.08rem solid;
+  border-image: conic-gradient(
+      from var(--angle),
+      var(--c2),
+      var(--c1) 0.1turn,
+      var(--c1) 0.15turn,
+      var(--c2) 0.25turn
+    )
+    30;
+  animation: borderRotate var(--d) linear infinite forwards;
+  z-index: 10 !important;
+  position: relative;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --gradX {
+  syntax: "<percentage>";
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --gradY {
+  syntax: "<percentage>";
+  initial-value: 0%;
+  inherits: true;
+}
+
+@keyframes borderRotate {
+  100% {
+    --angle: 450deg;
+  }
 }
