@@ -34,6 +34,7 @@ body {
 /* Nav bar */
 nav {
   height: 120px;
+  margin-bottom: 50px;
 }
 
 .navBar li {
