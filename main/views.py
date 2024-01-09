@@ -242,7 +242,7 @@ def login_api(request):
             "key": "access",
             "value": data["access"],
             "httponly": True,
-            "max-age": 60 * 30,
+            "max-age": 60 * 120,
             "path": "/api/",
             "samesite": "Strict",
             "secure": request.is_secure(),
