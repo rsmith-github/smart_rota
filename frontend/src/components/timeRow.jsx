@@ -38,10 +38,13 @@ const CustomTimePicker = ({
     : null;
 
   return (
-    <TimePicker
-      value={timeValue}
-      onChange={(time) => handleChange(index, time)}
-    />
+    <div className={isTimeSet ? "timeset" : "timenotset"}>
+      <TimePicker
+        value={timeValue}
+        onChange={(time) => handleChange(index, time)}
+        minutesStep={15}
+      />
+    </div>
   );
 };
 

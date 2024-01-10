@@ -1,9 +1,11 @@
 import app from "../static/app.png";
 import { motion } from "framer-motion";
 
-const About = () => {
+const ScreenShotSection = () => {
   return (
     <section id="app-showcase-section">
+
+      <h2>Data Driven, Intuitive UI</h2>
       <motion.div
         className="image-bg"
         initial={{ opacity: 0, scale: 0.5, rotateX: -50}}
@@ -27,4 +29,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default ScreenShotSection;

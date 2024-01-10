@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { getCookie } from "../features/user";
 
-import About from "../components/aboutus";
+import ScreenShotSection from "../components/screenshot-section";
 
 import { motion, easeIn } from "framer-motion";
 
@@ -86,7 +86,7 @@ function Homepage() {
               </p>
             </motion.div>
           </div>
-          <About />
+          <ScreenShotSection />
         </>
       )}
       <div id="team" className="page"></div>
