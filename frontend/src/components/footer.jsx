@@ -21,7 +21,7 @@ function Footer() {
         <div className="footer-column">
           <h5>Solutions</h5>
           <ul className="list-style">
-            <li>Staff Management</li>
+            <li>Staff bruh</li>
             <li>Equal Opportunity</li>
             <li>R&D / Market Intelligence</li>
             <li>M&A Opportunity and Due Diligence</li>

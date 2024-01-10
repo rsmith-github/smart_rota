@@ -4,12 +4,14 @@ import Homepage from './pages/homepage';
 import NavBar from './components/navbar';
 import Team from './pages/team';
 import Rota from './pages/rota';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import RegisterEmployee from './pages/register-employee';
 import RegisterManager from './pages/register-manager';
 import RegisterCompany from './pages/register-company';
 import Login from './pages/login';
 import NotFound from './pages/notfound';
+
+import Footer from './components/footer';
 
 import { useDispatch, Provider } from 'react-redux';
 import { useEffect } from 'react';
@@ -17,19 +19,29 @@ import { checkAuth } from './features/user';
 
 import { store } from './store';
 
-function AppContent() {
 
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(checkAuth());
-  }, []);
+
+
+function App() {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </Provider>
+  );
+}
+
+
+function AppRoutes() {
+  const location = useLocation();
+  const showNavBar = location.pathname !== '/team' && location.pathname !== '/rota';
+
 
   return (
-
-    <BrowserRouter>
-      <NavBar />
-
+    <>
+      {showNavBar && <NavBar />}
       <Routes>
         <Route
           path='/'
@@ -75,20 +87,21 @@ function AppContent() {
         />
 
         <Route path="*" element={<NotFound />} />
-
       </Routes>
-    </BrowserRouter>
-
+      {showNavBar && <Footer />}
+    </>
   );
 }
 
-function App() {
-  return (
-    <Provider store={store}>
-      <AppContent />
-    </Provider>
-  )
+function AppContent() {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  return <AppRoutes />;
 }
+
 
 export default App;
