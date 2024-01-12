@@ -89,8 +89,6 @@ function Homepage() {
           <ScreenShotSection />
         </>
       )}
-      <div id="team" className="page"></div>
-      <div className="rota page"></div>
     </div>
   );
 }

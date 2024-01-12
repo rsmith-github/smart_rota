@@ -124,40 +124,43 @@ function Rota() {
             Next Week
           </button>
         </div>
-        {getDates().map((date, index) => (
-          <div
-            id={date.id}
-            key={`${startOfWeek}-${index}`}
-            className={`date-div ${animationClass}`}
-            onAnimationEnd={() => setAnimationClass("")}
-          >
-            <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
-            {shiftsData[convertId(date.id)] ? (
-              <>
-                <span className="shift-text">
-                  <span className="shift-title">🌞 : </span>
-                  {shiftsData[convertId(date.id)]?.morning_shift}
-                </span>
-                <br />
-                <span className="shift-text">
-                  <span className="shift-title">🌙 : </span>
-                  {shiftsData[convertId(date.id)]?.evening_shift}
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="shift-title day-off"> day off</span>
-                <span className="emoji">😴</span>
-              </>
-            )}
-            {shiftsData && (
-              <Timeline
-                dateId={date.id}
-                shift={shiftsData[convertId(date.id)]}
-              />
-            )}
-          </div>
-        ))}
+
+        <div id="date-divs-container">
+          {getDates().map((date, index) => (
+            <div
+              id={date.id}
+              key={`${startOfWeek}-${index}`}
+              className={`date-div ${animationClass}`}
+              onAnimationEnd={() => setAnimationClass("")}
+            >
+              <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+              {shiftsData[convertId(date.id)] ? (
+                <>
+                  <span className="shift-text">
+                    <span className="shift-title">🌞 : </span>
+                    {shiftsData[convertId(date.id)]?.morning_shift}
+                  </span>
+                  <br />
+                  <span className="shift-text">
+                    <span className="shift-title">🌙 : </span>
+                    {shiftsData[convertId(date.id)]?.evening_shift}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="shift-title day-off"> day off</span>
+                  <span className="emoji">😴</span>
+                </>
+              )}
+              {shiftsData && (
+                <Timeline
+                  dateId={date.id}
+                  shift={shiftsData[convertId(date.id)]}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
