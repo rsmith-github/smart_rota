@@ -251,11 +251,13 @@ h4 {
   width: 15%;
   background-color: #0d2857;
   height: 100%;
+  padding-top: 80px;
 }
 
 #sidebar-container li {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   height: 20px;
+  cursor: pointer;
 }
 
 .sidebar {
