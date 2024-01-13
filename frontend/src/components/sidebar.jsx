@@ -1,14 +1,21 @@
 import {
-  HiArrowSmRight,
-  HiChartPie,
+  HiArrowSmLeft,
   HiInbox,
-  HiShoppingBag,
   HiTable,
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
 
+import { useSelector } from "react-redux";
+
 function AppSidebar() {
+  // Get user to check type and display correct menu items.
+  const { isAuthenticated, user, username, _loading } = useSelector(
+    (state) => state.user
+  );
+
+  console.log("🚀 ~ file: sidebar.jsx:14 ~ AppSidebar ~ user:", user);
+
   return (
     <div id="sidebar-container">
       <ul className="sidebar">
@@ -17,28 +24,24 @@ function AppSidebar() {
           Dashboard
         </li>
         <li href="#" label="Pro" labelColor="dark">
-          <HiChartPie />
-          Kanban
+          <HiViewBoards />
+          My Timetable
         </li>
         <li href="#" label="3">
           <HiInbox />
-          Inbox
+          Messages
         </li>
         <li href="#">
           <HiUser />
-          Users
+          My Team
         </li>
         <li href="#">
           <HiViewBoards />
           Products
         </li>
         <li href="#">
-          <HiArrowSmRight />
-          Sign In
-        </li>
-        <li href="#">
-          <HiUser />
-          Sign Up
+          <HiArrowSmLeft />
+          Logout
         </li>
       </ul>
     </div>
