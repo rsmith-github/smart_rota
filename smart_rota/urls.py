@@ -17,9 +17,9 @@ from django.urls import include
 from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-    TokenVerifyView,
+    TokenObtainPairView, # This view is used to obtain a pair of tokens: an access token and a refresh token.
+    TokenRefreshView, # This view is used to obtain a new access token.
+    TokenVerifyView, # This view is used to verify the validity of an access token.
 
 )
 from django.views.generic import TemplateView

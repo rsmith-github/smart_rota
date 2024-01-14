@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
 
@@ -99,13 +101,14 @@ function Rota() {
     setShiftsData(fetchedShiftsData);
   };
 
+  const { user } = useSelector((state) => state.user);
   const accessToken = getCookie("access_token");
 
   useEffect(() => {
     if (accessToken) {
       fetchShiftData();
     }
-  }, [startOfWeek, endOfWeek, accessToken]);
+  }, [startOfWeek, endOfWeek, accessToken, user]);
 
   // this is not working yet.
   if (!accessToken) {

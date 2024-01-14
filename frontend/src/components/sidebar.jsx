@@ -23,7 +23,6 @@ function AppSidebar() {
 
   useEffect(() => {
     setIsManager(user.user_type !== "Employee");
-    console.log("🤔");
   }, []);
 
   return (

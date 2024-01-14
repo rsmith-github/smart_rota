@@ -72,6 +72,7 @@ export const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
     }
 });
 
+// obtain a pair of tokens: an access token and a refresh token using Django REST Framework's TokenObtainPairView
 export const login = createAsyncThunk(
     'main/login',
     async ({ username, password }, thunkAPI) => {
@@ -92,6 +93,12 @@ export const login = createAsyncThunk(
             });
 
             const data = await res.json();
+
+            // will look somehing like
+            // {
+            //     access: '1r2krij42jr9t5434qt',
+            //     refresh: '3fje02FJNROUFDAFRGR'
+            // }
 
             if (res.status === 200) {
 
@@ -131,9 +138,9 @@ export const checkAuth = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
-                // const { dispatch } = thunkAPI;
+                const { dispatch } = thunkAPI;
 
-                // dispatch(getUser());
+                dispatch(getUser());
 
                 return data;
             } else {

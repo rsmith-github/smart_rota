@@ -33,6 +33,7 @@ from django.http import JsonResponse
 
 from pprint import pprint
 
+
 def verify(request):
 
     if request.method == 'GET':
@@ -211,6 +212,13 @@ class RegisterView(APIView):
 
 
 class RetrieveUserView(APIView):
+
+    """
+        The RetrieveUserView is protected by the permissions.IsAuthenticated permission class.
+        This permission class requires a valid access token to be present in the Authorization header of the incoming request.
+        It expects a format like Bearer <token>.
+        (see getUser() in user.js)
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
@@ -343,6 +351,5 @@ class GetMemberShiftsData(APIView):
         for shift in shifts:
             shifts_as_dict[f'{shift.date.day}-{shift.date.month}-{str(shift.date.year)[2:]}'] = {
                 'morning_shift': shift.morning_shift, 'evening_shift': shift.evening_shift}
-        
-        
+
         return JsonResponse(shifts_as_dict, status=status.HTTP_200_OK)
