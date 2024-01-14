@@ -258,6 +258,15 @@ h4 {
   margin-bottom: 30px;
   height: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center; 
+}
+
+#sidebar-container a {
+
+  text-decoration: none;
+  color: white;
+ 
 }
 
 .sidebar {
@@ -266,6 +275,10 @@ h4 {
   align-items: flex-start;
   list-style-type: none;
   padding-left: 20px;
+}
+
+.sidebar-text {
+  margin-left: 10px;
 }
 
 .date-div {

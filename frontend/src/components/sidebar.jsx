@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   HiArrowSmLeft,
   HiInbox,
@@ -7,41 +8,57 @@ import {
 } from "react-icons/hi";
 
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+
+import { logout } from "../features/user";
 
 function AppSidebar() {
-  // Get user to check type and display correct menu items.
-  const { isAuthenticated, user, username, _loading } = useSelector(
-    (state) => state.user
-  );
+  const [isManager, setIsManager] = useState(false);
+  const dispatch = useDispatch();
 
-  console.log("🚀 ~ file: sidebar.jsx:14 ~ AppSidebar ~ user:", user);
+  // Get user to check type and display correct menu items.
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    setIsManager(user.user_type !== "Employee");
+    console.log("🤔");
+  }, []);
 
   return (
     <div id="sidebar-container">
       <ul className="sidebar">
         <li href="#">
           <HiTable />
-          Dashboard
+          <span className="sidebar-text">Dashboard</span>
         </li>
         <li href="#" label="Pro" labelColor="dark">
           <HiViewBoards />
-          My Timetable
+          <NavLink to="/rota">
+            <span className="sidebar-text">My Timetable</span>
+          </NavLink>
         </li>
         <li href="#" label="3">
           <HiInbox />
-          Messages
+          <NavLink to="/messages">
+            <span className="sidebar-text">Messages</span>
+          </NavLink>
         </li>
-        <li href="#">
-          <HiUser />
-          My Team
-        </li>
-        <li href="#">
-          <HiViewBoards />
-          Products
-        </li>
+        {isManager && (
+          <li href="#">
+            <HiUser />
+            <NavLink to="/team">
+              <span className="sidebar-text">My Team</span>
+            </NavLink>
+          </li>
+        )}
         <li href="#">
           <HiArrowSmLeft />
-          Logout
+          <a onClick={() => dispatch(logout())}>
+            <span className="sidebar-text">Logout</span>{" "}
+            {/* need to navigate to login page/ home page to redirect.*/}
+          </a>
         </li>
       </ul>
     </div>
