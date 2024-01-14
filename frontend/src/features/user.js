@@ -93,17 +93,18 @@ export const login = createAsyncThunk(
             });
 
             const data = await res.json();
+            console.log("🚀 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ file: user.js:96 ~ data:", data)
 
             // will look somehing like
             // {
-            //     access: '1r2krij42jr9t5434qt',
-            //     refresh: '3fje02FJNROUFDAFRGR'
+            //     access: '1r2krij42jr9t5434qt.....',
+            //     refresh: '3fje02FJNROUFDAFRGR....'
             // }
 
             if (res.status === 200) {
 
                 setCookie('access_token', data.access, 1);
-                setCookie('refresh_token', data.refresh, 0.05);
+                setCookie('refresh_token', data.refresh, 1);
 
                 const { dispatch } = thunkAPI;
 

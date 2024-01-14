@@ -250,14 +250,12 @@ h4 {
   height: 20px;
   cursor: pointer;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 #sidebar-container a {
-
   text-decoration: none;
   color: white;
- 
 }
 
 .sidebar {
@@ -474,9 +472,13 @@ svg line {
 }
 
 #team {
+  margin-top: 100px;
+  margin-left: 20px;
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
+  text-align: center;
 }
 
 .team-member {
@@ -508,7 +510,8 @@ svg line {
   padding: 20px;
   border-radius: 10px;
   width: 95%;
-  height: max-content;
+  height: 86vh;
+  overflow-y: scroll;
   margin: 10px 10px 50px 10px;
 }
 
@@ -516,6 +519,8 @@ svg line {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 85%;
+  margin-top: 20px;
 }
 
 .timetable-header {
@@ -773,10 +778,7 @@ iframe {
 ::-webkit-scrollbar-thumb {
   background: #4f4f4f;
   border-radius: 10px;
-
-
 }
 ::-webkit-scrollbar {
   width: 10px;
-  
 }

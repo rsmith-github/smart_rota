@@ -30,7 +30,9 @@ function AppSidebar() {
       <ul className="sidebar">
         <li href="#">
           <HiTable />
-          <span className="sidebar-text">Dashboard</span>
+          <NavLink to="/dashboard">
+            <span className="sidebar-text">Dashboard</span>
+          </NavLink>
         </li>
         <li href="#" label="Pro">
           <HiViewBoards />

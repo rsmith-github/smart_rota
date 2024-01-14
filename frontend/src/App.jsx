@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { checkAuth } from "./features/user";
 
 import { store } from "./store";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
 function AppRoutes() {
   const location = useLocation().pathname;
 
-  const showNavBar =
-    location !== "/team" && location !== "/rota" && location !== "/messages";
+  const locations = ["/team", "/rota", "/messages", "/dashboard"];
+
+  const showNavBar = !locations.includes(location);
 
   return (
     <>
@@ -42,6 +44,7 @@ function AppRoutes() {
         <Route path="/" element={<Homepage />} />
         <Route path="/team" element={<Team />} />
         <Route path="/messages" element={<Messages />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/rota" element={<Rota />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register-employee" element={<RegisterEmployee />} />
