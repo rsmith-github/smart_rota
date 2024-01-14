@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Navigate } from "react-router-dom";
-
 import { useSelector } from "react-redux";
-
-import { getCookie } from "../features/user";
+import user, { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
-
 import Timeline from "../components/timeline";
 import AppSidebar from "../components/sidebar";
-
 import convertId from "../heplers/convertId";
+
+import { getDates } from "../heplers/rota-helpers";
 
 function Rota() {
   const today = new Date();
@@ -28,61 +26,38 @@ function Rota() {
     )
   );
   const [animationClass, setAnimationClass] = useState("slide-up");
-  const months = Array.from({ length: 12 }, (_, i) =>
-    new Date(0, i).toLocaleString("en", { month: "short" })
+  const [shiftsData, setShiftsData] = useState({});
+  const accessToken = getCookie("access_token");
+
+  const months = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) =>
+        new Date(0, i).toLocaleString("en", { month: "short" })
+      ),
+    []
   );
 
-  const getDates = () => {
-    let date = new Date(
-      startOfWeek.getFullYear(),
-      startOfWeek.getMonth(),
-      startOfWeek.getDate()
-    );
-    let datelist = [];
+  const changeWeek = (direction) => {
+    setAnimationClass("fade");
+    setTimeout(() => {
+      const change = direction === "next" ? 7 : -7;
+      setStartOfWeek(
+        new Date(startOfWeek.setDate(startOfWeek.getDate() + change))
+      );
+      setEndOfWeek(new Date(endOfWeek.setDate(endOfWeek.getDate() + change)));
+      setAnimationClass(
+        direction === "next" ? "slide-in-left" : "slide-in-right"
+      );
+    }, 500);
+  };
 
-    while (date <= endOfWeek) {
-      let day = date.getDate().toString().padStart(2, "0");
-      let month = (date.getMonth() + 1).toString().padStart(2, "0");
-      let year = date.getFullYear().toString().substr(-2);
-      let dayOfWeek = new Date(date.getTime()).toLocaleString("en-US", {
-        weekday: "short",
-      });
+  const { user } = useSelector((state) => state.user);
 
-      let formattedDate = {
-        string_format: `
-        <span class='dow'>${dayOfWeek}</span> | 
-        <span class='date'>${day} - ${months[date.getMonth()]} - ${year}</span>
-        `,
-
-        id: `${day}-${month}-${year}`,
-      };
-
-      datelist.push(formattedDate);
-      date.setDate(date.getDate() + 1);
+  useEffect(() => {
+    if (accessToken) {
+      fetchShiftData();
     }
-
-    return datelist;
-  };
-
-  const prevWeek = () => {
-    setAnimationClass("fade");
-    setTimeout(() => {
-      setStartOfWeek(new Date(startOfWeek.setDate(startOfWeek.getDate() - 7)));
-      setEndOfWeek(new Date(endOfWeek.setDate(endOfWeek.getDate() - 7)));
-      setAnimationClass("slide-in-right");
-    }, 500);
-  };
-
-  const nextWeek = () => {
-    setAnimationClass("fade");
-    setTimeout(() => {
-      setStartOfWeek(new Date(startOfWeek.setDate(startOfWeek.getDate() + 7)));
-      setEndOfWeek(new Date(endOfWeek.setDate(endOfWeek.getDate() + 7)));
-      setAnimationClass("slide-in-left");
-    }, 500);
-  };
-
-  const [shiftsData, setShiftsData] = useState({});
+  }, [startOfWeek, endOfWeek, accessToken, user]);
 
   const fetchShiftData = async () => {
     const userPromise = await fetch("/me", {
@@ -101,16 +76,8 @@ function Rota() {
     setShiftsData(fetchedShiftsData);
   };
 
-  const { user } = useSelector((state) => state.user);
-  const accessToken = getCookie("access_token");
+  const handleAnimationEnd = () => setAnimationClass("");
 
-  useEffect(() => {
-    if (accessToken) {
-      fetchShiftData();
-    }
-  }, [startOfWeek, endOfWeek, accessToken, user]);
-
-  // this is not working yet.
   if (!accessToken) {
     return <Navigate to="/login" />;
   }
@@ -120,51 +87,72 @@ function Rota() {
       <AppSidebar />
       <div className="rota-right-side">
         <div id="buttons-container">
-          <button className="weeks-button" onClick={prevWeek}>
+          <button
+            className="weeks-button"
+            onClick={() => {
+              changeWeek("prev");
+            }}
+          >
             Previous Week
           </button>
-          <button className="weeks-button" onClick={nextWeek}>
+          <button
+            className="weeks-button"
+            onClick={() => {
+              changeWeek("next");
+            }}
+          >
             Next Week
           </button>
         </div>
-
         <div id="date-divs-container">
-          {getDates().map((date, index) => (
-            <div
-              id={date.id}
+          {getDates(startOfWeek, endOfWeek, months).map((date, index) => (
+            <DateDiv
               key={`${startOfWeek}-${index}`}
-              className={`date-div ${animationClass}`}
-              onAnimationEnd={() => setAnimationClass("")}
-            >
-              <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
-              {shiftsData[convertId(date.id)] ? (
-                <>
-                  <span className="shift-text">
-                    <span className="shift-title">🌞 : </span>
-                    {shiftsData[convertId(date.id)]?.morning_shift}
-                  </span>
-                  <br />
-                  <span className="shift-text">
-                    <span className="shift-title">🌙 : </span>
-                    {shiftsData[convertId(date.id)]?.evening_shift}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="shift-title day-off"> day off</span>
-                  <span className="emoji">😴</span>
-                </>
-              )}
-              {shiftsData && (
-                <Timeline
-                  dateId={date.id}
-                  shift={shiftsData[convertId(date.id)]}
-                />
-              )}
-            </div>
+              date={date}
+              animationClass={animationClass}
+              handleAnimationEnd={handleAnimationEnd}
+              shiftsData={shiftsData}
+            />
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+function DateDiv({ date, animationClass, handleAnimationEnd, shiftsData }) {
+  const shiftData = shiftsData[convertId(date.id)];
+
+  return (
+    <div
+      id={date.id}
+      className={`date-div ${animationClass}`}
+      onAnimationEnd={handleAnimationEnd}
+    >
+      <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+      {shiftData ? (
+        // Shift data display logic
+        <>
+          <span className="shift-text">
+            <span className="shift-title">🌞 : </span>
+            {shiftsData[convertId(date.id)]?.morning_shift}
+          </span>
+          <br />
+          <span className="shift-text">
+            <span className="shift-title">🌙 : </span>
+            {shiftsData[convertId(date.id)]?.evening_shift}
+          </span>
+        </>
+      ) : (
+        // Display for day off
+        <>
+          <span className="shift-title day-off"> day off</span>
+          <span className="emoji">😴</span>
+          {/* {shiftsData && (
+            <Timeline dateId={date.id} shift={shiftsData[convertId(date.id)]} />
+          )} */}
+        </>
+      )}
+      {shiftData && <Timeline dateId={date.id} shift={shiftData} />}
     </div>
   );
 }

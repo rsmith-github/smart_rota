@@ -22,7 +22,7 @@ function AppSidebar() {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    setIsManager(user.user_type !== "Employee");
+    setIsManager(user?.user_type !== "Employee");
   }, []);
 
   return (
@@ -32,7 +32,7 @@ function AppSidebar() {
           <HiTable />
           <span className="sidebar-text">Dashboard</span>
         </li>
-        <li href="#" label="Pro" labelColor="dark">
+        <li href="#" label="Pro">
           <HiViewBoards />
           <NavLink to="/rota">
             <span className="sidebar-text">My Timetable</span>
