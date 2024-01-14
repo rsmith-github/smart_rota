@@ -233,15 +233,6 @@ h4 {
   }
 }
 
-.rota {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  color: white;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .rota-right-side {
   width: 85%;
   padding-top: 50px;
@@ -472,6 +463,15 @@ svg line {
 }
 
 /* Team */
+
+.page-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+}
 
 #team {
   display: grid;

@@ -83,7 +83,7 @@ function Rota() {
   }
 
   return (
-    <div className="rota">
+    <div className="rota page-container">
       <AppSidebar />
       <div className="rota-right-side">
         <div id="buttons-container">
