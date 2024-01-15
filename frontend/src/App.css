@@ -292,21 +292,6 @@ svg line {
   stroke: white;
 }
 
-.slide-up {
-  animation: slide-up 1s forwards;
-  /* transition: transform 0.5s ease-out; */
-  transform: translateY(100%);
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0%);
-  }
-}
-
 .slide-in-left {
   animation: slide-in-left 1s forwards;
   transform: translateX(0%);
@@ -786,8 +771,9 @@ iframe {
 
 /* Dashboard */
 
-.page-location-text {
-  color: rgba(219, 218, 218, 0.793)
+.page-location-text,
+.dbrd-item-title {
+  color: rgba(219, 218, 218, 0.793);
 }
 
 .page-title {
@@ -796,4 +782,40 @@ iframe {
 
 .right-side {
   margin: 50px;
+  margin-right: 0px;
+}
+
+#dashboard-top {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+}
+
+.dashboard-item {
+  width: 150px;
+  border: 2px solid rgba(45, 26, 121, 0.553);
+  padding: 10px 8px;
+  border-radius: 10px;
+  background-color: rgba(45, 26, 121, 0.553);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dbrd-item-title {
+  font-size: small;
+}
+
+.dbrd-item-text {
+  margin: 0;
+  font-size: large;
+  font-weight: 500;
+}
+
+.icon-circle {
+  border-radius: 50%;
+  background-color: rgba(35, 20, 93, 0.505);
+  display: flex;
+  padding: 8px;
 }

@@ -5,17 +5,14 @@ import { useSelector } from "react-redux";
 import { pointer } from "d3";
 import { logout } from "../features/user";
 
-
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated, user, username, _loading } = useSelector(
+  const { isAuthenticated, user, username } = useSelector(
     (state) => state.user
   );
-
-  const navigate = useNavigate();
 
   // Add this useEffect hook
   useEffect(() => {
@@ -62,17 +59,9 @@ function NavBar() {
           Home
         </NavLink>
       </li>
-      {user && user.user_type === "Manager" && (
-        <li>
-          <NavLink className="spa-link" to="/team">
-            Team
-          </NavLink>
-        </li>
-      )}
-      {/* Team should only be displayed if user is type manager. */}
       <li>
-        <NavLink className="spa-link" to="/rota">
-          My Rota
+        <NavLink className="spa-link" to="/dashboard">
+          Dashboard
         </NavLink>
       </li>
       <li>

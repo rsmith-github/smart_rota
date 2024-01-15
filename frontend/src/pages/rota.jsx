@@ -25,7 +25,7 @@ function Rota() {
       today.getDate() - today.getDay() + 6
     )
   );
-  const [animationClass, setAnimationClass] = useState("slide-up");
+  const [animationClass, setAnimationClass] = useState("");
   const [shiftsData, setShiftsData] = useState({});
   const accessToken = getCookie("access_token");
 

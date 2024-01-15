@@ -1,6 +1,3 @@
-
-
-import { showTimeline } from './d3.js';
 import { hidePages } from './main.js';
 
 // Create months object to format months in date.
@@ -19,7 +16,7 @@ createMonthsObj();
 // Define the start and end dates of the current week
 let startOfWeek = null;
 let endOfWeek = null;
-export function viewRota(button = "up") {
+export function viewRota(button) {
     // Hide all other pages and display the rota page
     hidePages();
 
@@ -56,9 +53,7 @@ export function viewRota(button = "up") {
     datelist.forEach((element) => {
         let div = document.createElement("div");
         div.className = "date-div";
-        if (button === "up") {
-            div.classList.add("slide-up")
-        } else if (button === "left") {
+        if (button === "left") {
             div.classList.add("slide-in-left")
         } else if (button === "right") {
             div.classList.add("slide-in-right")
@@ -70,7 +65,6 @@ export function viewRota(button = "up") {
 
     // remove animations on animation end.
     window.addEventListener("animationend", (event) => {
-        event.target.classList.remove("slide-up")
         event.target.classList.remove("slide-in-left")
         event.target.classList.remove("slide-out-left")
         event.target.classList.remove("slide-in-right")
@@ -118,30 +112,4 @@ export function viewRota(button = "up") {
     // append buttons parent.
     rota.prepend(buttonsContainer);
 
-    showTimeline();
-
-}
-
-
-function countLeapYears(date) {
-    date.setFullYear(date.getFullYear())
-    let leapYearCount = 0
-    // Go down year by year until year is equal to 1.
-    while (date.getFullYear() != 1) {
-        date.setFullYear(date.getFullYear() - 1)
-        if (isLeapYear(date)) {
-            leapYearCount++
-        }
-    }
-    return leapYearCount
-}
-
-function isLeapYear(date) {
-
-    // Set the date to february 29
-    date.setDate(29)
-    date.setMonth(1)
-
-    // If month doesn't switch to march, return true.
-    return date.getMonth() == 1 && date.getDate() == 29
 }

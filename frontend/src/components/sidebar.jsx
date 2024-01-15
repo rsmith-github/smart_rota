@@ -3,7 +3,7 @@ import {
   HiArrowSmLeft,
   HiInbox,
   HiTable,
-  HiUser,
+  HiUserGroup,
   HiViewBoards,
 } from "react-icons/hi";
 
@@ -48,7 +48,7 @@ function AppSidebar() {
         </li>
         {isManager && (
           <li href="#">
-            <HiUser />
+            <HiUserGroup />
             <NavLink to="/team">
               <span className="sidebar-text">My Team</span>
             </NavLink>

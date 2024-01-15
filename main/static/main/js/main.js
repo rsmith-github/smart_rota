@@ -91,13 +91,6 @@ async function showPage(page) {
             break;
     }
 
-    // fetch(`/api/${section}`)
-    //     .then(response => response.text())
-    //     .then(text => {
-    //         console.log(text);
-    //         document.querySelector('#content').innerHTML = text;
-    //     });
-
 }
 
 
