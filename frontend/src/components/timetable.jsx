@@ -121,8 +121,6 @@ const TimeTable = (props) => {
       };
     });
 
-    console.log("initial table------- \n", initialTable);
-
     setTimeTable(initialTable);
   };
 

@@ -16,8 +16,6 @@ function NavBar() {
 
   // Add this useEffect hook
   useEffect(() => {
-    console.log("Username in useEffect: ", username);
-    console.log("User in useEffect: ", user);
     const navbar = document.querySelector(".navContainer");
     const sticky = navbar.offsetTop;
 
@@ -34,7 +32,7 @@ function NavBar() {
       window.removeEventListener("scroll", stickyNav);
     };
   }, []);
-  // End of useEffect hook
+
   function showMenu() {
     setIsMenuOpen(!isMenuOpen);
   }

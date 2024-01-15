@@ -11,7 +11,6 @@ import { motion, easeIn } from "framer-motion";
 import Spline from "@splinetool/react-spline";
 
 function Homepage() {
-  const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
   const accessToken = getCookie("access_token");
 
@@ -21,7 +20,6 @@ function Homepage() {
 
   return (
     <div>
-      <input type="hidden" id="current-user" value={user} />
       <motion.div
         className="welcome-text"
         initial={{

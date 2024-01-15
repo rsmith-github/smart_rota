@@ -853,6 +853,17 @@ iframe {
   border: none;
 }
 
+
+.sbnav-active {
+  width: 95%;
+  border-right: 3px solid rgba(255, 255, 255, 0.62);
+  padding-bottom: 5px;
+}
+
+.sbnav-active svg {
+  color: rgba(255, 255, 255, 0.62);
+}
+
 @media (max-width: 1130px) {
   .sidebar {
     padding-left: 5px;

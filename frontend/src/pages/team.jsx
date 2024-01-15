@@ -8,10 +8,7 @@ import AppSidebar from "../components/sidebar";
 import { useSelector } from "react-redux";
 
 function Team() {
-  const [team, setTeam] = useState([
-    { id: 123, fields: { username: "DEV", email: "DEV@gmail.com" } },
-    { id: 123, fields: { username: "jasper", email: "jasper@gmail.com" } },
-  ]);
+  const [team, setTeam] = useState([]);
 
   const [formVisible, setFormVisible] = useState(false);
   const accessToken = getCookie("access_token");
@@ -71,8 +68,8 @@ function Team() {
               {team.map((member) => (
                 <div
                   className="team-member"
-                  key={member.id}
-                  id={"team-member-" + member.id}
+                  key={"member-" + member.pk}
+                  id={"team-member-" + member.pk}
                   data-username={member.fields.username}
                   onClick={openMemberForm}
                 >

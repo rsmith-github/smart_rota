@@ -12,11 +12,15 @@ import { NavLink } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
+import { useLocation } from "react-router-dom";
+
 import { logout } from "../features/user";
 
 function AppSidebar() {
   const [isManager, setIsManager] = useState(false);
   const dispatch = useDispatch();
+
+  const location = useLocation().pathname;
 
   // Get user to check type and display correct menu items.
   const { user } = useSelector((state) => state.user);
@@ -28,33 +32,33 @@ function AppSidebar() {
   return (
     <div id="sidebar-container">
       <ul className="sidebar">
-        <li href="#">
+        <li className={location === "/dashboard" ? "sbnav-active" : ""}>
           <HiTable />
           <NavLink to="/dashboard">
             <span className="sidebar-text">Dashboard</span>
           </NavLink>
         </li>
-        <li href="#" label="Pro">
+        <li className={location === "/rota" ? "sbnav-active" : ""}>
           <HiViewBoards />
           <NavLink to="/rota">
             <span className="sidebar-text">My Timetable</span>
           </NavLink>
         </li>
-        <li href="#" label="3">
+        <li className={location === "/messages" ? "sbnav-active" : ""}>
           <HiInbox />
           <NavLink to="/messages">
             <span className="sidebar-text">Messages</span>
           </NavLink>
         </li>
         {isManager && (
-          <li href="#">
+          <li className={location === "/team" ? "sbnav-active" : ""}>
             <HiUserGroup />
             <NavLink to="/team">
               <span className="sidebar-text">My Team</span>
             </NavLink>
           </li>
         )}
-        <li href="#">
+        <li>
           <HiArrowSmLeft />
           <a onClick={() => dispatch(logout())}>
             <span className="sidebar-text">Logout</span>{" "}
