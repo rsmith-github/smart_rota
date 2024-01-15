@@ -286,11 +286,6 @@ h4 {
   margin-bottom: 10px;
 }
 
-svg path,
-svg text,
-svg line {
-  stroke: white;
-}
 
 .slide-in-left {
   animation: slide-in-left 1s forwards;
@@ -846,6 +841,7 @@ iframe {
   width: 48.5%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .dbrd-bottom-eigth {
   width: 48%;
