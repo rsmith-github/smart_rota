@@ -472,12 +472,12 @@ svg line {
 }
 
 #team {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 20px;
-  width: 80%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   text-align: center;
 }
 
@@ -488,6 +488,7 @@ svg line {
   padding: 20px;
   color: white;
   cursor: pointer;
+  width: 200px;
 }
 
 .team-member h3 {
@@ -781,4 +782,18 @@ iframe {
 }
 ::-webkit-scrollbar {
   width: 10px;
+}
+
+/* Dashboard */
+
+.page-location-text {
+  color: rgba(219, 218, 218, 0.793)
+}
+
+.page-title {
+  margin-top: 10px;
+}
+
+.right-side {
+  margin: 50px;
 }

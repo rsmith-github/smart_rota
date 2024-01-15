@@ -64,20 +64,24 @@ function Team() {
       {team.length > 0 ? (
         <div className="page-container">
           <AppSidebar />
-          <div id="team">
-            {team.map((member) => (
-              <div
-                className="team-member"
-                key={member.id}
-                id={"team-member-" + member.id}
-                data-username={member.fields.username}
-                onClick={openMemberForm}
-              >
-                <span className="username">{member.fields.username}</span>
-                <br />
-                {member.fields.email}
-              </div>
-            ))}
+          <div className="right-side" style={{ width: "80%" }}>
+            <span className="page-location-text">Pages / Team</span>
+            <h1 className="page-title">Team Page</h1>
+            <div id="team">
+              {team.map((member) => (
+                <div
+                  className="team-member"
+                  key={member.id}
+                  id={"team-member-" + member.id}
+                  data-username={member.fields.username}
+                  onClick={openMemberForm}
+                >
+                  <span className="username">{member.fields.username}</span>
+                  <br />
+                  {member.fields.email}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ) : (

@@ -11,7 +11,11 @@ function Dashboard() {
   return (
     <div className="page-container">
       <AppSidebar />
-      <h1>Dashboard</h1>
+
+      <div className="right-side">
+        <span className="page-location-text">Pages / Dashboard</span>
+        <h1 className="page-title">Main Dashboard</h1>
+      </div>
     </div>
   );
 }

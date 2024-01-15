@@ -12,7 +12,10 @@ function Messages() {
   return (
     <div className="page-container">
       <AppSidebar />
-      <h1>Messages Page</h1>
+      <div className="right-side">
+        <span className="page-location-text">Pages / Messages</span>
+          <h1 className="page-title">Messages Page</h1>
+      </div>
     </div>
   );
 }
