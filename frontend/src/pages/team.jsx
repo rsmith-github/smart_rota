@@ -5,6 +5,8 @@ import { getCookie } from "../features/user";
 import TimeTable from "../components/timetable";
 import AppSidebar from "../components/sidebar";
 
+import { useSelector } from "react-redux";
+
 function Team() {
   const [team, setTeam] = useState([
     { id: 123, fields: { username: "DEV", email: "DEV@gmail.com" } },
@@ -12,11 +14,9 @@ function Team() {
   ]);
 
   const [formVisible, setFormVisible] = useState(false);
-
   const accessToken = getCookie("access_token");
-  if (!accessToken) {
-    return <Navigate to="/login" />;
-  }
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   useEffect(() => {
     async function fetchTeam() {
@@ -34,7 +34,7 @@ function Team() {
       setTeam(jsonData);
     }
     fetchTeam();
-  }, []);
+  }, [user]);
 
   const [timeTableOwner, setTimeTableOwner] = useState("");
   const openMemberForm = (e) => {
@@ -54,10 +54,10 @@ function Team() {
       </div>
     );
   }
-  // DEV
-  // if (!accessToken) {
-  //   return <Navigate to="/login" />;
-  // }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>

@@ -93,7 +93,6 @@ export const login = createAsyncThunk(
             });
 
             const data = await res.json();
-            console.log("🚀 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ file: user.js:96 ~ data:", data)
 
             // will look somehing like
             // {
