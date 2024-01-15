@@ -3,18 +3,14 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import DashboardTop from "../components/dashboard-top";
 import DashboardBottom from "../components/dashboard-bottom";
-import { getCookie } from "../features/user";
+
+import LoadingScreen from "../components/loading-screen";
 
 function Dashboard() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   if (!user) {
-    return (
-      <div className="page-container">
-        <AppSidebar />
-        <div>Loading...</div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!isAuthenticated) {

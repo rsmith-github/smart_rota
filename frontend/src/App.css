@@ -871,7 +871,6 @@ iframe {
 @keyframes hlight {
   from {
     border-right: 1px solid transparent;
-
   }
   to {
     border-right: 3px solid rgba(255, 255, 255, 0.62);
@@ -902,4 +901,11 @@ iframe {
   .dbrd-bottom-eigth {
     width: 88;
   }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55vh;
 }

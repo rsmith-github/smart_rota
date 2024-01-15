@@ -6,6 +6,7 @@ import { getTeamMemberShiftsData } from "../components/timetable";
 import Timeline from "../components/timeline";
 import AppSidebar from "../components/sidebar";
 import convertId from "../heplers/convertId";
+import LoadingScreen from "../components/loading-screen";
 
 import { getDates } from "../heplers/rota-helpers";
 
@@ -77,6 +78,12 @@ function Rota() {
   };
 
   const handleAnimationEnd = () => setAnimationClass("");
+
+  if (!user) {
+    <div className="page-container">
+      <AppSidebar />
+    </div>;
+  }
 
   if (!accessToken) {
     return <Navigate to="/login" />;

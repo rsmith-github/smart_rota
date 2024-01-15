@@ -2,18 +2,15 @@ import AppSidebar from "../components/sidebar";
 
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LoadingScreen from "../components/loading-screen";
 
 function Messages() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   if (!user) {
-    return (
-      <div className="page-container">
-        <AppSidebar />
-        <div>Loading...</div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
+
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
   }

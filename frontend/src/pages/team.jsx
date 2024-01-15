@@ -5,6 +5,8 @@ import { getCookie } from "../features/user";
 import TimeTable from "../components/timetable";
 import AppSidebar from "../components/sidebar";
 
+import LoadingScreen from "../components/loading-screen";
+
 import { useSelector } from "react-redux";
 
 function Team() {
@@ -53,12 +55,7 @@ function Team() {
   }
 
   if (!user) {
-    return (
-      <div className="page-container">
-        <AppSidebar />
-        <div>Loading...</div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!isAuthenticated) {
@@ -93,15 +90,7 @@ function Team() {
       ) : (
         <div className="page-container">
           <AppSidebar />
-          <div
-            id="team"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "60vh",
-            }}
-          >
+          <div id="team" className="loading-container">
             <p style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>
               No team members yet
             </p>
