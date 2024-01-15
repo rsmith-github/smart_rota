@@ -52,6 +52,15 @@ function Team() {
     );
   }
 
+  if (!user) {
+    return (
+      <div className="page-container">
+        <AppSidebar />
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }

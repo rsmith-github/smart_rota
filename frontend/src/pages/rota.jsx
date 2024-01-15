@@ -88,7 +88,7 @@ function Rota() {
       <div className="rota-right-side">
         <div id="buttons-container">
           <button
-            className="weeks-button"
+            className="primary-button"
             onClick={() => {
               changeWeek("prev");
             }}
@@ -96,7 +96,7 @@ function Rota() {
             Previous Week
           </button>
           <button
-            className="weeks-button"
+            className="primary-button"
             onClick={() => {
               changeWeek("next");
             }}

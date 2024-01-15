@@ -286,7 +286,6 @@ h4 {
   margin-bottom: 10px;
 }
 
-
 .slide-in-left {
   animation: slide-in-left 1s forwards;
   transform: translateX(0%);
@@ -330,9 +329,9 @@ h4 {
   margin-bottom: 0;
 }
 
-.weeks-button {
+.primary-button {
   background-color: transparent;
-  border: 3.5px solid white;
+  border: 2px solid white;
   border-radius: 10px;
   color: white;
   width: 200px;
@@ -342,8 +341,18 @@ h4 {
   font-weight: bold;
 }
 
-.weeks-button:hover {
+.primary-button:hover {
   background-color: rgba(255, 255, 255, 0.536);
+}
+
+.green:hover {
+  background-color: rgba(0, 255, 127, 0.536);
+  color: rgb(0, 62, 31);
+}
+
+.red:hover {
+  background-color: rgb(255, 0, 0, 0.536);
+  color: rgba(0, 0, 0, 0.711);
 }
 
 #buttons-container {
@@ -853,11 +862,20 @@ iframe {
   border: none;
 }
 
-
 .sbnav-active {
   width: 95%;
   border-right: 3px solid rgba(255, 255, 255, 0.62);
-  padding-bottom: 5px;
+  animation: hlight 0.5s ease-in;
+}
+
+@keyframes hlight {
+  from {
+    border-right: 1px solid transparent;
+
+  }
+  to {
+    border-right: 3px solid rgba(255, 255, 255, 0.62);
+  }
 }
 
 .sbnav-active svg {

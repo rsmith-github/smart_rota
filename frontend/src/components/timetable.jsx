@@ -62,6 +62,10 @@ const TimeTable = (props) => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(
+      "🚀 ~ file: timetable.jsx:66 ~ handleSubmit ~ e.target:",
+      e.target
+    );
     e.preventDefault();
     // Send the timeTable data to the server
     console.log(timeTable);
@@ -93,12 +97,10 @@ const TimeTable = (props) => {
     let currentUsersShifts = await getTeamMemberShiftsData(props);
 
     const initialTable = weekRange.map((date) => {
-
       // format e.g. 09-01-24 to 9-1-24
       const formattedKey = convertId(date);
 
       if (currentUsersShifts[formattedKey]) {
-
         let shift = currentUsersShifts[formattedKey];
 
         return {
@@ -135,7 +137,14 @@ const TimeTable = (props) => {
         <div className="timetable-header">
           <div></div>
           <h4>{props.timeTableOwner}'s Timetable</h4>
-          <button onClick={onClick}>X</button>
+          <button
+            onClick={(e) => {
+              handleSubmit(e);
+              onClick();
+            }}
+          >
+            X
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} action="">
@@ -156,7 +165,38 @@ const TimeTable = (props) => {
               )}
             </>
           ))}
-          <button type="submit">Save</button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "20px 0",
+            }}
+          >
+            <button
+              type="submit"
+              className="primary-button green"
+              style={{
+                width: "49.5%",
+                border: "2px solid springgreen",
+              }}
+            >
+              Save Changes
+            </button>
+            <button
+              type="submit"
+              className="primary-button red"
+              style={{
+                width: "49.5%",
+                border: "2px solid red",
+              }}
+              onClick={(e) => {
+                handleSubmit(e);
+                onClick();
+              }}
+            >
+              Save And Close
+            </button>
+          </div>
         </form>
       </div>
     </div>
