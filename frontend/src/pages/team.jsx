@@ -54,6 +54,7 @@ function Team() {
     );
   }
 
+  // causing bug when logout.
   if (!user) {
     return <LoadingScreen />;
   }
