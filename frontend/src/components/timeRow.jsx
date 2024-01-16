@@ -78,8 +78,8 @@ const TimeRow = (props) => {
                 day={props.day}
                 shiftType="morningShift"
                 shiftTime="start"
-                handleChange={props.handleMorningShiftStartChange}
-                index={props.index}
+                handleChange={props?.handleMorningShiftStartChange}
+                index={props?.index}
               />
             </LocalizationProvider>
           </div>
@@ -90,8 +90,8 @@ const TimeRow = (props) => {
                 day={props.day}
                 shiftType="morningShift"
                 shiftTime="end"
-                handleChange={props.handleMorningShiftEndChange}
-                index={props.index}
+                handleChange={props?.handleMorningShiftEndChange}
+                index={props?.index}
               />
             </LocalizationProvider>
           </div>
@@ -104,8 +104,8 @@ const TimeRow = (props) => {
                 day={props.day}
                 shiftType="eveningShift"
                 shiftTime="start"
-                handleChange={props.handleEveningShiftStartChange}
-                index={props.index}
+                handleChange={props?.handleEveningShiftStartChange}
+                index={props?.index}
               />
             </LocalizationProvider>
           </div>
@@ -116,8 +116,8 @@ const TimeRow = (props) => {
                 day={props.day}
                 shiftType="eveningShift"
                 shiftTime="end"
-                handleChange={props.handleEveningShiftEndChange}
-                index={props.index}
+                handleChange={props?.handleEveningShiftEndChange}
+                index={props?.index}
               />
             </LocalizationProvider>
           </div>

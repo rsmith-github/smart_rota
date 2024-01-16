@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import dayjs from "dayjs";
 
 import TimeRow from "./timeRow";
+import TimeTableSkeleton from "./timetable-skeleton";
+
 import convertId from "../heplers/convertId";
 
 export async function getTeamMemberShiftsData(props) {
@@ -24,6 +26,7 @@ const TimeTable = (props) => {
   };
 
   const [timeTable, setTimeTable] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleMorningShiftStartChange = (dayIndex, time) => {
     const formattedTime = dayjs(time).format("HH:mm");
@@ -62,13 +65,8 @@ const TimeTable = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(
-      "🚀 ~ file: timetable.jsx:66 ~ handleSubmit ~ e.target:",
-      e.target
-    );
     e.preventDefault();
     // Send the timeTable data to the server
-    console.log(timeTable);
     const response = await fetch("/api/update-timetable", {
       method: "POST",
       headers: {
@@ -124,6 +122,7 @@ const TimeTable = (props) => {
     });
 
     setTimeTable(initialTable);
+    setIsLoading(false);
   };
 
   // Generate the initial time table for the next week
@@ -148,23 +147,29 @@ const TimeTable = (props) => {
         </div>
 
         <form onSubmit={handleSubmit} action="">
-          {timeTable.map((day, index) => (
-            <>
-              <TimeRow
-                day={day}
-                index={index}
-                handleEveningShiftStartChange={handleEveningShiftStartChange}
-                handleEveningShiftEndChange={handleEveningShiftEndChange}
-                handleMorningShiftStartChange={handleMorningShiftStartChange}
-                handleMorningShiftEndChange={handleMorningShiftEndChange}
-              />
-              {index !== timeTable.length - 1 ? (
-                <span className="br-as-line"></span>
-              ) : (
-                <br />
-              )}
-            </>
-          ))}
+          {isLoading ? (
+            <div style={{ height: "85vh" }}>
+              <TimeTableSkeleton />
+            </div>
+          ) : (
+            timeTable.map((day, index) => (
+              <>
+                <TimeRow
+                  day={day}
+                  index={index}
+                  handleEveningShiftStartChange={handleEveningShiftStartChange}
+                  handleEveningShiftEndChange={handleEveningShiftEndChange}
+                  handleMorningShiftStartChange={handleMorningShiftStartChange}
+                  handleMorningShiftEndChange={handleMorningShiftEndChange}
+                />
+                {index !== timeTable.length - 1 ? (
+                  <span className="br-as-line"></span>
+                ) : (
+                  <br />
+                )}
+              </>
+            ))
+          )}
           <div
             style={{
               display: "flex",
