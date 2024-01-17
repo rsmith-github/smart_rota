@@ -51,7 +51,7 @@ function Rota() {
     }, 500);
   };
 
-  const { user } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (accessToken) {
@@ -78,7 +78,7 @@ function Rota() {
 
   const handleAnimationEnd = () => setAnimationClass("");
 
-  if (!accessToken) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 

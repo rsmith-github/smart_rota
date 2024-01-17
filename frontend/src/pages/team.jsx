@@ -15,7 +15,7 @@ function Team() {
   const [formVisible, setFormVisible] = useState(false);
   const accessToken = getCookie("access_token");
 
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     async function fetchTeam() {
@@ -33,7 +33,7 @@ function Team() {
       setTeam(jsonData);
     }
     fetchTeam();
-  }, [user]);
+  }, []);
 
   const [timeTableOwner, setTimeTableOwner] = useState("");
   const openMemberForm = (e) => {
@@ -54,13 +54,12 @@ function Team() {
     );
   }
 
-  // causing bug when logout.
-  if (!user) {
-    return <LoadingScreen />;
-  }
-
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
+  }
+
+  if (loading) {
+    return <LoadingScreen />;
   }
 
   return (

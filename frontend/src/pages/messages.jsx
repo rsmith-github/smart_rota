@@ -5,10 +5,14 @@ import { useSelector } from "react-redux";
 import LoadingScreen from "../components/loading-screen";
 
 function Messages() {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
-  if (!user) {
-    return <LoadingScreen />;
+  if (!isAuthenticated) {
+    return <Navigate to={"/login"} />;
+  }
+
+  if (loading) {
+    <LoadingScreen />;
   }
 
   if (!isAuthenticated) {
