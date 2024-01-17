@@ -1,20 +1,87 @@
-This is a non-industry-specific rota-management system built to solve the problem of imperfect time management due to flaws in human memory. Many times managers will have to ask their emoloyees what time their shift started and ended. With Honest Hours, employees are able to request changes after the rotas have been closed, if the rotas are incorrect. For the most part, rotas will be closed correctly anyway. However, for those occasions where the manager just didnt have time to check with the employee, or simply forgot, the emplpyees can request a change. After a request has been made, a manager can then approve the request.
+## Overview
 
-LANDING PAGE
-hello, welcome etc.
+Rota Management System is a comprehensive, non-industry-specific rota-management platform designed to streamline time management and enhance communication between management and team members. It addresses common challenges in shift management, such as memory lapses and inaccuracies in shift timings, by empowering employees to request changes to their rotas and enabling managers to approve these requests efficiently.
 
-CREATE PROFILE
-What different kinds of users do we need?
+## Features
 
-First we might need a "server" for users of the same company to interact.
-Second, we need to differentiate between managers and employees within a company.
-Managers are able to set rotas and edit rotas.
-Employees are able to request a change in a rota that has been alreaduy been closed.
+### Landing Page
 
--- When signing up, users will be asked to provide a randomly generated unique code to enter a specific work environment
--- Once entered, users will be
+- A welcoming interface introducing users to the system.
+- Interactive elements and animations for an engaging user experience.
 
+### User Profiles
 
-Black and blue gradient is the landing page. That's the theme too. Use some white as well. But mostly dark mode.
+- Distinct roles for managers and employees within a company.
+- Managers can set and edit rotas.
+  Employees can request changes to closed rotas.
 
--- Register a business button
+### Company Server
+
+- A unique server for users of the same company to interact.
+- Secure and isolated environment for each company.
+
+### Sign-Up Process
+
+- Users provide a unique code to join a specific work environment.
+- Streamlined process to guide users to their respective homepages.
+
+### Dashboard
+
+- Centralized area for accessing various functionalities.
+- Visual representations and summaries of rotas and requests.
+
+### Timetable
+
+- Detailed view of individual and team rotas.
+- Interactive interface for easy understanding of shift schedules.
+
+### Messaging System
+
+- Platform for communication between managers, employees, and colleagues.
+- Facilitates seamless coordination and information sharing.
+
+### Shift Change Requests
+
+- Employees can submit requests for rota changes.
+- Managers receive notifications and can approve or decline requests.
+
+### Technology Stack
+
+Frontend: React, Redux for state management, Framer Motion for animations.
+Backend: Django, providing robust and secure server-side functionality.
+
+## Getting Started
+
+To get started with the Rota Management System, clone the repository and follow the setup instructions for both frontend (React) and backend (Django) environments.
+
+## Prerequisites
+
+Node.js and npm
+Python and Django
+
+## Installation
+
+- Clone the repository.
+- Navigate to the frontend directory and install dependencies:
+  `npm install`
+
+## Start the React server:
+
+### Dev
+
+- `npm run dev`
+
+### Prod
+
+- `npm run build`
+- Open localhost:8000
+
+## Run the Django server.
+
+- Navigate to the backend directory and set up the Django environment.
+
+- run `python3 manage.py runserver`
+
+## License
+
+This project is licensed under the MIT License.
