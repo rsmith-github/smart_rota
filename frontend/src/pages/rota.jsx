@@ -112,6 +112,7 @@ function Rota() {
               animationClass={animationClass}
               handleAnimationEnd={handleAnimationEnd}
               shiftsData={shiftsData}
+              user={user}
             />
           ))}
         </div>
@@ -119,8 +120,20 @@ function Rota() {
     </div>
   );
 }
-function DateDiv({ date, animationClass, handleAnimationEnd, shiftsData }) {
+
+function DateDiv({
+  date,
+  animationClass,
+  handleAnimationEnd,
+  shiftsData,
+  user,
+}) {
   const shiftData = shiftsData[convertId(date.id)];
+  const changeShift = () => {
+    
+  };
+  
+  
 
   return (
     <div
@@ -137,10 +150,25 @@ function DateDiv({ date, animationClass, handleAnimationEnd, shiftsData }) {
             {shiftsData[convertId(date.id)]?.morning_shift}
           </span>
           <br />
-          <span className="shift-text">
-            <span className="shift-title">🌙 : </span>
-            {shiftsData[convertId(date.id)]?.evening_shift}
-          </span>
+          {user.user_type === "Employee" ? (
+            <div className="request-change-container">
+              <span className="shift-text">
+                <span className="shift-title">🌙 : </span>
+                {shiftsData[convertId(date.id)]?.evening_shift}
+              </span>
+              <div>
+                <span>Something wrong?</span>
+                <button className="primary-button" onClick={changeShift}>
+                  Request Change
+                </button>
+              </div>
+            </div>
+          ) : (
+            <span className="shift-text">
+              <span className="shift-title">🌙 : </span>
+              {shiftsData[convertId(date.id)]?.evening_shift}
+            </span>
+          )}
         </>
       ) : (
         // Display for day off

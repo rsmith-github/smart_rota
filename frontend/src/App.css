@@ -909,3 +909,20 @@ iframe {
   align-items: center;
   height: 55vh;
 }
+
+
+.request-change-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  align-items: center;
+}
+
+.request-change-container button {
+  height: 30px;
+  font-size: small;
+  width: 150px;
+  margin-left: 10px;
+  font-weight: 400;
+  border: 1px solid white;
+}
