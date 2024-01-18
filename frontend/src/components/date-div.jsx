@@ -3,7 +3,7 @@ import { useState } from "react";
 import TimeRow from "../components/timeRow";
 import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function DateDiv({
   date,
@@ -76,46 +76,47 @@ function DateDiv({
                 </div>
               </div>
               <form action="">
-                {opened && (
-                  <motion.div
-                    className="rota-timepicker"
-                    initial={{
-                      height: 0,
-                      margin: 0,
-                    }}
-                    transition={{
-                      duration: 1,
-                      delay: 0,
-                    }}
-                    animate={{
-                      //   opacity: 1,
-                      height: 60,
-                      margin: 35,
-                    }}
-                  >
+                <AnimatePresence>
+                  {opened && (
                     <motion.div
+                      className="rota-timepicker"
                       initial={{
+                        height: 0,
+                        margin: 0,
+                      }}
+                      animate={{
+                        height: 60,
+                        margin: 35,
+                      }}
+                      exit={{
+                        height: 0,
+                        margin: 0,
                         opacity: 0,
                       }}
                       transition={{
-                        duration: 0.5,
-                        delay: 0.5,
-                      }}
-                      animate={{
-                        opacity: 1,
+                        duration: 1,
                       }}
                     >
-                      <TimeRow
-                        day={currentShiftData}
-                        // index={index}
-                        // handleEveningShiftStartChange={handleEveningShiftStartChange}
-                        // handleEveningShiftEndChange={handleEveningShiftEndChange}
-                        // handleMorningShiftStartChange={handleMorningShiftStartChange}
-                        // handleMorningShiftEndChange={handleMorningShiftEndChange}
-                      />
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                        }}
+                        transition={{
+                          duration: 0.5,
+                          delay: 0.5,
+                        }}
+                      >
+                        <TimeRow
+                          day={currentShiftData}
+                          // other props
+                        />
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                )}
+                  )}
+                </AnimatePresence>
               </form>
             </>
           ) : (
