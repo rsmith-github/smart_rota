@@ -345,6 +345,23 @@ h4 {
   background-color: rgba(255, 255, 255, 0.536);
 }
 
+.red-green-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.green,
+.red {
+  width: 49.5%;
+  border: 2px solid;
+}
+.red {
+  border-color: red;
+}
+.green {
+  border-color: springgreen;
+}
 .green:hover {
   background-color: rgba(0, 255, 127, 0.536);
   color: rgb(0, 62, 31);
@@ -910,7 +927,6 @@ iframe {
   height: 55vh;
 }
 
-
 .request-change-container {
   display: flex;
   justify-content: space-between;
@@ -918,11 +934,45 @@ iframe {
   align-items: center;
 }
 
-.request-change-container button {
+#request-change-button {
   height: 30px;
   font-size: small;
   width: 150px;
   margin-left: 10px;
   font-weight: 400;
   border: 1px solid white;
+}
+
+.hidden {
+  display: none;
+}
+
+.rota-timepicker {
+  margin: 25px 0 30px 0;
+}
+
+.rota-timepicker input,
+.rota-timepicker path {
+  color: white;
+}
+
+.rota-timepicker .day-of-the-week {
+  display: none;
+}
+
+.rota-timepicker .start-end-item {
+  font-size: small;
+}
+.rota-timepicker .timeset,
+.rota-timepicker fieldset,
+.rota-timepicker .MuiTextField-root {
+  width: 150px;
+}
+.rota-timepicker fieldset {
+  padding: 0;
+}
+
+.rota-timepicker .MuiInputBase-input {
+  padding-top: 9px;
+  padding-bottom: 9px;
 }

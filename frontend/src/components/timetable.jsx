@@ -83,7 +83,6 @@ const TimeTable = (props) => {
     const startOfWeek = dayjs().startOf("week").add(7, "day"); // Start from next Monday
     const endOfWeek = startOfWeek.add(7, "day"); // End on next Sunday
 
-    // console.log(startOfWeek, endOfWeek);
     const weekRange = [];
     let currentDate = startOfWeek;
 
@@ -170,30 +169,13 @@ const TimeTable = (props) => {
               </>
             ))
           )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "20px 0",
-            }}
-          >
-            <button
-              type="submit"
-              className="primary-button green"
-              style={{
-                width: "49.5%",
-                border: "2px solid springgreen",
-              }}
-            >
+          <div className="red-green-container">
+            <button type="submit" className="primary-button green">
               Save Changes
             </button>
             <button
               type="submit"
               className="primary-button red"
-              style={{
-                width: "49.5%",
-                border: "2px solid red",
-              }}
               onClick={(e) => {
                 handleSubmit(e);
                 onClick();

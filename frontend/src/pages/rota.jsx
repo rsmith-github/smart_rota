@@ -3,6 +3,12 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getCookie } from "../features/user";
 import { getTeamMemberShiftsData } from "../components/timetable";
+import { CustomTimePicker } from "../components/timeRow";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+
+import TimeRow from "../components/timeRow";
+
 import Timeline from "../components/timeline";
 import AppSidebar from "../components/sidebar";
 import convertId from "../heplers/convertId";
@@ -129,11 +135,22 @@ function DateDiv({
   user,
 }) {
   const shiftData = shiftsData[convertId(date.id)];
-  const changeShift = () => {
-    
+
+  const currentShiftData = {
+    date: date.id,
+    morningShift: {
+      start: shiftData?.morning_shift.split("-")[0],
+      end: shiftData?.morning_shift.split("-")[1],
+    },
+    eveningShift: {
+      start: shiftData?.evening_shift.split("-")[0],
+      end: shiftData?.evening_shift.split("-")[1],
+    },
   };
-  
-  
+
+  const changeShift = (element) => {
+    document.getElementById(`hidden-${element}`).style.display = "block";
+  };
 
   return (
     <div
@@ -147,26 +164,49 @@ function DateDiv({
         <>
           <span className="shift-text">
             <span className="shift-title">🌞 : </span>
-            {shiftsData[convertId(date.id)]?.morning_shift}
+            {shiftData?.morning_shift}
           </span>
           <br />
           {user.user_type === "Employee" ? (
-            <div className="request-change-container">
-              <span className="shift-text">
-                <span className="shift-title">🌙 : </span>
-                {shiftsData[convertId(date.id)]?.evening_shift}
-              </span>
-              <div>
-                <span>Something wrong?</span>
-                <button className="primary-button" onClick={changeShift}>
-                  Request Change
-                </button>
+            <>
+              <div className="request-change-container">
+                <span className="shift-text">
+                  <span className="shift-title">🌙 : </span>
+                  {shiftData?.evening_shift}
+                </span>
+                <div>
+                  <span>Something wrong?</span>
+                  <button
+                    className="primary-button"
+                    id="request-change-button"
+                    onClick={() => {
+                      changeShift(date.id);
+                    }}
+                  >
+                    Request Change
+                  </button>
+                </div>
               </div>
-            </div>
+              <form action="">
+                <div
+                  className="hidden rota-timepicker"
+                  id={`hidden-${date.id}`}
+                >
+                  <TimeRow
+                    day={currentShiftData}
+                    // index={index}
+                    // handleEveningShiftStartChange={handleEveningShiftStartChange}
+                    // handleEveningShiftEndChange={handleEveningShiftEndChange}
+                    // handleMorningShiftStartChange={handleMorningShiftStartChange}
+                    // handleMorningShiftEndChange={handleMorningShiftEndChange}
+                  />
+                </div>
+              </form>
+            </>
           ) : (
             <span className="shift-text">
               <span className="shift-title">🌙 : </span>
-              {shiftsData[convertId(date.id)]?.evening_shift}
+              {shiftData?.evening_shift}
             </span>
           )}
         </>

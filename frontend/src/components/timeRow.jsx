@@ -24,7 +24,7 @@ const convertToDayjs = (input) => {
   };
 };
 
-const CustomTimePicker = ({
+export const CustomTimePicker = ({
   day,
   shiftType,
   shiftTime,
