@@ -134,6 +134,12 @@ function DateDiv({
   shiftsData,
   user,
 }) {
+  const [opened, setOpened] = useState(false);
+
+  const handleOpen = () => {
+    setOpened(!opened);
+  };
+
   const shiftData = shiftsData[convertId(date.id)];
 
   const currentShiftData = {
@@ -146,10 +152,6 @@ function DateDiv({
       start: shiftData?.evening_shift.split("-")[0],
       end: shiftData?.evening_shift.split("-")[1],
     },
-  };
-
-  const changeShift = (element) => {
-    document.getElementById(`hidden-${element}`).style.display = "block";
   };
 
   return (
@@ -176,31 +178,38 @@ function DateDiv({
                 </span>
                 <div>
                   <span>Something wrong?</span>
-                  <button
-                    className="primary-button"
-                    id="request-change-button"
-                    onClick={() => {
-                      changeShift(date.id);
-                    }}
-                  >
-                    Request Change
-                  </button>
+                  {!opened ? (
+                    <button
+                      className="primary-button"
+                      id="request-change-button"
+                      onClick={handleOpen}
+                    >
+                      Request Change
+                    </button>
+                  ) : (
+                    <button
+                      className="primary-button"
+                      id="request-save-button"
+                      onClick={handleOpen}
+                    >
+                      Save Changes
+                    </button>
+                  )}
                 </div>
               </div>
               <form action="">
-                <div
-                  className="hidden rota-timepicker"
-                  id={`hidden-${date.id}`}
-                >
-                  <TimeRow
-                    day={currentShiftData}
-                    // index={index}
-                    // handleEveningShiftStartChange={handleEveningShiftStartChange}
-                    // handleEveningShiftEndChange={handleEveningShiftEndChange}
-                    // handleMorningShiftStartChange={handleMorningShiftStartChange}
-                    // handleMorningShiftEndChange={handleMorningShiftEndChange}
-                  />
-                </div>
+                {opened && (
+                  <div className="rota-timepicker">
+                    <TimeRow
+                      day={currentShiftData}
+                      // index={index}
+                      // handleEveningShiftStartChange={handleEveningShiftStartChange}
+                      // handleEveningShiftEndChange={handleEveningShiftEndChange}
+                      // handleMorningShiftStartChange={handleMorningShiftStartChange}
+                      // handleMorningShiftEndChange={handleMorningShiftEndChange}
+                    />
+                  </div>
+                )}
               </form>
             </>
           ) : (
