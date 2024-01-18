@@ -3,6 +3,7 @@ import { useState } from "react";
 import TimeRow from "../components/timeRow";
 import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
+import { motion } from "framer-motion";
 
 function DateDiv({
   date,
@@ -76,16 +77,44 @@ function DateDiv({
               </div>
               <form action="">
                 {opened && (
-                  <div className="rota-timepicker">
-                    <TimeRow
-                      day={currentShiftData}
-                      // index={index}
-                      // handleEveningShiftStartChange={handleEveningShiftStartChange}
-                      // handleEveningShiftEndChange={handleEveningShiftEndChange}
-                      // handleMorningShiftStartChange={handleMorningShiftStartChange}
-                      // handleMorningShiftEndChange={handleMorningShiftEndChange}
-                    />
-                  </div>
+                  <motion.div
+                    className="rota-timepicker"
+                    initial={{
+                      height: 0,
+                      margin: 0,
+                    }}
+                    transition={{
+                      duration: 1,
+                      delay: 0,
+                    }}
+                    animate={{
+                      //   opacity: 1,
+                      height: 60,
+                      margin: 35,
+                    }}
+                  >
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.5,
+                      }}
+                      animate={{
+                        opacity: 1,
+                      }}
+                    >
+                      <TimeRow
+                        day={currentShiftData}
+                        // index={index}
+                        // handleEveningShiftStartChange={handleEveningShiftStartChange}
+                        // handleEveningShiftEndChange={handleEveningShiftEndChange}
+                        // handleMorningShiftStartChange={handleMorningShiftStartChange}
+                        // handleMorningShiftEndChange={handleMorningShiftEndChange}
+                      />
+                    </motion.div>
+                  </motion.div>
                 )}
               </form>
             </>

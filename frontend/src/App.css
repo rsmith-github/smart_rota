@@ -948,10 +948,6 @@ iframe {
   display: none;
 } */
 
-.rota-timepicker {
-  margin: 25px 0 30px 0;
-}
-
 .rota-timepicker input,
 .rota-timepicker path {
   color: white;
