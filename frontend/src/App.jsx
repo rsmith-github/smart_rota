@@ -10,7 +10,6 @@ import RegisterEmployee from "./pages/register-employee";
 import RegisterManager from "./pages/register-manager";
 import RegisterCompany from "./pages/register-company";
 import Login from "./pages/login";
-import SignIn from "./components/sign-in";
 import NotFound from "./pages/notfound";
 import Footer from "./components/footer";
 

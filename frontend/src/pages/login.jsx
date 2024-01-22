@@ -54,7 +54,7 @@ function Login() {
             <div className="">
               <input
                 autoFocus
-                className=""
+                className="login-input"
                 type="text"
                 name="username"
                 placeholder="Username"
@@ -63,17 +63,17 @@ function Login() {
             </div>
             <div className="">
               <input
-                className=""
+                className="login-input"
                 type="password"
                 name="password"
                 placeholder="Password"
                 onChange={onChange}
               />
             </div>
-            <input className="btn primary-button" type="submit" value="Login" />
-            <div>
+            <input className="btn primary-button" id="login-btn" type="submit" value="→" />
+            <div style={{color: "white"}}>
               Don't have an account?{" "}
-              <a href="/register-employee">Register here.</a>
+              <a href="/register-employee" className="anchor">Register here.</a>
             </div>
           </form>
         </div>
