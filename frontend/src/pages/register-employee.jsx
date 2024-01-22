@@ -1,6 +1,10 @@
 import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { HiOutlineUserAdd } from "react-icons/hi";
+
+import { motion } from "framer-motion";
+
 import { register } from "../features/user";
 
 function RegisterEmployee() {
@@ -27,68 +31,73 @@ function RegisterEmployee() {
   };
 
   return (
-    <form
-      action="/register-employee"
-      method="post"
-      onSubmit={onSubmit}
+    <motion.div
       className="auth-page"
+      initial={{
+        y: -80,
+        opacity: 0,
+      }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 1,
+      }}
     >
-      <h2>Team Member</h2>
+      <div id="register-page-container">
+        <div className="register-l-side">
+          <h2 className="registerH2">Team Member</h2>
+          <form action="/register-employee" method="post" onSubmit={onSubmit}>
+            <div>
+              <input
+                name="employer_code"
+                className="login-input"
+                type="text"
+                placeholder="Company code"
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <input
+                className="login-input"
+                autoFocus
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <input
+                className="login-input"
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <input
+                className="login-input"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={onChange}
+              />
+            </div>
+            <input
+              className="btn primary-button register-btn"
+              type="submit"
+              value="Register"
+            />
+          </form>
+        </div>
 
-      <div>
-        <p
-          className="info"
-          title="Please enter the code provided by your employer"
-        >
-          ?
-        </p>
-        <input
-          name="employer_code"
-          className=""
-          type="text"
-          placeholder="Company code"
-          onChange={onChange}
-        />
+        <div className="register-r-side">
+          <div className="auth-icon-border" style={{ paddingLeft: "15px" }}>
+            <HiOutlineUserAdd className="auth-icon" />
+          </div>
+        </div>
       </div>
-      <div>
-        <input
-          className=""
-          autoFocus
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <input
-          className=""
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <input
-          className=""
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={onChange}
-        />
-      </div>
-      {/* <div>
-        <input
-          className=""
-          type="password"
-          name="confirmation"
-          placeholder="Confirm Password"
-          onChange={onChange}
-        />
-      </div> */}
-      <input className="btn" type="submit" value="Register" />
-    </form>
+    </motion.div>
   );
 }
 

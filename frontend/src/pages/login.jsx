@@ -40,7 +40,7 @@ function Login() {
       className="auth-page"
       initial={{
         y: -80,
-        opacity: 0
+        opacity: 0,
       }}
       animate={{ y: 0, opacity: 1 }}
       transition={{
@@ -70,10 +70,17 @@ function Login() {
                 onChange={onChange}
               />
             </div>
-            <input className="btn primary-button" id="login-btn" type="submit" value="→" />
-            <div style={{color: "white"}}>
+            <input
+              className="btn primary-button"
+              id="login-btn"
+              type="submit"
+              value="→"
+            />
+            <div style={{ color: "white" }}>
               Don't have an account?{" "}
-              <a href="/register-employee" className="anchor">Register here.</a>
+              <a href="/register-employee" className="anchor">
+                Register here.
+              </a>
             </div>
           </form>
         </div>
@@ -88,10 +95,8 @@ function Login() {
             }}
             transition={{ duration: 1.5, delay: 1 }}
           >
-            <div className="lock-icon-border">
-              <HiLockClosed
-                style={{ height: "50px", width: "50px", color: "white" }}
-              />
+            <div className="auth-icon-border">
+              <HiLockClosed className="auth-icon" />
             </div>
           </motion.div>
         </div>
