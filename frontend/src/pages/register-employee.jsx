@@ -1,12 +1,10 @@
-import { React, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { React, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { register } from "../features/user";
-import { Navigate } from "react-router-dom";
 
 function RegisterEmployee() {
   const dispatch = useDispatch();
-  const { registered, loading } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     employer_code: "",
@@ -28,10 +26,14 @@ function RegisterEmployee() {
     dispatch(register({ employer_code, username, email, password, user_type }));
   };
 
-  if (registered) return <Navigate to="/login" />;
   return (
-    <form action="/register-employee" method="post" onSubmit={onSubmit}>
-      <h2>Register as Team Member</h2>
+    <form
+      action="/register-employee"
+      method="post"
+      onSubmit={onSubmit}
+      className="auth-page"
+    >
+      <h2>Team Member</h2>
 
       <div>
         <p

@@ -2,7 +2,7 @@ import React from "react";
 
 function Register(props) {
   return (
-    <div>
+    <div className="auth-page">
       <h2 className="registerH2">Register {props.user_type}</h2>
       {/* {props.message && <div>{props.message}</div>} */}
       {props.user_type === "employer" ? (

@@ -29,8 +29,8 @@ const RegisterManager = () => {
 
   if (registered) return <Navigate to="/login" />;
   return (
-    <form action="/register-employer" method="post" onSubmit={onSubmit}>
-      <h2>Register as Manager</h2>
+    <form action="/register-employer" method="post" onSubmit={onSubmit} className="auth-page">
+      <h2>Manager Profile</h2>
       <div>
         <p
           className="info"
@@ -80,7 +80,7 @@ const RegisterManager = () => {
           type="password"
           name="confirmation"
           placeholder="Confirm Password"
-        />
+          />
       </div> */}
       <input className="btn" type="submit" value="Register" />
     </form>
