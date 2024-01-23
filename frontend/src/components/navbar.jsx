@@ -85,7 +85,7 @@ function NavBar() {
           style={{ display: isMenuOpen ? "flex" : "none" }}
         >
           <NavLink className="dropdown-item" to="/register-employer">
-            Employer Profile
+            Manager Profile
           </NavLink>
           <NavLink className="dropdown-item" to="/register-employee">
             Team Member Profile
