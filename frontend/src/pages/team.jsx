@@ -8,6 +8,7 @@ import AppSidebar from "../components/sidebar";
 import LoadingScreen from "../components/loading-screen";
 
 import { useSelector } from "react-redux";
+import MemberCard from "../components/member-card";
 
 function Team() {
   const [team, setTeam] = useState([]);
@@ -81,34 +82,22 @@ function Team() {
               {team.map(
                 (member) =>
                   member.fields.user_type === "Employee" && (
-                    <div
-                      className="team-member"
-                      key={"member-" + member.pk}
-                      id={"team-member-" + member.pk}
-                      data-username={member.fields.username}
-                      onClick={openMemberForm}
-                    >
-                      <span className="username">{member.fields.username}</span>
-                      <br />
-                      {member.fields.email}
-                    </div>
+                    <MemberCard
+                      openMemberForm={openMemberForm}
+                      member={member}
+                      user_type={"Employee"}
+                    />
                   )
               )}
 
               {team.map(
                 (member) =>
                   member.fields.user_type === "Manager" && (
-                    <div
-                      className="team-member manager"
-                      key={"member-" + member.pk}
-                      id={"team-member-" + member.pk}
-                      data-username={member.fields.username}
-                      onClick={openMemberForm}
-                    >
-                      <span className="username">{member.fields.username}</span>
-                      <br />
-                      {member.fields.email}
-                    </div>
+                    <MemberCard
+                      openMemberForm={openMemberForm}
+                      member={member}
+                      user_type={"Manager"}
+                    />
                   )
               )}
             </div>
