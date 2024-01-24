@@ -79,27 +79,15 @@ function Team() {
             <span className="page-location-text">Pages / Team</span>
             <h1 className="page-title">Team Page</h1>
             <div id="team">
-              {team.map(
-                (member) =>
-                  member.fields.user_type === "Employee" && (
-                    <MemberCard
-                      openMemberForm={openMemberForm}
-                      member={member}
-                      user_type={"Employee"}
-                    />
-                  )
-              )}
-
-              {team.map(
-                (member) =>
-                  member.fields.user_type === "Manager" && (
-                    <MemberCard
-                      openMemberForm={openMemberForm}
-                      member={member}
-                      user_type={"Manager"}
-                    />
-                  )
-              )}
+              {team
+                .sort((a, b) => (a.fields.user_type === "Manager" ? 1 : -1))
+                .map((member) => (
+                  <MemberCard
+                    openMemberForm={openMemberForm}
+                    member={member}
+                    user_type={member.fields.user_type}
+                  />
+                ))}
             </div>
           </div>
         </div>
