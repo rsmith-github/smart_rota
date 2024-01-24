@@ -176,7 +176,7 @@ def get_team(request):
 
     # filter team based on company code.
     team = User.objects.filter(
-        employer_code=user_object.employer_code, user_type="Employee")
+        employer_code=user_object.employer_code)
 
     # send back json.
     new = serializers.serialize('json', team)

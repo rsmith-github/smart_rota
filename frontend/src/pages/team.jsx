@@ -78,19 +78,39 @@ function Team() {
             <span className="page-location-text">Pages / Team</span>
             <h1 className="page-title">Team Page</h1>
             <div id="team">
-              {team.map((member) => (
-                <div
-                  className="team-member"
-                  key={"member-" + member.pk}
-                  id={"team-member-" + member.pk}
-                  data-username={member.fields.username}
-                  onClick={openMemberForm}
-                >
-                  <span className="username">{member.fields.username}</span>
-                  <br />
-                  {member.fields.email}
-                </div>
-              ))}
+              {team.map(
+                (member) =>
+                  member.fields.user_type === "Employee" && (
+                    <div
+                      className="team-member"
+                      key={"member-" + member.pk}
+                      id={"team-member-" + member.pk}
+                      data-username={member.fields.username}
+                      onClick={openMemberForm}
+                    >
+                      <span className="username">{member.fields.username}</span>
+                      <br />
+                      {member.fields.email}
+                    </div>
+                  )
+              )}
+
+              {team.map(
+                (member) =>
+                  member.fields.user_type === "Manager" && (
+                    <div
+                      className="team-member manager"
+                      key={"member-" + member.pk}
+                      id={"team-member-" + member.pk}
+                      data-username={member.fields.username}
+                      onClick={openMemberForm}
+                    >
+                      <span className="username">{member.fields.username}</span>
+                      <br />
+                      {member.fields.email}
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>

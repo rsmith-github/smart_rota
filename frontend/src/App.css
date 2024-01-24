@@ -1034,3 +1034,7 @@ iframe {
   height: 50px;
   color: white;
 }
+
+.manager {
+  background-color: rgba(0, 255, 128, 0.314);
+}
