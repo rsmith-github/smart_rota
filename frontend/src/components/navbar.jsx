@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { pointer } from "d3";
 import { logout } from "../features/user";
+import { HiChevronDown } from "react-icons/hi";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,27 +77,34 @@ function NavBar() {
         <p
           id="register-dropdown"
           className="nav-link dropdown-toggle"
-          onClick={() => showMenu()}
+          onMouseEnter={showMenu}
+          onMouseLeave={showMenu}
+          style={
+            !isMenuOpen
+              ? { paddingBottom: "10px", paddingTop: "10px" }
+              : { paddingTop: "10px" }
+          }
         >
-          Register
+          Register <HiChevronDown />
+          {isMenuOpen && (
+            <div style={{ paddingTop: "10px" }}>
+              <div className="dropdown-menu">
+                <NavLink className="dropdown-item" to="/register-employer">
+                  Manager Profile
+                </NavLink>
+                <NavLink className="dropdown-item" to="/register-employee">
+                  Team Member Profile
+                </NavLink>
+                <div className="dropdown-divider"></div>
+                <NavLink className="dropdown-item" to="/register-company">
+                  Register Company
+                </NavLink>
+              </div>
+            </div>
+          )}
         </p>
-        <div
-          className="dropdown-menu"
-          style={{ display: isMenuOpen ? "flex" : "none" }}
-        >
-          <NavLink className="dropdown-item" to="/register-employer">
-            Manager Profile
-          </NavLink>
-          <NavLink className="dropdown-item" to="/register-employee">
-            Team Member Profile
-          </NavLink>
-          <div className="dropdown-divider"></div>
-          <NavLink className="dropdown-item" to="/register-company">
-            Register Company
-          </NavLink>
-        </div>
       </li>
-      <li>
+      <li style={{ marginTop: "10px" }}>
         <NavLink to="/login">Login</NavLink>
       </li>
     </>
