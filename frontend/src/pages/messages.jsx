@@ -15,9 +15,6 @@ function Messages() {
     <LoadingScreen />;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to={"/login"} />;
-  }
   return (
     <div className="page-container">
       <AppSidebar />

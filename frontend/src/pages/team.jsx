@@ -42,6 +42,13 @@ function Team() {
   };
 
   if (formVisible) {
+    if (!isAuthenticated) {
+      return <Navigate to="/login" />;
+    }
+
+    if (loading) {
+      return <LoadingScreen />;
+    }
     return (
       <div className="page-container">
         <AppSidebar />

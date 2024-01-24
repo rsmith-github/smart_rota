@@ -7,15 +7,16 @@ import DashboardBottom from "../components/dashboard-bottom";
 import LoadingScreen from "../components/loading-screen";
 
 function Dashboard() {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
-
-  if (!user) {
-    return <LoadingScreen />;
-  }
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
   }
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="page-container">
       <AppSidebar />

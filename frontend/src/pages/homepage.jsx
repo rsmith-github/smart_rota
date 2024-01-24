@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { getCookie } from "../features/user";
 
 import ScreenShotSection from "../components/screenshot-section";
 
-import { motion, easeIn } from "framer-motion";
+import { motion } from "framer-motion";
 
 import Spline from "@splinetool/react-spline";
 
 function Homepage() {
+  const { isAuthenticated } = useSelector((state) => state.user);
 
-  const accessToken = getCookie("access_token");
-
-  if (!accessToken) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
