@@ -353,3 +353,14 @@ class GetMemberShiftsData(APIView):
                 'morning_shift': shift.morning_shift, 'evening_shift': shift.evening_shift}
 
         return JsonResponse(shifts_as_dict, status=status.HTTP_200_OK)
+
+
+class RequestShiftChange(APIView):
+
+    def post(self, request):
+
+        data = json.loads(request.body)
+
+        print(data)
+
+        return JsonResponse(data, status=status.HTTP_200_OK)

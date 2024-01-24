@@ -18,9 +18,23 @@ function DateDiv({
     setOpened(!opened);
   };
 
+  const sendChangeRequest = async (newShift) => {
+    await fetch("/api/request-change", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: user,
+        newShift: newShift,
+      }),
+    });
+  };
+
   const shiftData = shiftsData[convertId(date.id)];
 
-  const currentShiftData = {
+  let currentShiftData = {
     date: date.id,
     morningShift: {
       start: shiftData?.morning_shift.split("-")[0],
@@ -30,6 +44,19 @@ function DateDiv({
       start: shiftData?.evening_shift.split("-")[0],
       end: shiftData?.evening_shift.split("-")[1],
     },
+  };
+
+  const handleEveningShiftStartChange = () => {
+    alert("change1");
+  };
+  const handleEveningShiftEndChange = () => {
+    alert("change2");
+  };
+  const handleMorningShiftStartChange = () => {
+    alert("change3");
+  };
+  const handleMorningShiftEndChange = () => {
+    alert("change4");
   };
 
   return (
@@ -68,7 +95,10 @@ function DateDiv({
                     <button
                       className="primary-button"
                       id="request-save-button"
-                      onClick={handleOpen}
+                      onClick={() => {
+                        handleOpen();
+                        sendChangeRequest(currentShiftData);
+                      }}
                     >
                       Save Changes
                     </button>
@@ -111,7 +141,18 @@ function DateDiv({
                       >
                         <TimeRow
                           day={currentShiftData}
-                          // other props
+                          handleEveningShiftStartChange={
+                            handleEveningShiftStartChange
+                          }
+                          handleEveningShiftEndChange={
+                            handleEveningShiftEndChange
+                          }
+                          handleMorningShiftStartChange={
+                            handleMorningShiftStartChange
+                          }
+                          handleMorningShiftEndChange={
+                            handleMorningShiftEndChange
+                          }
                         />
                       </motion.div>
                     </motion.div>
