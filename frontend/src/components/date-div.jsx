@@ -10,6 +10,7 @@ import {
   handleMorningShiftEndChange,
   handleEveningShiftStartChange,
   handleEveningShiftEndChange,
+  handleShiftChange,
 } from "../heplers/handle-rota-change";
 
 function DateDiv({
@@ -164,29 +165,33 @@ function DateDiv({
                         <TimeRow
                           day={currentShiftData}
                           handleEveningShiftStartChange={(_index, newTime) => {
-                            handleEveningShiftStartChange(
-                              date.id,
+                            handleShiftChange(
+                              "eveningShift",
+                              "start",
                               newTime,
                               setCurrentShiftData
                             );
                           }}
                           handleEveningShiftEndChange={(_index, newTime) => {
-                            handleEveningShiftEndChange(
-                              date.id,
+                            handleShiftChange(
+                              "eveningShift",
+                              "end",
                               newTime,
                               setCurrentShiftData
                             );
                           }}
                           handleMorningShiftStartChange={(_index, newTime) => {
-                            handleMorningShiftStartChange(
-                              date.id,
+                            handleShiftChange(
+                              "morningShift",
+                              "start",
                               newTime,
                               setCurrentShiftData
                             );
                           }}
                           handleMorningShiftEndChange={(_index, newTime) => {
-                            handleMorningShiftEndChange(
-                              date.id,
+                            handleShiftChange(
+                              "morningShift",
+                              "end",
                               newTime,
                               setCurrentShiftData
                             );
