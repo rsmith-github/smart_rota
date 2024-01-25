@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import TimeRow from "../components/timeRow";
 import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
 import { motion, AnimatePresence } from "framer-motion";
+
+import {
+  handleMorningShiftStartChange,
+  handleMorningShiftEndChange,
+  handleEveningShiftStartChange,
+  handleEveningShiftEndChange,
+} from "../heplers/handle-rota-change";
 
 function DateDiv({
   date,
@@ -34,30 +41,45 @@ function DateDiv({
 
   const shiftData = shiftsData[convertId(date.id)];
 
-  let currentShiftData = {
+  const [currentShiftData, setCurrentShiftData] = useState({
     date: date.id,
     morningShift: {
-      start: shiftData?.morning_shift.split("-")[0],
-      end: shiftData?.morning_shift.split("-")[1],
+      start: "",
+      end: "",
     },
     eveningShift: {
-      start: shiftData?.evening_shift.split("-")[0],
-      end: shiftData?.evening_shift.split("-")[1],
+      start: "",
+      end: "",
     },
-  };
+  });
 
-  const handleEveningShiftStartChange = () => {
-    alert("change1");
-  };
-  const handleEveningShiftEndChange = () => {
-    alert("change2");
-  };
-  const handleMorningShiftStartChange = () => {
-    alert("change3");
-  };
-  const handleMorningShiftEndChange = () => {
-    alert("change4");
-  };
+  useEffect(() => {
+    if (shiftData) {
+      setCurrentShiftData({
+        date: date.id,
+        morningShift: {
+          start: shiftData.morning_shift.split("-")[0],
+          end: shiftData.morning_shift.split("-")[1],
+        },
+        eveningShift: {
+          start: shiftData.evening_shift.split("-")[0],
+          end: shiftData.evening_shift.split("-")[1],
+        },
+      });
+    }
+  }, [shiftData, date.id]);
+  // const handleEveningShiftStartChange = () => {
+  //   alert("change1");
+  // };
+  // const handleEveningShiftEndChange = () => {
+  //   alert("change2");
+  // };
+  // const handleMorningShiftStartChange = () => {
+  //   alert("change3");
+  // };
+  // const handleMorningShiftEndChange = () => {
+  //   alert("change4");
+  // };
 
   return (
     <div
@@ -141,18 +163,34 @@ function DateDiv({
                       >
                         <TimeRow
                           day={currentShiftData}
-                          handleEveningShiftStartChange={
-                            handleEveningShiftStartChange
-                          }
-                          handleEveningShiftEndChange={
-                            handleEveningShiftEndChange
-                          }
-                          handleMorningShiftStartChange={
-                            handleMorningShiftStartChange
-                          }
-                          handleMorningShiftEndChange={
-                            handleMorningShiftEndChange
-                          }
+                          handleEveningShiftStartChange={(_index, newTime) => {
+                            handleEveningShiftStartChange(
+                              date.id,
+                              newTime,
+                              setCurrentShiftData
+                            );
+                          }}
+                          handleEveningShiftEndChange={(_index, newTime) => {
+                            handleEveningShiftEndChange(
+                              date.id,
+                              newTime,
+                              setCurrentShiftData
+                            );
+                          }}
+                          handleMorningShiftStartChange={(_index, newTime) => {
+                            handleMorningShiftStartChange(
+                              date.id,
+                              newTime,
+                              setCurrentShiftData
+                            );
+                          }}
+                          handleMorningShiftEndChange={(_index, newTime) => {
+                            handleMorningShiftEndChange(
+                              date.id,
+                              newTime,
+                              setCurrentShiftData
+                            );
+                          }}
                         />
                       </motion.div>
                     </motion.div>

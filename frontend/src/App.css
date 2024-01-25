@@ -966,8 +966,8 @@ iframe {
 #login-page-container,
 #register-page-container {
   display: flex;
-  margin-bottom: 50px;
-  margin-top: 120px;
+  margin-bottom: 200px;
+  margin-top: 190px;
   border-radius: 10px;
   background-color: #0d2857bf;
 }
