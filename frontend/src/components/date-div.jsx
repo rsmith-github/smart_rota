@@ -5,6 +5,8 @@ import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { getCookie } from "../features/user";
+
 import handleShiftChange from "../heplers/handle-rota-change";
 
 function DateDiv({
@@ -25,7 +27,7 @@ function DateDiv({
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("access_token")}`,
       },
       body: JSON.stringify({
         user: user,

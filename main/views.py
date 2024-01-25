@@ -15,7 +15,11 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.core import serializers
 
-from .models import Company, User, TimeTable
+from .utlis import check_message_duplicates
+
+from .models import Company, User, TimeTable, Messages
+
+
 import uuid
 
 # REST imports
@@ -355,12 +359,37 @@ class GetMemberShiftsData(APIView):
         return JsonResponse(shifts_as_dict, status=status.HTTP_200_OK)
 
 
+@permission_classes([IsAuthenticated])
 class RequestShiftChange(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
 
         data = json.loads(request.body)
 
-        print(data)
+        pprint(data)
+
+        user = data['user']
+        morning_shift = data['newShift']['morningShift']
+        evening_shift = data['newShift']['eveningShift']
+
+        new_morning_shift = f"{morning_shift['start']}-{morning_shift['end']}"
+        new_evening_shift = f"{evening_shift['start']}-{evening_shift['end']}"
+
+        # prevent duplicates
+        is_dupicate = check_message_duplicates(
+            user, new_morning_shift, new_evening_shift)
+
+        if is_dupicate:
+            return JsonResponse(
+                {'message': 'Shift already exists'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Save request to database
+        new_request = Messages(from_user=user['username'], employer_code=user['employer_code'],
+                               message_type=settings.CHANGE_REQUEST,  morning_shift=new_morning_shift, evening_shift=new_evening_shift)
+
+        new_request.save()
 
         return JsonResponse(data, status=status.HTTP_200_OK)

@@ -107,3 +107,7 @@ class Messages(models.Model):
     message_type = models.CharField(max_length=255)
     to_user = models.CharField(max_length=255, null=True)
     content = models.TextField(null=True)
+
+    date = models.DateField(null=True)
+    morning_shift = models.CharField(max_length=255,null=True)
+    evening_shift = models.CharField(max_length=255,null=True)
