@@ -6,6 +6,8 @@ import TimeTableSkeleton from "./timetable-skeleton";
 
 import convertId from "../heplers/convertId";
 
+import handleShiftChange from "../heplers/handle-rota-change";
+
 export async function getTeamMemberShiftsData(props) {
   const response = await fetch("/api/get-timetable", {
     method: "POST",
@@ -28,46 +30,10 @@ const TimeTable = (props) => {
   const [timeTable, setTimeTable] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleMorningShiftStartChange = (dayIndex, time) => {
-    const formattedTime = dayjs(time).format("HH:mm");
-    setTimeTable((prevTable) => {
-      const updatedTable = [...prevTable];
-      updatedTable[dayIndex].morningShift.start = formattedTime;
-      return updatedTable;
-    });
-  };
-
-  const handleMorningShiftEndChange = (dayIndex, time) => {
-    const formattedTime = dayjs(time).format("HH:mm");
-    setTimeTable((prevTable) => {
-      const updatedTable = [...prevTable];
-      updatedTable[dayIndex].morningShift.end = formattedTime;
-      return updatedTable;
-    });
-  };
-
-  const handleEveningShiftStartChange = (dayIndex, time) => {
-    const formattedTime = dayjs(time).format("HH:mm");
-    setTimeTable((prevTable) => {
-      const updatedTable = [...prevTable];
-      updatedTable[dayIndex].eveningShift.start = formattedTime;
-      return updatedTable;
-    });
-  };
-
-  const handleEveningShiftEndChange = (dayIndex, time) => {
-    const formattedTime = dayjs(time).format("HH:mm");
-    setTimeTable((prevTable) => {
-      const updatedTable = [...prevTable];
-      updatedTable[dayIndex].eveningShift.end = formattedTime;
-      return updatedTable;
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Send the timeTable data to the server
-    const response = await fetch("/api/update-timetable", {
+    await fetch("/api/update-timetable", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -156,10 +122,44 @@ const TimeTable = (props) => {
                 <TimeRow
                   day={day}
                   index={index}
-                  handleEveningShiftStartChange={handleEveningShiftStartChange}
-                  handleEveningShiftEndChange={handleEveningShiftEndChange}
-                  handleMorningShiftStartChange={handleMorningShiftStartChange}
-                  handleMorningShiftEndChange={handleMorningShiftEndChange}
+                  handleEveningShiftStartChange={(index, newTime) => {
+                    handleShiftChange(
+                      "eveningShift",
+                      "start",
+                      newTime,
+                      setTimeTable,
+                      true, // Is list flag, because the handleShfitChange funciton handles both js objects and lists
+                      index
+                    );
+                  }}
+                  handleEveningShiftEndChange={(index, newTime) => {
+                    handleShiftChange(
+                      "eveningShift",
+                      "end",
+                      newTime,
+                      setTimeTable,
+                      true, // Is list flag, because the handleShfitChange funciton handles both js objects and lists
+                      index
+                    );
+                  }}
+                  handleMorningShiftStartChange={(index, newTime) => {
+                    handleShiftChange(
+                      "morningShift",
+                      "start",
+                      newTime,
+                      setTimeTable,
+                      true, // Is list flag, because the handleShfitChange funciton handles both js objects and lists
+                      index
+                    );
+                  }}
+                  handleMorningShiftEndChange={(index, newTime) => {
+                    handleShiftChange(
+                      "morningShift",
+                      "end",
+                      newTime,
+                      setTimeTable
+                    );
+                  }}
                 />
                 {index !== timeTable.length - 1 ? (
                   <span className="br-as-line"></span>

@@ -5,13 +5,7 @@ import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
 import { motion, AnimatePresence } from "framer-motion";
 
-import {
-  handleMorningShiftStartChange,
-  handleMorningShiftEndChange,
-  handleEveningShiftStartChange,
-  handleEveningShiftEndChange,
-  handleShiftChange,
-} from "../heplers/handle-rota-change";
+import handleShiftChange from "../heplers/handle-rota-change";
 
 function DateDiv({
   date,
@@ -69,18 +63,6 @@ function DateDiv({
       });
     }
   }, [shiftData, date.id]);
-  // const handleEveningShiftStartChange = () => {
-  //   alert("change1");
-  // };
-  // const handleEveningShiftEndChange = () => {
-  //   alert("change2");
-  // };
-  // const handleMorningShiftStartChange = () => {
-  //   alert("change3");
-  // };
-  // const handleMorningShiftEndChange = () => {
-  //   alert("change4");
-  // };
 
   return (
     <div

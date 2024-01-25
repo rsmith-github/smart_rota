@@ -1,15 +1,20 @@
 import dayjs from "dayjs";
 
-const handleShiftChange = (shiftType, shiftTime, newTime, setCurrentShiftData) => {
+const handleShiftChange = (shiftType, shiftTime, newTime, setCurrentShiftData, isList = false, dayIndex) => {
+
     const formattedTime = dayjs(newTime).format("HH:mm");
     setCurrentShiftData((prevData) => {
-        let updatedData = { ...prevData };
-        updatedData[shiftType][shiftTime] = formattedTime;
+        let updatedData = isList ? [...prevData] : { ...prevData }
+        if (isList) {
+            updatedData[dayIndex][shiftType][shiftTime] = formattedTime;
+        } else {
+            updatedData[shiftType][shiftTime] = formattedTime;
+        }
         return updatedData;
     });
+
 };
 
-export {
-    handleShiftChange,
-}
+export default handleShiftChange;
+
 
