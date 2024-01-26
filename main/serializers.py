@@ -5,7 +5,7 @@ from django.core import exceptions
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
-from .models import Company, TimeTable, User
+from .models import Company, TimeTable, User, Messages
 
 
 class RegisterSeriazlizer(serializers.ModelSerializer):
@@ -41,9 +41,25 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'employer_code', 'user_type')
-        
+
 
 class TimeTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeTable
-        fields = ('username', 'employer_code', 'date', 'morning_shift', 'evening_shift')
+        fields = ('username', 'employer_code', 'date',
+                  'morning_shift', 'evening_shift')
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Messages
+        fields = (
+            'from_user',
+            'employer_code',
+            'message_type',
+            'to_user',
+            'content',
+            'date',
+            'morning_shift',
+            'evening_shift',
+        )

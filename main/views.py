@@ -26,7 +26,7 @@ import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from .serializers import RegisterSeriazlizer, TimeTableSerializer, UserSerializer
+from .serializers import RegisterSeriazlizer, TimeTableSerializer, UserSerializer, MessageSerializer
 from rest_framework.serializers import ValidationError
 
 # This can be passed into any template like other types of data. e.g.
@@ -393,3 +393,24 @@ class RequestShiftChange(APIView):
         new_request.save()
 
         return JsonResponse(data, status=status.HTTP_200_OK)
+
+
+class GetChangeRequests(APIView):
+
+    def put(self, request):
+
+        # validate if the user is a manager
+        data = json.loads(request.body)
+        user = data['user']
+        
+        
+    
+        if user['user_type'] == 'Manager':
+        
+            change_requests = Messages.objects.filter(employer_code=user['employer_code'])
+            
+            
+            serialized = serializers.serialize('json', change_requests)
+        
+
+            return JsonResponse({'change_requests': serialized}, status=status.HTTP_200_OK)

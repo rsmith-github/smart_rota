@@ -102,8 +102,8 @@ export const login = createAsyncThunk(
 
             if (res.status === 200) {
 
-                setCookie('access_token', data.access, 1);
-                setCookie('refresh_token', data.refresh, 1);
+                setCookie('access_token', data.access, 2);
+                setCookie('refresh_token', data.refresh, 2);
 
                 const { dispatch } = thunkAPI;
 
