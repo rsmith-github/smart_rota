@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 function Messages() {
   const { isAuthenticated, loading, user } = useSelector((state) => state.user);
 
-  const { changeRequests, setChangeRequests } = useState([]);
+  const [changeRequests, setChangeRequests] = useState([]);
 
   useEffect(() => {
     const getChangeRequests = async () => {
@@ -21,11 +21,11 @@ function Messages() {
           user: user,
         }),
       });
-      let changeRequests = await response.json();
-      console.log("🚀 ~ getChangeRequests ~ changeRequests:", changeRequests)
+      const changeRequestsData = await response.json();
+      setChangeRequests(changeRequestsData.data);
     };
     getChangeRequests();
-  }, []);
+  }, [user]);
 
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
@@ -42,9 +42,16 @@ function Messages() {
         <span className="page-location-text">Pages / Messages</span>
         <h1 className="page-title">Messages Page</h1>
         <div>
-          {/* {changeRequests?.map((reqObj) => {
-            <div>{reqObj}</div>;
-          })} */}
+          Change Requests
+          {changeRequests.map((reqObj) => {
+            return (
+              <div>
+                <p>{reqObj.from_user}</p>
+                <p>{reqObj.morning_shift}</p>
+                <p>{reqObj.evening_shift}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

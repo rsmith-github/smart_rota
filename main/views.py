@@ -1,4 +1,5 @@
 
+from django.forms import model_to_dict
 from rest_framework import status
 from django.conf import settings
 from django.views.decorators.http import require_GET
@@ -402,15 +403,14 @@ class GetChangeRequests(APIView):
         # validate if the user is a manager
         data = json.loads(request.body)
         user = data['user']
-        
-        
-    
-        if user['user_type'] == 'Manager':
-        
-            change_requests = Messages.objects.filter(employer_code=user['employer_code'])
-            
-            
-            serialized = serializers.serialize('json', change_requests)
-        
 
-            return JsonResponse({'change_requests': serialized}, status=status.HTTP_200_OK)
+        if user['user_type'] == 'Manager':
+
+            change_requests = Messages.objects.filter(
+                employer_code=user['employer_code'])
+
+            messages = {'data': []}
+            for change_request in change_requests:
+                messages['data'].append(model_to_dict(change_request))
+
+            return JsonResponse(messages, status=status.HTTP_200_OK)
