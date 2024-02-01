@@ -377,6 +377,12 @@ class RequestShiftChange(APIView):
         new_morning_shift = f"{morning_shift['start']}-{morning_shift['end']}"
         new_evening_shift = f"{evening_shift['start']}-{evening_shift['end']}"
 
+        date_str = "28-01-24"
+
+        date_str = data['newShift']['date']
+        date_obj = datetime.strptime(date_str, "%d-%m-%y")
+        db_formatted_date = datetime.strftime(date_obj, "%Y-%m-%d")
+
         # prevent duplicates
         is_dupicate = check_message_duplicates(
             user, new_morning_shift, new_evening_shift)
@@ -388,7 +394,7 @@ class RequestShiftChange(APIView):
             )
 
         # Save request to database
-        new_request = Messages(from_user=user['username'], employer_code=user['employer_code'],
+        new_request = Messages(from_user=user['username'], employer_code=user['employer_code'], date=db_formatted_date,
                                message_type=settings.CHANGE_REQUEST,  morning_shift=new_morning_shift, evening_shift=new_evening_shift)
 
         new_request.save()
