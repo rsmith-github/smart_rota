@@ -76,13 +76,7 @@ function DateDiv({
       <span className="shift-title from-user">{from_user}</span>
 
       <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
-      {!shiftData ? (
-        // Display for day off
-        <>
-          <span className="shift-title day-off"> day off</span>
-          <span className="emoji">😴</span>
-        </>
-      ) : (
+      {shiftData ? (
         // Shift data display logic
         <>
           <span className="shift-text">
@@ -197,15 +191,21 @@ function DateDiv({
               </form>
             </>
           )}
-          {(user.user_type === "Manager" || from_user) && (
+
+          {user.user_type == "Manager" && (
             <span className="shift-text">
               <span className="shift-title">🌙 : </span>
               {shiftData?.evening_shift}
             </span>
           )}
         </>
+      ) : (
+        // Display for day off
+        <>
+          <span className="shift-title day-off"> day off</span>
+          <span className="emoji">😴</span>
+        </>
       )}
-
       {shiftData && <Timeline dateId={date.id} shift={shiftData} />}
     </div>
   );
