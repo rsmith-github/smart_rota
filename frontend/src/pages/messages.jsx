@@ -1,17 +1,15 @@
-import AppSidebar from "../components/sidebar";
-
+import React, { useEffect, useState, useMemo } from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoadingScreen from "../components/loading-screen";
-import { useEffect, useState, useMemo } from "react";
 import DateDiv from "../components/date-div";
+import AppSidebar from "../components/sidebar";
 import convertId from "../heplers/convertId";
+import formatDate from "../heplers/format-date";
 
 function Messages() {
   const { isAuthenticated, loading, user } = useSelector((state) => state.user);
-
-  const [changeRequests, setChangeRequests] = useState([]);
-  const [formattedRequests, setFormattedRequests] = useState([]);
+  const [requests, setRequests] = useState([]);
 
   const months = useMemo(
     () =>
@@ -22,54 +20,40 @@ function Messages() {
   );
 
   useEffect(() => {
-    const getChangeRequests = async () => {
+    const fetchChangeRequests = async () => {
       const response = await fetch("/api/get-change-requests", {
         method: "PUT",
-        headers: {
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          user: user,
-        }),
+        headers: { Accept: "application/json" },
+        body: JSON.stringify({ user }),
       });
-      const changeRequestsData = await response.json();
+      const data = await response.json();
 
-      // Initialize an empty object for formatted requests
-      let formattedReqs = {};
-
-      // Iterate over each change request and add it to the formattedReqs object
-      changeRequestsData.data.forEach((object) => {
-        const date = new Date(object.date);
-        const day = date.getDate().toString().padStart(2, "0");
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const year = date.getFullYear().toString().substr(-2);
-        const id = `${day}-${month}-${year}`;
-
-        // Assign the shift data to the corresponding date ID in the formattedReqs object
-        formattedReqs[convertId(id)] = {
-          morning_shift: object.morning_shift,
-          evening_shift: object.evening_shift,
+      const formattedRequests = data.data.map((req) => {
+        const { id, day, month, year, dayOfWeek } = formatDate(req.date);
+        return {
+          ...req,
+          id,
+          string_format: `<span class='dow'>${dayOfWeek}</span> | <span class='date'>${day} - ${
+            months[new Date(req.date).getMonth()]
+          } - ${year}</span>`,
+          shiftsData: {
+            [convertId(id)]: {
+              morning_shift: req.morning_shift,
+              evening_shift: req.evening_shift,
+            },
+          },
         };
       });
 
-      // Optionally, add the username if needed
-      if (changeRequestsData.data.length > 0) {
-        formattedReqs.username = changeRequestsData.data[0].from_user;
-      }
-
-      setFormattedRequests(formattedReqs);
-      setChangeRequests(changeRequestsData.data);
+      setRequests(formattedRequests);
     };
-    getChangeRequests();
-  }, [user]);
 
-  if (!isAuthenticated) {
-    return <Navigate to={"/login"} />;
-  }
+    if (user) fetchChangeRequests();
+  }, [user, months]);
 
-  if (loading) {
-    <LoadingScreen />;
-  }
+  if (!isAuthenticated) return <Navigate to="/login" />;
+
+  if (loading) return <LoadingScreen />;
 
   return (
     <div className="page-container">
@@ -77,39 +61,19 @@ function Messages() {
       <div className="right-side messages-right-side">
         <span className="page-location-text">Pages / Messages</span>
         <h1 className="page-title">Messages Page</h1>
+        <h3>Change Requests</h3>
         <div>
-          <h3>Change Requests</h3>
-          {changeRequests.map((reqObj, index) => {
-            const date = new Date(reqObj.date);
-            const day = date.getDate().toString().padStart(2, "0");
-            const month = (date.getMonth() + 1).toString().padStart(2, "0");
-            const year = date.getFullYear().toString().substr(-2);
-            const dayOfWeek = date.toLocaleString("en-US", {
-              weekday: "short",
-            });
-            const id = `${day}-${month}-${year}`;
-            return (
-              <div>
-                <DateDiv
-                  key={`${day}-${index}`}
-                  date={{
-                    id,
-                    string_format: `
-                    <span class='dow'>${dayOfWeek}</span> | 
-                    <span class='date'>${day} - ${
-                      months[date.getMonth()]
-                    } - ${year}</span>
-                  `,
-                  }}
-                  animationClass={""}
-                  handleAnimationEnd={() => {}}
-                  shiftsData={{ ...formattedRequests }}
-                  user={user}
-                  from_user={reqObj.from_user}
-                />
-              </div>
-            );
-          })}
+          {requests.map((req, index) => (
+            <DateDiv
+              key={`${req.id}-${index}`}
+              date={{ id: req.id, string_format: req.string_format }}
+              animationClass=""
+              handleAnimationEnd={() => {}}
+              shiftsData={req.shiftsData}
+              user={user}
+              from_user={req.from_user}
+            />
+          ))}
         </div>
       </div>
     </div>
