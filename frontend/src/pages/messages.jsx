@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 import LoadingScreen from "../components/loading-screen";
 import { useEffect, useState, useMemo } from "react";
 import DateDiv from "../components/date-div";
+import convertId from "../heplers/convertId";
 
 function Messages() {
   const { isAuthenticated, loading, user } = useSelector((state) => state.user);
 
   const [changeRequests, setChangeRequests] = useState([]);
+  const [formattedRequests, setFormattedRequests] = useState([]);
+  console.log("🚀 ~ Messages ~ formattedRequests:", formattedRequests);
 
   const months = useMemo(
     () =>
@@ -31,6 +34,31 @@ function Messages() {
         }),
       });
       const changeRequestsData = await response.json();
+
+      // Initialize an empty object for formatted requests
+      let formattedReqs = {};
+
+      // Iterate over each change request and add it to the formattedReqs object
+      changeRequestsData.data.forEach((object) => {
+        const date = new Date(object.date);
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString().substr(-2);
+        const id = `${day}-${month}-${year}`;
+
+        // Assign the shift data to the corresponding date ID in the formattedReqs object
+        formattedReqs[convertId(id)] = {
+          morning_shift: object.morning_shift,
+          evening_shift: object.evening_shift,
+        };
+      });
+
+      // Optionally, add the username if needed
+      if (changeRequestsData.data.length > 0) {
+        formattedReqs.username = changeRequestsData.data[0].from_user;
+      }
+
+      setFormattedRequests(formattedReqs);
       setChangeRequests(changeRequestsData.data);
     };
     getChangeRequests();
@@ -60,12 +88,13 @@ function Messages() {
             const dayOfWeek = date.toLocaleString("en-US", {
               weekday: "short",
             });
+            const id = `${day}-${month}-${year}`;
             return (
               <div>
                 <DateDiv
                   key={`${day}-${index}`}
                   date={{
-                    id: `${day}-${month}-${year}`,
+                    id,
                     string_format: `
                     <span class='dow'>${dayOfWeek}</span> | 
                     <span class='date'>${day} - ${
@@ -75,7 +104,7 @@ function Messages() {
                   }}
                   animationClass={""}
                   handleAnimationEnd={() => {}}
-                  shiftsData={[]}
+                  shiftsData={{ ...formattedRequests }}
                   user={user}
                   from_user={reqObj.from_user}
                 />

@@ -73,9 +73,7 @@ function DateDiv({
       className={`date-div ${animationClass}`}
       onAnimationEnd={handleAnimationEnd}
     >
-      <span className="shift-title from-user">
-        {from_user}
-      </span>
+      <span className="shift-title from-user">{from_user}</span>
 
       <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
       {shiftData ? (
@@ -86,7 +84,7 @@ function DateDiv({
             {shiftData?.morning_shift}
           </span>
           <br />
-          {user.user_type === "Employee" ? (
+          {user.user_type === "Employee" && (
             <>
               <div className="request-change-container">
                 <span className="shift-text">
@@ -192,7 +190,9 @@ function DateDiv({
                 </AnimatePresence>
               </form>
             </>
-          ) : (
+          )}
+
+          {user.user_type == "Manager" && (
             <span className="shift-text">
               <span className="shift-title">🌙 : </span>
               {shiftData?.evening_shift}
