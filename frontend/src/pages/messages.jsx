@@ -12,7 +12,6 @@ function Messages() {
 
   const [changeRequests, setChangeRequests] = useState([]);
   const [formattedRequests, setFormattedRequests] = useState([]);
-  console.log("🚀 ~ Messages ~ formattedRequests:", formattedRequests);
 
   const months = useMemo(
     () =>
