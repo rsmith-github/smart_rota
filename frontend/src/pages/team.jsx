@@ -92,14 +92,7 @@ function Team() {
           </div>
         </div>
       ) : (
-        <div className="page-container">
-          <AppSidebar />
-          <div id="team" className="loading-container">
-            <p style={{ fontSize: "40px", fontWeight: "bold", color: "white" }}>
-              No team members yet
-            </p>
-          </div>
-        </div>
+        <LoadingScreen />
       )}
     </>
   );

@@ -15,6 +15,7 @@ function DateDiv({
   handleAnimationEnd,
   shiftsData,
   user,
+  from_user,
 }) {
   const [opened, setOpened] = useState(false);
 
@@ -72,6 +73,10 @@ function DateDiv({
       className={`date-div ${animationClass}`}
       onAnimationEnd={handleAnimationEnd}
     >
+      <span className="shift-title from-user">
+        {from_user}
+      </span>
+
       <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
       {shiftData ? (
         // Shift data display logic

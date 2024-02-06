@@ -47,7 +47,7 @@ function Messages() {
   return (
     <div className="page-container">
       <AppSidebar />
-      <div className="right-side">
+      <div className="right-side messages-right-side">
         <span className="page-location-text">Pages / Messages</span>
         <h1 className="page-title">Messages Page</h1>
         <div>
@@ -62,7 +62,6 @@ function Messages() {
             });
             return (
               <div>
-                <>{reqObj.from_user}</>
                 <DateDiv
                   key={`${day}-${index}`}
                   date={{
@@ -78,6 +77,7 @@ function Messages() {
                   handleAnimationEnd={() => {}}
                   shiftsData={[]}
                   user={user}
+                  from_user={reqObj.from_user}
                 />
               </div>
             );

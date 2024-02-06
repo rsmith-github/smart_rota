@@ -64,7 +64,6 @@ nav {
   margin: 0;
 }
 
-
 .dropdown-menu {
   display: flex;
   flex-direction: column;
@@ -209,13 +208,16 @@ h4 {
   }
 }
 
+.messages-right-side {
+  width: 81%;
+}
 .rota-right-side {
   width: 85%;
   padding-top: 50px;
 }
 
 #sidebar-container {
-  width: 15%;
+  width: 215px;
   background-color: #0d2857;
   height: 100%;
   padding-top: 80px;
@@ -1028,7 +1030,6 @@ iframe {
   color: #216ff6;
 }
 
-
 .auth-icon {
   width: 50px;
   height: 50px;
@@ -1037,4 +1038,8 @@ iframe {
 
 .manager {
   background-color: rgba(0, 255, 128, 0.314);
+}
+
+.from-user {
+  line-height: 35px;
 }
