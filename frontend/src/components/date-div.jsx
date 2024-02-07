@@ -16,6 +16,7 @@ function DateDiv({
   shiftsData,
   user,
   from_user,
+  oldShifts,
 }) {
   const [opened, setOpened] = useState(false);
 
@@ -81,6 +82,12 @@ function DateDiv({
         <>
           <span className="shift-text">
             <span className="shift-title">🌞 : </span>
+            {oldShifts[convertId(date.id)].morning_shift.trim() !==
+              shiftData?.morning_shift.trim() && (
+              <span className="strike-through">
+                {oldShifts[convertId(date.id)].morning_shift}
+              </span>
+            )}{" "}
             {shiftData?.morning_shift}
           </span>
           <br />
@@ -195,6 +202,12 @@ function DateDiv({
           {user.user_type == "Manager" && (
             <span className="shift-text">
               <span className="shift-title">🌙 : </span>
+              {oldShifts[convertId(date.id)].evening_shift.trim() !==
+                shiftData?.evening_shift.trim() && (
+                <span className="strike-through">
+                  {oldShifts[convertId(date.id)].evening_shift}
+                </span>
+              )}{" "}
               {shiftData?.evening_shift}
             </span>
           )}

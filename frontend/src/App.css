@@ -360,6 +360,10 @@ h4 {
   overflow-y: scroll;
   height: 86vh;
 }
+#messages-page-date-divs-container {
+  overflow-y: scroll;
+  height: 76vh;
+}
 
 #canvas-container {
   display: flex;
@@ -1042,4 +1046,9 @@ iframe {
 
 .from-user {
   line-height: 35px;
+}
+
+.strike-through {
+  color: rgb(251, 112, 112);
+  text-decoration: line-through;
 }

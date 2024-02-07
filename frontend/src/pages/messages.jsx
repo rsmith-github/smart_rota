@@ -7,6 +7,8 @@ import AppSidebar from "../components/sidebar";
 import convertId from "../heplers/convertId";
 import formatDate from "../heplers/format-date";
 
+import { getTeamMemberShiftsData } from "../components/timetable";
+
 function Messages() {
   const { isAuthenticated, loading, user } = useSelector((state) => state.user);
   const [requests, setRequests] = useState([]);
@@ -45,7 +47,25 @@ function Messages() {
         };
       });
 
-      setRequests(formattedRequests);
+      // In order to display old requests on date divs.
+      const addOldShiftsToChangeRequests = async () => {
+        const promises = formattedRequests.map(async (changeRequest) => {
+          if (changeRequest.from_user) {
+            const username = changeRequest.from_user;
+            const oldShifts = await getTeamMemberShiftsData({
+              timeTableOwner: username,
+            });
+            return { ...changeRequest, oldShifts }; // Return a new object with the oldShifts data
+          }
+          return changeRequest; // Return the original changeRequest if no from_user
+        });
+
+        const updatedRequests = await Promise.all(promises); // Wait for all promises to resolve
+        // Now updatedRequests is an array with all the changeRequests updated with oldShifts
+
+        setRequests(updatedRequests);
+      };
+      addOldShiftsToChangeRequests();
     };
 
     if (user) fetchChangeRequests();
@@ -62,7 +82,7 @@ function Messages() {
         <span className="page-location-text">Pages / Messages</span>
         <h1 className="page-title">Messages Page</h1>
         <h3>Change Requests</h3>
-        <div>
+        <div id="messages-page-date-divs-container">
           {requests.map((req, index) => (
             <DateDiv
               key={`${req.id}-${index}`}
@@ -72,6 +92,7 @@ function Messages() {
               shiftsData={req.shiftsData}
               user={user}
               from_user={req.from_user}
+              oldShifts={req.oldShifts}
             />
           ))}
         </div>
