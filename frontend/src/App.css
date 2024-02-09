@@ -1052,3 +1052,41 @@ iframe {
   color: rgb(251, 112, 112);
   text-decoration: line-through;
 }
+
+.yellow,
+.minutes-0-yellow, .shift-start-0-yellow {
+  background-color: rgb(222, 174, 0);
+}
+
+.shift-start-45-yellow,
+.shift-end-45-yellow,
+.minutes-15-yellow {
+  background: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(222, 174, 0) 25%,
+    rgba(255, 255, 255, 0.723) 0%
+  );
+}
+
+.shift-start-15-yellow{
+  background: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(222, 174, 0) 75%,
+    rgba(255, 255, 255, 0.723) 0%
+  );
+}
+
+.minutes-30-yellow {
+}
+
+/* 30 minutes */
+.shift-start-30-yellow, .minutes-30-yellow {
+  background: none;
+  background-image: linear-gradient(
+    to right,
+    rgb(222, 174, 0) 50%,
+    rgba(255, 255, 255, 0.723) 0%
+  );
+}

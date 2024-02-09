@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import formatTime from "../heplers/format-time";
 import HourBlocks from "./hour-blocks";
 
-function Timeline({ dateId, shift }) {
+function Timeline({ dateId, shift, morningShiftChanged = false, eveningShiftChanged = false }) {
+
   let [times, setTimes] = useState([]);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ function Timeline({ dateId, shift }) {
 
   return (
     <div className="timeline" id={`timeline-${dateId}`}>
-      <HourBlocks times={times} />
+      <HourBlocks times={times} morningShiftChanged={morningShiftChanged} eveningShiftChanged={eveningShiftChanged} />
     </div>
   );
 }

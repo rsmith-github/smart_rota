@@ -38,8 +38,24 @@ function DateDiv({
     });
   };
 
+  // get data of old shift and shift from change request.
   const shiftData = shiftsData[convertId(date.id)];
 
+  let oldShiftData;
+
+  // check if morning shift or evening shift changed
+  let morningShiftChanged = false;
+  let eveningShiftChanged = false;
+
+  if (oldShifts) {
+    oldShiftData = oldShifts[convertId(date.id)];
+    morningShiftChanged =
+      shiftData.morning_shift.trim() !== oldShiftData.morning_shift.trim();
+    eveningShiftChanged =
+      shiftData.evening_shift.trim() !== oldShiftData.evening_shift.trim();
+  }
+
+  // currentShiftData is to display on /timetable
   const [currentShiftData, setCurrentShiftData] = useState({
     date: date.id,
     morningShift: {
@@ -82,13 +98,16 @@ function DateDiv({
         <>
           <span className="shift-text">
             <span className="shift-title">🌞 : </span>
-            {oldShifts[convertId(date.id)].morning_shift.trim() !==
-              shiftData?.morning_shift.trim() && (
-              <span className="strike-through">
-                {oldShifts[convertId(date.id)].morning_shift}
-              </span>
-            )}{" "}
-            {shiftData?.morning_shift}
+            {oldShifts &&
+              oldShifts[convertId(date.id)]?.morning_shift.trim() !==
+                shiftData?.morning_shift.trim() && (
+                <span className="strike-through">
+                  {oldShifts[convertId(date.id)]?.morning_shift}
+                </span>
+              )}{" "}
+            {shiftData?.morning_shift.trim() === "99:99-99:99"
+              ? "--:-- - --:--"
+              : shiftData?.morning_shift}
           </span>
           <br />
           {user.user_type === "Employee" && (
@@ -202,12 +221,13 @@ function DateDiv({
           {user.user_type == "Manager" && (
             <span className="shift-text">
               <span className="shift-title">🌙 : </span>
-              {oldShifts[convertId(date.id)].evening_shift.trim() !==
-                shiftData?.evening_shift.trim() && (
-                <span className="strike-through">
-                  {oldShifts[convertId(date.id)].evening_shift}
-                </span>
-              )}{" "}
+              {oldShifts &&
+                oldShifts[convertId(date.id)]?.evening_shift.trim() !==
+                  shiftData?.evening_shift.trim() && (
+                  <span className="strike-through">
+                    {oldShifts[convertId(date.id)]?.evening_shift}
+                  </span>
+                )}{" "}
               {shiftData?.evening_shift}
             </span>
           )}
@@ -219,7 +239,14 @@ function DateDiv({
           <span className="emoji">😴</span>
         </>
       )}
-      {shiftData && <Timeline dateId={date.id} shift={shiftData} />}
+      {shiftData && (
+        <Timeline
+          dateId={date.id}
+          shift={shiftData}
+          morningShiftChanged={morningShiftChanged}
+          eveningShiftChanged={eveningShiftChanged}
+        />
+      )}
     </div>
   );
 }

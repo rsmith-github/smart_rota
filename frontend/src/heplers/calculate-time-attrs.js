@@ -1,6 +1,12 @@
 function calculateTimeAttributes(i, times) {
     let flip = '';
-
+    /* 
+        times looks like:
+        {
+          "hour": 16,
+          "min": 15
+        }
+    */
     // Determine the flip value based on the current hour (i)
     // No flip for times[1] and times[3], flip for times[0] and times[2]
     if (i === times[1]?.hour || i === times[3]?.hour) {
