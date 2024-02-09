@@ -157,7 +157,9 @@ const TimeTable = (props) => {
                       "morningShift",
                       "end",
                       newTime,
-                      setTimeTable
+                      setTimeTable,
+                      true,
+                      index
                     );
                   }}
                 />
