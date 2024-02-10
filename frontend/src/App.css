@@ -1056,6 +1056,8 @@ iframe {
 .yellow,
 .minutes-0-yellow, .shift-start-0-yellow {
   background-color: rgb(222, 174, 0);
+  border: 1.5px solid springgreen;
+  animation: border-pulsate 2s infinite;
 }
 
 .shift-start-45-yellow,
@@ -1067,6 +1069,8 @@ iframe {
     rgb(222, 174, 0) 25%,
     rgba(255, 255, 255, 0.723) 0%
   );
+  border: 1.5px solid springgreen;
+  animation: border-pulsate 2s infinite;
 }
 
 .shift-start-15-yellow{
@@ -1076,9 +1080,8 @@ iframe {
     rgb(222, 174, 0) 75%,
     rgba(255, 255, 255, 0.723) 0%
   );
-}
-
-.minutes-30-yellow {
+  border: 1.5px solid springgreen;
+  animation: border-pulsate 2s infinite;
 }
 
 /* 30 minutes */
@@ -1089,4 +1092,13 @@ iframe {
     rgb(222, 174, 0) 50%,
     rgba(255, 255, 255, 0.723) 0%
   );
+  border: 1.5px solid springgreen;
+  animation: border-pulsate 2s infinite;
+}
+
+
+@keyframes border-pulsate {
+  0%   { border-color: springgreen }
+  50% { border-color: rgba(0, 255, 255, 0); }
+  100%   { border-color: springgreen }
 }
