@@ -4,6 +4,7 @@ import TimeRow from "../components/timeRow";
 import Timeline from "../components/timeline";
 import convertId from "../heplers/convertId";
 import { motion, AnimatePresence } from "framer-motion";
+import { HiUser } from "react-icons/hi";
 
 import { getCookie } from "../features/user";
 
@@ -90,9 +91,19 @@ function DateDiv({
       className={`date-div ${animationClass}`}
       onAnimationEnd={handleAnimationEnd}
     >
-      <span className="shift-title from-user">{from_user}</span>
-
-      <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+      {user.user_type === "Manager" && oldShifts ? (
+        <div className="flex-center-between">
+          <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+          <span className="shift-title from-user flex-center-between">
+            <HiUser /> - {from_user}
+          </span>
+        </div>
+      ) : (
+        <>
+          <span className="shift-title from-user">{from_user}</span>
+          <div dangerouslySetInnerHTML={{ __html: date.string_format }} />
+        </>
+      )}
       {shiftData ? (
         // Shift data display logic
         <>
@@ -219,16 +230,28 @@ function DateDiv({
           )}
 
           {user.user_type == "Manager" && (
-            <span className="shift-text">
-              <span className="shift-title">🌙 : </span>
-              {oldShifts &&
-                oldShifts[convertId(date.id)]?.evening_shift.trim() !==
-                  shiftData?.evening_shift.trim() && (
-                  <span className="strike-through">
-                    {oldShifts[convertId(date.id)]?.evening_shift}
-                  </span>
-                )}{" "}
-              {shiftData?.evening_shift}
+            <span className="shift-text flex-center-between">
+              <div>
+                <span className="shift-title">🌙 : </span>
+                {oldShifts &&
+                  oldShifts[convertId(date.id)]?.evening_shift.trim() !==
+                    shiftData?.evening_shift.trim() && (
+                    <span className="strike-through">
+                      {oldShifts[convertId(date.id)]?.evening_shift}
+                    </span>
+                  )}{" "}
+                {shiftData?.evening_shift}
+              </div>
+
+              {oldShifts && (
+                <button
+                  className="primary-button"
+                  id="accept-changes-button"
+                  onClick=""
+                >
+                  Accept Changes
+                </button>
+              )}
             </span>
           )}
         </>
