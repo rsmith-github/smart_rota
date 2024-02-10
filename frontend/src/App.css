@@ -1055,9 +1055,10 @@ iframe {
 
 .yellow,
 .minutes-0-yellow, .shift-start-0-yellow {
-  background-color: rgb(222, 174, 0);
+  background-color: rgba(222, 174, 0, 0.898);
   border: 1.5px solid springgreen;
-  animation: border-pulsate 2s infinite;
+  animation: border-pulsate 1s infinite;
+  height: 12px;
 }
 
 .shift-start-45-yellow,
@@ -1066,22 +1067,24 @@ iframe {
   background: none;
   background-image: linear-gradient(
     to right,
-    rgb(222, 174, 0) 25%,
+    rgba(222, 174, 0, 0.898) 25%,
     rgba(255, 255, 255, 0.723) 0%
   );
   border: 1.5px solid springgreen;
-  animation: border-pulsate 2s infinite;
+  animation: border-pulsate 1s infinite;
+  height: 12px;
 }
 
 .shift-start-15-yellow{
   background: none;
   background-image: linear-gradient(
     to right,
-    rgb(222, 174, 0) 75%,
+    rgba(222, 174, 0, 0.898) 75%,
     rgba(255, 255, 255, 0.723) 0%
   );
   border: 1.5px solid springgreen;
-  animation: border-pulsate 2s infinite;
+  animation: border-pulsate 1s infinite;
+  height: 12px;
 }
 
 /* 30 minutes */
@@ -1089,11 +1092,12 @@ iframe {
   background: none;
   background-image: linear-gradient(
     to right,
-    rgb(222, 174, 0) 50%,
+    rgba(222, 174, 0, 0.898) 50%,
     rgba(255, 255, 255, 0.723) 0%
   );
   border: 1.5px solid springgreen;
-  animation: border-pulsate 2s infinite;
+  animation: border-pulsate 1s infinite;
+  height: 12px;
 }
 
 
