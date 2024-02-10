@@ -21,7 +21,8 @@ urlpatterns = [
     path("api/update-timetable", views.UpdateTimetableView.as_view()),
     path("api/get-timetable", views.GetMemberShiftsData.as_view()),
     path("api/request-change", views.RequestShiftChange.as_view()),
-    path("api/get-change-requests", views.GetChangeRequests.as_view())
+    path("api/get-change-requests", views.GetChangeRequests.as_view()),
+    path("api/accept-change-request", views.AcceptChangeRequest.as_view())
 
 
 

@@ -56,7 +56,7 @@ function DateDiv({
       shiftData.evening_shift.trim() !== oldShiftData.evening_shift.trim();
   }
 
-  // currentShiftData is to display on /timetable
+  // currentShiftData is to display on /timetable and for passing to TimeRow
   const [currentShiftData, setCurrentShiftData] = useState({
     date: date.id,
     morningShift: {
@@ -68,6 +68,21 @@ function DateDiv({
       end: "",
     },
   });
+
+  const acceptChanges = async () => {
+    await fetch("/api/accept-change-request", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${getCookie("access_token")}`,
+      },
+      body: JSON.stringify({
+        from_user: from_user,
+        user: user,
+        data: shiftData,
+      }),
+    });
+  };
 
   useEffect(() => {
     if (shiftData) {
@@ -247,7 +262,7 @@ function DateDiv({
                 <button
                   className="primary-button"
                   id="accept-changes-button"
-                  onClick=""
+                  onClick={acceptChanges}
                 >
                   Accept Changes
                 </button>

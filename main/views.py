@@ -420,3 +420,21 @@ class GetChangeRequests(APIView):
                 messages['data'].append(model_to_dict(change_request))
 
             return JsonResponse(messages, status=status.HTTP_200_OK)
+
+
+class AcceptChangeRequest(APIView):
+
+    def put(self, request):
+
+        data = json.loads(request.body)
+        user_that_requested_change = data['from_user']
+        put_request_user = data['user']
+
+        if put_request_user['user_type'] == 'Manager':
+
+            print(user_that_requested_change)
+            pprint(data)
+            
+        
+
+        return JsonResponse({'data': 'Shift Change Accepted'},status=status.HTTP_200_OK)
