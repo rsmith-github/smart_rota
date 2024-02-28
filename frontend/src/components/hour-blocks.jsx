@@ -29,7 +29,7 @@ function HourBlocks({
 
     if (
       (i <= 10 && isFilled && morningShiftChanged) ||
-      (i >= 9 && isFilled && eveningShiftChanged)
+      (i >= 10 && isFilled && eveningShiftChanged)
     ) {
       className += " yellow";
     }
@@ -43,8 +43,9 @@ function HourBlocks({
       (isElementToAddMinutesTo && i >= 10 && isFilled && eveningShiftChanged) ||
       (isElementToAddMinutesTo && i <= 10 && morningShiftChanged)
     ) {
-      className = className.includes('yellow') ? className.replace("yellow",`minutes-${minutes_to_add}-yellow`) : className + ` minutes-${minutes_to_add}-yellow`;
-      
+      className = className.includes("yellow")
+        ? className.replace("yellow", `minutes-${minutes_to_add}-yellow`)
+        : className + ` minutes-${minutes_to_add}-yellow`;
     }
 
     hourDivs.push(

@@ -79,9 +79,12 @@ function DateDiv({
       body: JSON.stringify({
         from_user: from_user,
         user: user,
-        data: shiftData,
+        shiftData: shiftData,
+        date: date.id,
       }),
     });
+
+
   };
 
   useEffect(() => {
