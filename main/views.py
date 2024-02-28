@@ -429,12 +429,30 @@ class AcceptChangeRequest(APIView):
         data = json.loads(request.body)
         user_that_requested_change = data['from_user']
         put_request_user = data['user']
+        shift_data = data['shiftData']
+        print(shift_data)
 
         if put_request_user['user_type'] == 'Manager':
 
             print(user_that_requested_change)
             pprint(data)
-            
-        
 
-        return JsonResponse({'data': 'Shift Change Accepted'},status=status.HTTP_200_OK)
+            # change old shift
+
+            date_obj = datetime.strptime(data['date'], "%d-%m-%y")
+            db_formatted_date = datetime.strftime(date_obj, "%Y-%m-%d")
+
+            old_shift_object = TimeTable.objects.get(
+                username=user_that_requested_change, date=db_formatted_date)
+
+            old_shift_object.morning_shift = shift_data['morning_shift']
+            old_shift_object.evening_shift = shift_data['evening_shift']
+
+            old_shift_object.save()
+
+            # delete message
+            message_to_delete = Messages.objects.get(
+                from_user=user_that_requested_change, date=db_formatted_date)
+            message_to_delete.delete()
+
+        return JsonResponse({'data': 'Shift Change Accepted'}, status=status.HTTP_200_OK)
