@@ -2,6 +2,8 @@
 
 Smart Rota is a comprehensive, non-industry-specific rota-management platform designed to streamline time management and enhance communication between management and team members. It addresses common challenges in shift management, such as memory lapses and inaccuracies in shift timings, by empowering employees to request changes to their rotas and enabling managers to approve these requests efficiently.
 
+![image info](/frontend/src/static/smart-rota.gif)
+
 ## Features
 
 ### Landing Page
@@ -52,7 +54,7 @@ Backend: Django, providing robust and secure server-side functionality.
 
 ## Getting Started
 
-To get started with the Rota Management System, clone the repository and follow the setup instructions for both frontend (React) and backend (Django) environments.
+To get started with Smart Rota, clone the repository and follow the setup instructions for both frontend (React) and backend (Django) environments.
 
 ## Prerequisites
 
