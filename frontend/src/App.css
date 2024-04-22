@@ -1024,6 +1024,19 @@ iframe {
   padding: 10px;
 }
 
+.register-company-message {
+  color: white;
+  padding: 10px;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.message-text {
+  font-weight: 600;
+}
+
 .login-input {
   width: 200px;
   height: 30px;

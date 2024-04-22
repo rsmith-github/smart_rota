@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { HiOutlineUserAdd } from "react-icons/hi";
+
+import { FaRegBuilding } from "react-icons/fa";
 
 function RegisterCompany({ message }) {
   const [companyCode, setCompanyCode] = useState();
@@ -30,25 +34,60 @@ function RegisterCompany({ message }) {
 
   return (
     <div>
-      <h2 className="registerH2">Register your company here</h2>
-      {message && <p style={{ color: "white" }}>{message}</p>}
-      {companyCode && (
-        <p style={{ color: "white" }}>
-          Your code is: {companyCode}. DO NOT LOSE IT.
-        </p>
-      )}
-      <form action="/register-company" method="post" onSubmit={checkStatus}>
-        <input
-          autoFocus
-          className=""
-          type="text"
-          name="company-name"
-          placeholder="Company name"
-          onChange={updateCompanyName}
-        />
-        <input className="btn" type="submit" value="submit" />
-      </form>
-      Don't have an account? <a href="/register">Register here.</a>
+      <motion.div
+        className="auth-page"
+        initial={{
+          y: -80,
+          opacity: 0,
+        }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 1,
+        }}
+      >
+        <div id="register-page-container">
+          <div className="register-l-side">
+            <h2 className="registerH2">Register Company</h2>
+            <form
+              action="/register-company"
+              method="post"
+              onSubmit={checkStatus}
+            >
+              <div>
+                <input
+                  autoFocus
+                  className="login-input"
+                  type="text"
+                  name="company-name"
+                  placeholder="Company name"
+                  onChange={updateCompanyName}
+                />
+              </div>
+              <input
+                className="btn primary-button register-btn"
+                type="submit"
+                value="submit"
+              />
+            </form>
+            <div className="register-company-message">
+              {message && <p>{message}</p>}
+              {companyCode && (
+                <>
+                  <p className="message-text no-margin">Your code is:</p>
+                  <p className="no-margin">{companyCode}</p>
+                  <p>Please write it down and do not lose it.</p>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="register-r-side">
+            <div className="auth-icon-border">
+              <FaRegBuilding className="auth-icon" />
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
