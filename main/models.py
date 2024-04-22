@@ -102,10 +102,10 @@ class TimeTable(models.Model):
 # Need to know which employee sent the request, which company they belong to, and the message type, so that all managers can see the change request.
 class Messages(models.Model):
 
-    from_user = models.CharField(max_length=255)
+    from_user = models.CharField(max_length=255) # may have to be many to many field or foregin key
     employer_code = models.CharField(max_length=255)
     message_type = models.CharField(max_length=255)
-    to_user = models.CharField(max_length=255, null=True)
+    to_user = models.CharField(max_length=255, null=True) # may have to be many to many field or foregin key
     content = models.TextField(null=True)
 
     date = models.DateField(null=True)
