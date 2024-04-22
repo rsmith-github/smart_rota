@@ -15,7 +15,7 @@ function DashboardTop() {
               </div>
               <div className="dbrd-item-text-container">
                   <span className="dbrd-item-title">Earnings</span>
-                  <p className="dbrd-item-text">$350.4</p>
+                  <p className="dbrd-item-text">--.--</p>
               </div>
           </div>
           <div className="dashboard-item">
@@ -24,13 +24,13 @@ function DashboardTop() {
               </div>
               <div className="dbrd-item-text-container">
                   <span className="dbrd-item-title">Spent this month</span>
-                  <p className="dbrd-item-text">$642.39</p>
+                  <p className="dbrd-item-text">--.--</p>
               </div>
           </div>
           <div className="dashboard-item">
               <div className="dbrd-item-text-container">
-                  <span className="dbrd-item-title">Sales</span>
-                  <p className="dbrd-item-text">$574.34</p>
+                  <span className="dbrd-item-title">Hours Worked</span>
+                  <p className="dbrd-item-text">--.--</p>
               </div>
           </div>
           <div className="dashboard-item">
@@ -39,7 +39,7 @@ function DashboardTop() {
               </div>
               <div className="dbrd-item-text-container">
                   <span className="dbrd-item-title">Your balance</span>
-                  <p className="dbrd-item-text">$1000</p>
+                  <p className="dbrd-item-text">--.--</p>
               </div>
           </div>
           <div className="dashboard-item">
@@ -47,8 +47,8 @@ function DashboardTop() {
                   <HiCheckCircle size={25} />
               </div>
               <div className="dbrd-item-text-container">
-                  <span className="dbrd-item-title">New Tasks</span>
-                  <p className="dbrd-item-text">154</p>
+                  <span className="dbrd-item-title">Shifts</span>
+                  <p className="dbrd-item-text">24</p>
               </div>
           </div>
           <div className="dashboard-item">
@@ -56,8 +56,8 @@ function DashboardTop() {
                   <HiFire size={25} />
               </div>
               <div className="dbrd-item-text-container">
-                  <span className="dbrd-item-title">Total Projects</span>
-                  <p className="dbrd-item-text">2935</p>
+                  <span className="dbrd-item-title">Company</span>
+                  <p className="dbrd-item-text">xyz</p>
               </div>
           </div>
       </div></>

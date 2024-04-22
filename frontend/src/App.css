@@ -860,6 +860,15 @@ iframe {
 .dbrd-bottom-eigth {
   width: 48%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .no-background {

@@ -49,11 +49,15 @@ function DashboardBottom() {
             </LineChart>
           </div>
         </div>
-        <div className="dbrd-bottom-quarter"></div>
-        <div className="dbrd-bottom-quarter"></div>
+        <div className="dbrd-bottom-quarter center-text">
+          <p>No data yet</p>
+        </div>
+        <div className="dbrd-bottom-quarter center-text">
+          <p>No data yet</p>
+        </div>
         <div className="dbrd-bottom-quarter no-background">
-          <div className="dbrd-bottom-eigth"></div>
-          <div className="dbrd-bottom-eigth"></div>
+          <div className="dbrd-bottom-eigth">No data yet</div>
+          <div className="dbrd-bottom-eigth">No data yet</div>
         </div>
       </div>
     </div>
