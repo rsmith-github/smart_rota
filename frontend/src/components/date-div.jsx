@@ -21,6 +21,8 @@ function DateDiv({
 }) {
   const [opened, setOpened] = useState(false);
 
+  const [accepted, setAccepted] = useState(false);
+
   const handleOpen = () => {
     setOpened(!opened);
   };
@@ -84,7 +86,7 @@ function DateDiv({
       }),
     });
 
-
+    setAccepted(true);
   };
 
   useEffect(() => {
@@ -108,6 +110,9 @@ function DateDiv({
       id={date.id}
       className={`date-div ${animationClass}`}
       onAnimationEnd={handleAnimationEnd}
+      style={{
+        display: accepted ? "none" : "block",
+      }}
     >
       {user.user_type === "Manager" && oldShifts ? (
         <div className="flex-center-between">
@@ -247,7 +252,7 @@ function DateDiv({
             </>
           )}
 
-          {user.user_type == "Manager" && (
+          {user.user_type === "Manager" && (
             <span className="shift-text flex-center-between">
               <div>
                 <span className="shift-title">🌙 : </span>
