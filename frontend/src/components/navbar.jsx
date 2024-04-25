@@ -9,6 +9,7 @@ import { HiMenu } from "react-icons/hi";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -39,6 +40,10 @@ function NavBar() {
     setIsMenuOpen(!isMenuOpen);
   }
 
+  function showMobileNav() {
+    setIsMobileNavOpen(!isMobileNavOpen);
+  }
+
   // const logout = (event) => {
   //   event.preventDefault();
   //   localStorage.setItem("access_token", "");
@@ -50,9 +55,9 @@ function NavBar() {
   const authLinks = (
     <>
       <li>
-        <a href="/" style={{ fontSize: "larger" }}>
+        <NavLink to="/" style={{ fontSize: "larger" }}>
           <strong>{username}</strong>
-        </a>
+        </NavLink>
       </li>
       <li>
         <NavLink className="spa-link" to="/">
@@ -112,20 +117,37 @@ function NavBar() {
   );
 
   return (
-    <nav>
-      <div className="navContainer">
-        <div className="logoContainer">
-          <a href="/">
+    <>
+      <nav>
+        <div className="navContainer">
+          <div className="logoContainer">
+            <a href="/">
+              <h2 id="logo">SMART ROTA</h2>
+            </a>
             <h2 id="logo">SMART ROTA</h2>
-          </a>
-          <h2 id="logo">SMART ROTA</h2>
+          </div>
+          <div>
+            <ul className="navBar">
+              {isAuthenticated ? authLinks : guestLinks}
+            </ul>
+          </div>
+          <HiMenu
+            className="burger"
+            color="white"
+            size={"30px"}
+            onClick={showMobileNav}
+          />
         </div>
-        <div>
-          <ul className="navBar">{isAuthenticated ? authLinks : guestLinks}</ul>
-          <HiMenu className="burger" color="white" size={"30px"} />
-        </div>
+      </nav>
+      <div
+        style={{ display: isMobileNavOpen ? "flex" : "none" }}
+        className="mobileNavBarContainer"
+      >
+        <ul className="mobileNavBar">
+          <div>{isAuthenticated ? authLinks : guestLinks}</div>
+        </ul>
       </div>
-    </nav>
+    </>
   );
 }
 

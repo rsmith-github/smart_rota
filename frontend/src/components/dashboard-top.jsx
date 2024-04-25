@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
     HiChartBar,
     HiCurrencyDollar,
@@ -6,7 +7,19 @@ import {
     HiFire,
   } from "react-icons/hi";
 
+
+import { useSelector } from "react-redux";
+
 function DashboardTop() {
+
+  const { user } = useSelector((state) => state.user);
+  
+  //   Probably going to have to get user's comany name based on company code in order to show it on the dashboard.
+  useEffect(() => {
+   console.log(user);
+
+  }, {})
+
   return (
       <><span className="page-location-text">Pages / Dashboard</span><h1 className="page-title">Main Dashboard</h1><div id="dashboard-top">
           <div className="dashboard-item">

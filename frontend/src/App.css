@@ -53,11 +53,39 @@ nav {
 }
 
 .navBar a,
-.dropdown-toggle {
+.dropdown-toggle,
+.mobileNavBar a {
   text-decoration: none;
   color: white;
   font-size: 15px;
   font-weight: 700;
+}
+
+.mobileNavBarContainer {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  top: 65px;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 49, 122, 0.806);
+  z-index: 20;
+}
+
+.mobileNavBar {
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  list-style-type: none;
+}
+
+.mobileNavBar li {
+  margin: 15px 0 15px 0;
+}
+
+.mobileNavBar a {
+  font-size: 45px;
 }
 
 .dropdown-toggle {
@@ -130,6 +158,12 @@ nav {
   .burger {
     display: block !important;
     cursor: pointer;
+  }
+
+  .dashboard-burger {
+    position: absolute;
+    margin-top: 19px;
+    right: 0px;
   }
 
   .logoContainer h2 {
@@ -209,6 +243,11 @@ h4 {
 
 #register-dropdown:hover {
   cursor: pointer !important;
+}
+
+.mobileNavBar {
+  display: flex;
+  text-decoration: none;
 }
 
 /* Logo */
@@ -974,9 +1013,9 @@ iframe {
   }
 }
 @media (max-width: 1075px) {
-  #sidebar-container {
+  /* #sidebar-container {
     display: none;
-  }
+  } */
   .rota-right-side {
     width: 100%;
   }
