@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { pointer } from "d3";
 import { logout } from "../features/user";
 import { HiChevronDown } from "react-icons/hi";
+import { HiMenu } from "react-icons/hi";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -120,11 +121,8 @@ function NavBar() {
           <h2 id="logo">SMART ROTA</h2>
         </div>
         <div>
-          <ul className="navBar">
-            {/* {authLinks}
-            {guestLinks} */}
-            {isAuthenticated ? authLinks : guestLinks}
-          </ul>
+          <ul className="navBar">{isAuthenticated ? authLinks : guestLinks}</ul>
+          <HiMenu className="burger" color="white" size={"30px"} />
         </div>
       </div>
     </nav>

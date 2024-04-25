@@ -37,7 +37,6 @@ function Homepage() {
         <h4>
           Rota management made simple and straightforward for all parties.
         </h4>
-        {/* Rota management system where equality comes first. */}
       </motion.div>
       <div
         style={{
@@ -55,6 +54,7 @@ function Homepage() {
             delay: 1.5,
             ease: "circIn",
           }}
+          viewport={{ once: "true", amount: 0.5 }}
         >
           <Spline scene="https://prod.spline.design/hyBtrdl-OCArwfnd/scene.splinecode" />
         </motion.div>
@@ -72,12 +72,13 @@ function Homepage() {
             y: 0,
             opacity: 1,
           }}
+          viewport={{ once: "true", amount: 0.5 }}
         >
-          <p>
-            <span>Empower</span> your teams. <br />
-            Open the door for seamless <span>communication</span> between
-            management and team members, prioritizing <span>equality</span>.
-          </p>
+            <p>
+              <span>Empower</span> your teams. <br />
+              Open the door for seamless <span>communication</span> between
+              management and team members, prioritizing <span>equality</span>.
+            </p>
         </motion.div>
       </div>
       <ScreenShotSection />
