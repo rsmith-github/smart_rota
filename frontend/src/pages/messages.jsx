@@ -83,18 +83,20 @@ function Messages() {
         <h1 className="page-title">Messages Page</h1>
         <h3>Change Requests</h3>
         <div id="messages-page-date-divs-container">
-          {requests.map((req, index) => (
-            <DateDiv
-              key={`${req.id}-${index}`}
-              date={{ id: req.id, string_format: req.string_format }}
-              animationClass=""
-              handleAnimationEnd={() => {}}
-              shiftsData={req.shiftsData}
-              user={user}
-              from_user={req.from_user}
-              oldShifts={req.oldShifts}
-            />
-          ))}
+          {requests.length > 0 &&
+            requests.map((req, index) => (
+              <DateDiv
+                key={`${req.id}-${index}`}
+                date={{ id: req.id, string_format: req.string_format }}
+                animationClass=""
+                handleAnimationEnd={() => {}}
+                shiftsData={req.shiftsData}
+                user={user}
+                from_user={req.from_user}
+                oldShifts={req.oldShifts}
+              />
+            ))}
+          {!requests.length > 0 && <p>No messages yet</p>}
         </div>
       </div>
     </div>

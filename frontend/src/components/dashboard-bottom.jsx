@@ -29,7 +29,7 @@ function DashboardBottom() {
         <div className="dbrd-bottom-quarter">
           <div>
             <h3 style={{ textAlign: "center" }}>Hours Worked</h3>
-            <LineChart width={500} height={250} data={data}>
+            <LineChart width={480} height={250} data={data} id="line-chart">
               <CartesianGrid strokeDasharray="3 3" />
               <Line
                 type="monotone"
