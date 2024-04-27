@@ -78,7 +78,7 @@ Provides test cases for various views within the 'main' application using Django
 
 This file serves as the main React component for the application, setting up the routing and global state management using React Router and Redux. It configures routes for various pages like the homepage, team, messages, dashboard, and user registration, and integrates a dynamic navigation bar and footer based on the user's current route, while also handling user authentication checks on initial load.
 
-**[/frontend/src/App.jsx:](/frontend/src/App.jsx)**
+**[/frontend/src/App.css:](/frontend/src/App.css)**
 
 This CSS file establishes the visual design for the application, setting styles for the HTML structure, navigation, and responsive layouts across various devices. It incorporates animations, media queries, and a flexible layout to ensure the application is visually appealing and functional on all screen sizes.
 
