@@ -25,7 +25,8 @@ Smart Rota is designed with the goal of not only fulfilling but exceeding the re
 # Files
 
 ## Backend
-**/smart_rota/urls.py:**
+
+**[/smart_rota/urls.py](/smart_rota/urls.py)**
 
 Defines URL routing for the Smart Rota Django project, including Django's admin interface, JWT authentication routes, and routes for `main.urls`.
 
@@ -73,7 +74,7 @@ Provides test cases for various views within the 'main' application using Django
 
 ### Root
 
-**/frontend/src/App.jsx:**
+**[/frontend/src/App.jsx](/frontend/src/App.jsx)**
 
 This file serves as the main React component for the application, setting up the routing and global state management using React Router and Redux. It configures routes for various pages like the homepage, team, messages, dashboard, and user registration, and integrates a dynamic navigation bar and footer based on the user's current route, while also handling user authentication checks on initial load.
 
