@@ -44,7 +44,7 @@ This file encapsulates all the view logic for the Smart Rota application, handli
 
 **/main/models.py:**
 
-This file defines the data models for the ROOT application, extending Django's built-in user model and introducing custom models tailored to the application's needs.
+This file defines the data models for the application, extending Django's built-in user model and introducing custom models tailored to the application's needs.
 
 1. **User**: Customized from `AbstractUser`, this model adds `employer_code` and `user_type` fields to facilitate role-based and company-specific functionalities.
 2. **Company**: Represents companies with unique names and codes, enabling distinct access and management within the platform.
@@ -52,7 +52,7 @@ This file defines the data models for the ROOT application, extending Django's b
 4. **TimeTable**: Stores shift schedules for users, including employer association, shift times, and dates, ensuring schedules are maintained per company and user.
 5. **Messages**: Handles intra-application messaging and requests, such as shift changes, storing sender and receiver details, message types, and related scheduling information.
 
-These models are crucial for managing users, companies, and operational data like schedules and communications within ROOT.
+These models are crucial for managing users, companies, and operational data like schedules and communications within the application.
 
 **/main/admin.py:**
 
@@ -76,15 +76,15 @@ Provides test cases for various views within the 'main' application using Django
 
 **/frontend/src/App.jsx:**
 
-This file serves as the main React component for the ROOT application, setting up the routing and global state management using React Router and Redux. It configures routes for various pages like the homepage, team, messages, dashboard, and user registration, and integrates a dynamic navigation bar and footer based on the user's current route, while also handling user authentication checks on initial load.
+This file serves as the main React component for the application, setting up the routing and global state management using React Router and Redux. It configures routes for various pages like the homepage, team, messages, dashboard, and user registration, and integrates a dynamic navigation bar and footer based on the user's current route, while also handling user authentication checks on initial load.
 
 **/frontend/src/App.jsx:**
 
-This CSS file establishes the visual design for the ROOT application, setting styles for the HTML structure, navigation, and responsive layouts across various devices. It incorporates animations, media queries, and a flexible layout to ensure the application is visually appealing and functional on all screen sizes.
+This CSS file establishes the visual design for the application, setting styles for the HTML structure, navigation, and responsive layouts across various devices. It incorporates animations, media queries, and a flexible layout to ensure the application is visually appealing and functional on all screen sizes.
 
 **/frontend/src/store.js:**
 
-This file sets up the Redux store for the ROOT application, integrating `redux-persist` to manage state persistence across sessions using local storage. It specifically configures persistence for user-related data, including authentication status, and enables Redux DevTools in development environments.
+This file sets up the Redux store for the application, integrating `redux-persist` to manage state persistence across sessions using local storage. It specifically configures persistence for user-related data, including authentication status, and enables Redux DevTools in development environments.
 
 **/frontend/src/static:**
 
@@ -98,7 +98,7 @@ This file defines the Homepage component for the application, using React and Re
 
 **/frontend/src/pages/dashboard.jsx:**
 
-This file contains the Dashboard component of the ROOT application, which checks user authentication and loading state using Redux. If a user is not authenticated, they are redirected to the login page, while a loading state triggers a loading screen. The dashboard includes components for both the top and bottom sections, organized in a layout with a sidebar for navigation, providing a comprehensive view of user-specific dashboard data.
+This file contains the Dashboard component of the application, which checks user authentication and loading state using Redux. If a user is not authenticated, they are redirected to the login page, while a loading state triggers a loading screen. The dashboard includes components for both the top and bottom sections, organized in a layout with a sidebar for navigation, providing a comprehensive view of user-specific dashboard data.
 
 **/frontend/src/pages/login.jsx**
 
