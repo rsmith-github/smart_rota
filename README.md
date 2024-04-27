@@ -93,126 +93,127 @@ This directory contains all the images used for the frontend. It serves as a cen
 
 **/frontend/src/pages/homepage.jsx:**
 
-This file defines the Homepage component for the application, using React and Redux to manage access based on authentication status. If a user is not authenticated, they are redirected to the login page. The homepage includes animated elements for welcoming users and showcasing the application's features, utilizing `framer-motion` for smooth animations and `@splinetool/react-spline` for interactive 3D models.
+Defines the Homepage component, managing access based on authentication and displaying animated welcome elements and 3D models for feature showcase.
 
 **/frontend/src/pages/dashboard.jsx:**
 
-This file contains the Dashboard component of the application, which checks user authentication and loading state using Redux. If a user is not authenticated, they are redirected to the login page, while a loading state triggers a loading screen. The dashboard includes components for both the top and bottom sections, organized in a layout with a sidebar for navigation, providing a comprehensive view of user-specific dashboard data.
+Contains the Dashboard component that verifies user authentication and displays a sidebar and sections with user-specific data, handling loading states appropriately.
 
-**/frontend/src/pages/login.jsx**
+**/frontend/src/pages/login.jsx:**
 
-This component manages the login functionality, leveraging Redux for state management and responsive design for varying screen sizes. It displays an animated form, processes user login data, and redirects authenticated users to the homepage.
+Manages user login with a responsive, animated form, handling authentication and redirecting authenticated users to the homepage.
 
-**/frontend/src/pages/messages.jsx**
+**/frontend/src/pages/messages.jsx:**
 
-Handles the display of change requests related to shift schedules. It fetches and formats these requests asynchronously and updates the UI accordingly. The component uses Redux for state management and includes conditional rendering based on authentication and loading states.
+Displays and manages change requests for shifts, fetching and updating requests asynchronously, and controlling UI based on user authentication and loading states.
 
-**/frontend/src/pages/notfound.jsx**
-It appears you’ve mentioned a file "notfound.jsx" but provided the content under a different name. Please clarify or provide the correct file content if you need a description.
+**/frontend/src/pages/notfound.jsx:**
 
-**/frontend/src/pages/register-company.jsx**
+Displays a generic not found page when a user navigates to an undefined route, enhancing the app's error handling.
 
-This component provides a form for registering a company, handling form submissions to a server endpoint and displaying responses such as a generated company code. It uses animations for transitions and matches for responsive design considerations.
+**/frontend/src/pages/register-company.jsx:**
 
-**/frontend/src/pages/register-employee.jsx**
+Provides a form interface for company registration, managing submissions and displaying responses like generated company codes.
 
-Manages the registration process for employees. It includes form handling that submits employee data to the server and updates the UI based on the registration status. The component is responsive, adjusting its layout based on the screen size.
+**/frontend/src/pages/register-employee.jsx:**
 
-**/frontend/src/pages/register-manager.jsx**
+Handles employee registration, managing form submissions and UI updates based on registration status, and adjusting layout for responsiveness.
 
-Similar to RegisterEmployee but tailored for manager registrations, this component handles form submissions for registering managers, updating the UI based on responses and incorporating responsive design for better usability across devices.
+**/frontend/src/pages/register-manager.jsx:**
 
-**/frontend/src/pages/rota.jsx**
+Similar to the employee registration, this manages manager registrations with form submissions and responsive UI updates.
 
-Focused on displaying weekly schedules, this component allows users to navigate through weeks and view shifts. It fetches shift data based on the current week and handles user interactions with animations and dynamic content loading.
+**/frontend/src/pages/rota.jsx:**
 
-**/frontend/src/pages/team.jsx**
+Displays weekly schedules, allows navigation through weeks, fetches and displays shifts, and manages user interactions dynamically.
 
-Displays a list of team members and their schedules. It includes functionality to fetch team data and manage visibility of detailed schedules. The component also handles user authentication and loading states, ensuring data is displayed appropriately.
+**/frontend/src/pages/team.jsx:**
+
+Shows team members and their schedules, fetches team data, and handles detailed schedule visibility based on user authentication and loading states.
 
 ### Components
 
 **/frontend/src/components/dashboard-bottom.jsx:**
 
-This component displays a line chart visualization of hours worked each month using the Recharts library. It is designed to offer insights into work trends over the year and includes features like tooltips and legends for better data comprehension, making it an integral part of the dashboard's bottom section.
+Displays a line chart of monthly work hours using Recharts, integrated into the dashboard's bottom section for work trend insights.
 
 **/frontend/src/components/date-div.jsx:**
 
-This component handles the display and interaction with individual date entries, allowing for viewing and modifying shift requests. It integrates animations for a dynamic user interface and provides functionalities such as accepting changes for managers and requesting shift changes for employees, reflecting updates in real-time.
+Displays date entries, allows viewing and modifying shift requests with dynamic animations, and updates shifts in real time for different user roles.
 
 **/frontend/src/components/footer.jsx:**
 
-The Footer component provides a structured display of company information, links, and other resources. It is divided into sections for solutions, quick links, and other relevant content, ensuring easy navigation and access to important areas of the application, all styled consistently with the rest of the site.
+Structures company information and navigation links into organized sections, providing easy access to application resources.
 
 **/frontend/src/components/hour-blocks.jsx:**
 
-This component dynamically generates visual representations of hourly blocks for shift timings. It adjusts the appearance based on shift changes and displays color-coded blocks to indicate different states like active, changed, or idle hours, enhancing the user's ability to track shifts visually.
+Generates visual hourly blocks for shifts, indicating different states through color codes to track shifts visually.
 
 **/frontend/src/components/loading-screen.jsx:**
 
-The LoadingScreen component offers a visual indicator during data fetching or processing phases, utilizing a circular loading icon from the `react-loading-icons` library. It ensures users are aware of ongoing operations, improving the interface's responsiveness and user experience.
+Provides a visual loading indicator during data fetches or processing, enhancing the application's responsiveness.
 
 **/frontend/src/components/member-card.jsx:**
 
-MemberCard is a component designed to display key information about a team member. It shows the member's username and email and can be interacted with to view detailed schedules or perform management tasks, supporting different styles for roles like manager or employee for immediate role recognition.
+Displays essential information about a team member, allows interaction to view detailed schedules, and identifies user roles visually.
 
 **/frontend/src/components/navbar.jsx:**
 
-NavBar manages the navigation across the application, featuring responsive design to adjust to different screen sizes. It provides links to various pages and handles user authentication states to toggle between guest and authenticated user links, enhancing site navigation and usability.
+Manages application navigation, toggles based on user authentication state, and adapts to different screen sizes for enhanced navigation.
 
 **/frontend/src/components/screenshot-section.jsx:**
 
-This component showcases key features or screens of the application using images. It uses motion effects for transitions, providing an engaging visual display that highlights the application's user interface and functionalities in a marketing or presentation context.
+Showcases application features with images and motion effects, presenting the UI and functionalities in a promotional context.
 
 **/frontend/src/components/sidebar.jsx:**
 
-AppSidebar facilitates navigation within the application, particularly in dashboard contexts. It displays different navigation options based on the user's role and screen size, and includes interactive icons and links for efficient access to various application sections, adjusting dynamically to user status and device.
+Enables dashboard navigation, displaying different options based on user roles and device size, with dynamic adjustment to user status.
 
 **/frontend/src/components/timeline.jsx:**
 
-Timeline visually represents shift timings within a specific date context, using nested HourBlocks components to depict individual hours. It reacts to changes in shift times, providing a graphical overview that helps users quickly grasp schedule details and changes.
+Represents shift timings graphically within specific dates using nested components, adapting to shift time changes.
 
 **/frontend/src/components/timeRow.jsx:**
 
-TimeRow component allows for detailed input and adjustment of shift times using a time picker interface. It supports both morning and evening shifts, providing interactive elements to adjust start and end times, which helps in precise scheduling within the application.
+Facilitates detailed shift time input and adjustments through a time picker interface, essential for precise schedule management.
 
 **/frontend/src/components/timetable-skeleton.jsx:**
 
-This component serves as a placeholder or skeleton screen for the Timetable component, displaying a static or loading state while the actual timetable data is being fetched, improving the user's perception of loading times and system responsiveness.
+Acts as a placeholder while timetable data is loading, improving perceived load times and system responsiveness.
 
 **/frontend/src/components/timetable.jsx:**
 
-TimeTable manages the display and interaction with a user's weekly schedule. It allows for editing and saving of shift times, offers a week-by-week navigation, and integrates with backend APIs to fetch and update timetable data, providing comprehensive management of work schedules.
+Manages weekly schedule displays and edits, fetches and updates shift data, and provides navigation and interaction for comprehensive schedule management.
 
 ### Helpers
 
 **/frontend/src/heplers/calculate-time-attrs.js:**
 
-This JavaScript function `calculateTimeAttributes` is designed to manipulate and interpret time attributes for shift handling. It dynamically adjusts time properties based on the hour within a day, managing specific cases like the start or end of shifts with conditional logic, making it essential for scheduling applications.
+Manages time attribute calculations for shift scheduling, adjusting properties based on hourly conditions within a day.
 
 **/frontend/src/heplers/convert-to-24hr.js:**
 
-The `convertTo24HourFormat` function converts a given hour into a 24-hour format string, ensuring all hours are properly formatted for displays and logs. This function is particularly useful in applications where time needs to be displayed or processed in a standardized format.
+Converts hours into a 24-hour format string, standardizing time displays and logs across the application.
 
 **/frontend/src/heplers/convertId.js:**
 
-`convertId` simplifies date strings from a standard format like '09-01-25' to a more compact '9-1-25', removing unnecessary zeros. This function is beneficial for handling and displaying dates in a cleaner, more efficient manner within user interfaces.
+Simplifies date strings for cleaner, more efficient handling and display in user interfaces.
 
 **/frontend/src/heplers/format-date.js:**
 
-The `formatDate` function transforms a date string into a more structured object, providing formatted strings for day, month, year, and the day of the week. It's useful for any part of a system that requires human-readable date representations or needs to perform operations based on these date components.
+Transforms date strings into structured objects for easy access to formatted date components, aiding in readable date representations.
 
 **/frontend/src/heplers/format-time.js:**
 
-`formatTime` parses a time range string into an object detailing the start and end times in a block format based on a predefined work schedule. This function supports the visualization and management of work shifts by converting standard time inputs into more granular, actionable data segments.
+Converts time range strings into detailed time block objects, supporting shift management by delineating exact start and end times.
 
 **/frontend/src/heplers/handle-rota-change.js:**
 
-This helper function manages updates to shift data, applying changes to either a list or a single object of shift times based on user interactions. It's crucial for applications requiring dynamic shift management and scheduling, ensuring that all changes are reflected accurately in real time.
+Applies real-time updates to shift data based on user interactions, crucial for dynamic shift management and scheduling.
 
 **/frontend/src/heplers/rota-helpers.js:**
 
-The `getDates` function generates a list of formatted date objects for a given week, enhancing calendar or scheduling features by providing ready-to-use date strings along with unique identifiers for each day, facilitating easy integration with other date-related functionalities in the application.
+Generates formatted date objects for calendar and scheduling features, providing comprehensive date details for easy integration with other functionalities.
 
 ### Features
 
