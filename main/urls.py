@@ -17,6 +17,8 @@ urlpatterns = [
     path("me", views.RetrieveUserView.as_view()),
     path('verify', views.verify, name='verify'),
     path("team", views.index),
+    path("messages", views.index),
+    path("dashboard", views.index),
     path("api/team", views.get_team, name="get-team"),
     path("api/update-timetable", views.UpdateTimetableView.as_view()),
     path("api/get-timetable", views.GetMemberShiftsData.as_view()),
