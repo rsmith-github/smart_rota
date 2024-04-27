@@ -72,11 +72,20 @@ Provides test cases for various views within the 'main' application using Django
 
 ## Frontend
 
-### Root
+### Root src
 
 **[/frontend/src/App.jsx](/frontend/src/App.jsx)**
 
 This file serves as the main React component for the application, setting up the routing and global state management using React Router and Redux. It configures routes for various pages like the homepage, team, messages, dashboard, and user registration, and integrates a dynamic navigation bar and footer based on the user's current route, while also handling user authentication checks on initial load.
+
+**[/frontend/src/index.js](/frontend/src/index.js)**
+
+This file initializes the React application by rendering the `App` component within the Redux and Redux-Persist frameworks, setting up the state management and persistence structure necessary for the application to function efficiently.
+
+**[/frontend/src/reportWebVitals.js](/frontend/src/reportWebVitals.js)**
+
+This file provides a mechanism for measuring and reporting web performance metrics using the `web-vitals` library, helping developers monitor and optimize the user experience by tracking real-world metrics like First Input Delay and Largest Contentful Paint.
+
 
 **[/frontend/src/App.css:](/frontend/src/App.css)**
 
