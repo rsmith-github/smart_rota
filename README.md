@@ -25,22 +25,21 @@ Smart Rota is designed with the goal of not only fulfilling but exceeding the re
 # Files
 
 ## Backend
-
 **/smart_rota/urls.py:**
 
-This file configures the URL routing for the Smart Rota Django project, defining patterns that route requests to appropriate views. It includes routes for Django's admin interface, JWT authentication (obtain, refresh, verify tokens), and serving the `manifest.json` for web app features, alongside the primary application routes from `main.urls`.
+Defines URL routing for the Smart Rota Django project, including Django's admin interface, JWT authentication routes, and routes for `main.urls`.
 
 **/main/urls.py:**
 
-This file defines the URL patterns for the 'main' app in the Smart Rota project, routing various endpoints to their corresponding views. It includes paths for user authentication (login, logout), user registration for different roles (employer, employee, company), and rota management functions such as viewing and updating timetables, handling shift change requests, and retrieving team data.
+Manages URL patterns for the 'main' app in Smart Rota, covering authentication, user registration for various roles, and rota management functions.
 
 **/main/utils.py:**
 
-This utility file contains a function `check_message_duplicates` which checks for duplicate entries in the `Messages` and `TimeTable` models based on user details and shift times. This function is used to prevent the submission of redundant shift requests, enhancing data integrity within the application.
+Contains the `check_message_duplicates` function to prevent duplicate shift requests by checking entries in the `Messages` and `TimeTable` models.
 
 **/main/views.py:**
 
-This file encapsulates all the view logic for the Smart Rota application, handling both web and API requests. It includes functions for user login, logout, registration, and various APIViews to manage company registration, team data retrieval, shift updates, and handling shift change requests. Each class and function is equipped to interact with the application's models using Django's ORM and handle HTTP requests, providing responses suitable for both web and API clients. The views also implement user authentication checks and data serialization to ensure secure and efficient data handling.
+Houses view functions for the Smart Rota application, managing web and API requests for user authentication, company and team management, and shift handling, with security and data integrity measures in place.
 
 **/main/models.py:**
 
