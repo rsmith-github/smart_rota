@@ -1,3 +1,11 @@
+/* 
+CODE CITATION
+This code was developed and modified to fit my needs based on a Redux tutorial available on YouTube. The tutorial, led by Bryan Brkic,
+specifically addresses Redux in the context of user authentication, incorporating necessary boilerplate code typical of Redux applications.
+The video can be accessed at [Bryan Brkic's Redux Tutorial](https://www.youtube.com/watch?v=rxRYEXBmM88). 
+This tutorial was particularly useful as I had no prior experience with Redux.
+*/
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const register = createAsyncThunk(

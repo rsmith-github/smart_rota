@@ -2,7 +2,15 @@
 
 Smart Rota is a comprehensive, non-industry-specific rota-management platform designed to streamline time management and enhance communication between management and team members. It addresses common challenges in shift management, such as memory lapses and inaccuracies in shift timings, by empowering employees to request changes to their rotas and enabling managers to approve these requests efficiently.
 
-![image info](/frontend/src/static/smart-rota.gif)
+![demo gif](/frontend/src/static/smart-rota.gif)
+
+## Distinctiveness and Complexity
+
+Harvard CS50W - Web Programming with Python and Javascript requires this capstone project to be distinctive from other projects in the course, and more complex. Thus, a project that is a social network or an e-commerce site will not pass. Smart Rota is neither a social network or a e-commerce site, nor does it mimic any of the other projects including Search, Wiki, or Mail. This project is a general-purpose SaaS platform for rota management, and solves a problem seen in companies that still use paper to clock in and clock out. In terms of complexity, the minimum requirement is that there should be one Django model, but this project has six. Furthermore, the project uses React/Redux for user authentication state management, which is not required for previous projects, but is more complex. Furthermore, a significant amount of time was spent on implementing smooth animations for better UX, as well as a built-from-scratch data visualisation components for visualising rota times. Lastly, the app is mobile responsive on every page, which is shown in the screencast.
+
+  _Custom data visualisation component_:
+  <br>
+  <img src="frontend/src/static/data-visualisation.png" style="width: 70%; text-align:center; margin-left: auto; margin-right: auto;" />
 
 ## Features
 
