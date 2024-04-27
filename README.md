@@ -285,13 +285,13 @@ Python and Django
 - Navigate to the frontend directory and install dependencies:
   `npm install`
 
-## Start the React server:
+### Start the React server:
 
-### Dev
+#### Dev
 
 - `npm run dev`
 
-### Prod
+#### Prod
 
 - `npm run build`
 - Open localhost:8000
