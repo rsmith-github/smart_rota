@@ -262,7 +262,7 @@ This JavaScript module handles user authentication in a Redux toolkit framework,
 ### Shift Change Requests
 
 - Employees can submit requests for rota changes.
-- Managers receive notifications and can approve or decline requests.
+- Managers are notified and can approve requests.
 
 ### Technology Stack
 
