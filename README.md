@@ -291,22 +291,22 @@ Python and Django
 ## Installation
 
 - Clone the repository.
-- Navigate to the frontend directory and install dependencies:
-  `npm install`
+- Navigate to the frontend directory (`cd frontend`) and install dependencies using `npm install`.
 
-### Start the React server:
+### 1. Start the React server:
 
 #### Dev
 
 - `npm run dev`
+- Open localhost:3000 after running the Django server.
 
 #### Prod
 
 - `npm run build`
-- Open localhost:8000
+- Open localhost:8000 after running the Django server.
 
-## Run the Django server.
+### 2. Run the backend Django server.
 
-- Setup the Django environment in root directory by running `pip install -r requirements.txt` or `pipenv install -r requirements.txt` if you are using pipenv (recommended).
+- In another terminal, setup the Django environment in root directory by running `pip install -r requirements.txt` or `pipenv install -r requirements.txt` if you are using pipenv (recommended).
 
 - run `python manage.py runserver` or `pipenv run python manage.py runserver` (recommended)
