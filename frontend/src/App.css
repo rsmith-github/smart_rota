@@ -251,6 +251,11 @@ nav {
   .messages-right-side {
     width: 90% !important;
   }
+
+  .register-l-side,
+  .login-l-side {
+    padding: 15px;
+  }
 }
 
 @media (max-width: 430px) {

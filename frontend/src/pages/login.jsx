@@ -13,6 +13,10 @@ function Login() {
   const dispatch = useDispatch();
   const { isAuthenticated, registered } = useSelector((state) => state.user);
 
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  );
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -20,6 +24,9 @@ function Login() {
 
   useEffect(() => {
     if (registered) dispatch(resetRegistered());
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
   }, [registered]);
 
   const { username, password } = formData;
@@ -49,6 +56,11 @@ function Login() {
     >
       <div id="login-page-container">
         <div className="login-l-side">
+          {!matches && (
+            <div className="auth-icon-border">
+              <HiLockClosed className="auth-icon" />
+            </div>
+          )}
           <h2 className="registerH2">Login</h2>
           <form action="/login" method="post" onSubmit={onSubmit}>
             <div className="">
@@ -84,22 +96,23 @@ function Login() {
             </div>
           </form>
         </div>
-
-        <div className="login-r-side">
-          <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            transition={{ duration: 1.5, delay: 1 }}
-          >
-            <div className="auth-icon-border">
-              <HiLockClosed className="auth-icon" />
-            </div>
-          </motion.div>
-        </div>
+        {matches && (
+          <div className="login-r-side">
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              transition={{ duration: 1.5, delay: 1 }}
+            >
+              <div className="auth-icon-border">
+                <HiLockClosed className="auth-icon" />
+              </div>
+            </motion.div>
+          </div>
+        )}
       </div>
     </motion.div>
   );

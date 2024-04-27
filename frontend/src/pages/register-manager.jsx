@@ -19,6 +19,16 @@ const RegisterManager = () => {
     user_type: "Manager",
   });
 
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
+
   const { employer_code, username, email, password, user_type } = formData;
 
   const onChange = (e) => {
@@ -44,6 +54,11 @@ const RegisterManager = () => {
     >
       <div id="register-page-container">
         <div className="register-l-side">
+          {!matches && (
+            <div className="auth-icon-border">
+              <HiOutlineUserCircle className="auth-icon" />
+            </div>
+          )}
           <h2 className="registerH2">Manager Profile</h2>
           <form action="/register-employer" method="post" onSubmit={onSubmit}>
             <div>
@@ -91,11 +106,13 @@ const RegisterManager = () => {
           </form>
         </div>
 
-        <div className="register-r-side">
-          <div className="auth-icon-border" style={{ display: "flex" }}>
-            <HiOutlineUserCircle className="auth-icon" />
+        {matches && (
+          <div className="register-r-side">
+            <div className="auth-icon-border" style={{ display: "flex" }}>
+              <HiOutlineUserCircle className="auth-icon" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { HiOutlineUserAdd } from "react-icons/hi";
@@ -17,6 +17,16 @@ function RegisterEmployee() {
     password: "",
     user_type: "Employee",
   });
+
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
 
   const { employer_code, username, email, password, user_type } = formData;
 
@@ -44,6 +54,11 @@ function RegisterEmployee() {
     >
       <div id="register-page-container">
         <div className="register-l-side">
+          {!matches && (
+            <div className="auth-icon-border">
+              <HiOutlineUserAdd className="auth-icon" />
+            </div>
+          )}
           <h2 className="registerH2">Team Member</h2>
           <form action="/register-employee" method="post" onSubmit={onSubmit}>
             <div>
@@ -91,11 +106,13 @@ function RegisterEmployee() {
           </form>
         </div>
 
-        <div className="register-r-side">
-          <div className="auth-icon-border" style={{ paddingLeft: "15px" }}>
-            <HiOutlineUserAdd className="auth-icon" />
+        {matches && (
+          <div className="register-r-side">
+            <div className="auth-icon-border" style={{ paddingLeft: "15px" }}>
+              <HiOutlineUserAdd className="auth-icon" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineUserAdd } from "react-icons/hi";
 
@@ -7,6 +7,15 @@ import { FaRegBuilding } from "react-icons/fa";
 function RegisterCompany({ message }) {
   const [companyCode, setCompanyCode] = useState();
   const [companyName, setCompanyName] = useState();
+  const [matches, setMatches] = useState(
+    window.matchMedia("(min-width: 768px)").matches
+  );
+
+  useEffect(() => {
+    window
+      .matchMedia("(min-width: 768px)")
+      .addEventListener("change", (e) => setMatches(e.matches));
+  }, []);
 
   const checkStatus = async (event) => {
     event.preventDefault();
@@ -47,6 +56,11 @@ function RegisterCompany({ message }) {
       >
         <div id="register-page-container">
           <div className="register-l-side">
+            {!matches && (
+              <div className="auth-icon-border">
+                <FaRegBuilding className="auth-icon" />
+              </div>
+            )}
             <h2 className="registerH2">Register Company</h2>
             <form
               action="/register-company"
@@ -80,12 +94,13 @@ function RegisterCompany({ message }) {
               )}
             </div>
           </div>
-
-          <div className="register-r-side">
-            <div className="auth-icon-border">
-              <FaRegBuilding className="auth-icon" />
+          {matches && (
+            <div className="register-r-side">
+              <div className="auth-icon-border">
+                <FaRegBuilding className="auth-icon" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </motion.div>
     </div>
