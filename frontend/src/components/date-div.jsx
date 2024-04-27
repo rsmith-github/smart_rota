@@ -149,7 +149,9 @@ function DateDiv({
               <div className="request-change-container">
                 <span className="shift-text">
                   <span className="shift-title">🌙 : </span>
-                  {shiftData?.evening_shift}
+                  {shiftData?.evening_shift.trim() === "99:99-99:99"
+                    ? "--:-- - --:--"
+                    : shiftData?.evening_shift}
                 </span>
                 <div>
                   <span>Something wrong?</span>
