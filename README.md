@@ -301,7 +301,3 @@ Python and Django
 - Setup the Django environment in root directory by running `pip install -r requirements.txt` or `pipenv install -r requirements.txt` if you are using pipenv (recommended).
 
 - run `python manage.py runserver` or `pipenv run python manage.py runserver` (recommended)
-
-## License
-
-This project is licensed under the MIT License.
