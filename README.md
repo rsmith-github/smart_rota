@@ -4,24 +4,6 @@ Smart Rota is a comprehensive, non-industry-specific rota-management platform de
 
 ![demo gif](/frontend/src/static/smart-rota.gif)
 
-# Distinctiveness and Complexity
-
-Smart Rota stands out from other projects in the course by providing a specialized solution for workforce management. This project does not replicate the functionality of any prior projects such as Search, Wiki, or Mail, ensuring it meets the distinctiveness criterion set by CS50W.
-
-- **Models and Backend**: While the course requires at least one Django model, Smart Rota incorporates five distinct models and one user manager class, each serving a unique aspect of rota management. This architectural structure supports a robust backend necessary to provide complex business solutions.
-- **Frontend Technologies**: The frontend utilizes React coupled with Redux for state management. This setup, particularly the use of Redux for managing authentication states, introduces a level of complexity not required in earlier projects.
-- **User Interface**: Special attention has been given to the user interface, with smooth animations and custom-built data visualization components. These elements enhance the overall user experience by providing intuitive and visually engaging interactions.
-
-  _Custom data visualisation component_:
-  <br>
-  <img src="frontend/src/static/data-visualisation.png" style="width: 70%; text-align:center; margin-left: auto; margin-right: auto;" />
-
-- **Mobile Responsiveness**: Consistent with the requirements, Smart Rota is fully responsive across all devices. The mobile-first design approach ensures accessibility and usability, which is demonstrated in the accompanying screencast.
-
-### Conclusion:
-
-Smart Rota is designed with the goal of not only fulfilling but exceeding the requirements of the CS50W capstone project. It introduces new technologies and complex functionalities that set it apart from simpler web applications, thereby addressing a real-world problem with a scalable and innovative web solution.
-
 # Files
 
 ## Backend
