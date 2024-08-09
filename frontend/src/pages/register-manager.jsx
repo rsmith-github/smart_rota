@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { HiOutlineUserCircle } from "react-icons/hi";
+import { resetRegistered } from "../features/user";
 
 const RegisterManager = () => {
   const dispatch = useDispatch();
@@ -27,9 +28,11 @@ const RegisterManager = () => {
     window
       .matchMedia("(min-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
-  }, []);
+    dispatch(resetRegistered());
+  }, [dispatch]);
 
   const { employer_code, username, email, password, user_type } = formData;
+  const registrationStatus = useSelector((state) => state.user.registered);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,6 +42,10 @@ const RegisterManager = () => {
     e.preventDefault();
     dispatch(register({ employer_code, username, email, password, user_type }));
   };
+
+  if (registrationStatus) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <motion.div

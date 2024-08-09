@@ -1,4 +1,3 @@
-
 from django.forms import model_to_dict
 from rest_framework import status
 from django.conf import settings
@@ -27,7 +26,12 @@ import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from .serializers import RegisterSeriazlizer, TimeTableSerializer, UserSerializer, MessageSerializer
+from .serializers import (
+    RegisterSeriazlizer,
+    TimeTableSerializer,
+    UserSerializer,
+    MessageSerializer,
+)
 from rest_framework.serializers import ValidationError
 
 # This can be passed into any template like other types of data. e.g.
@@ -41,29 +45,29 @@ from pprint import pprint
 
 def verify(request):
 
-    if request.method == 'GET':
-        access_token = request.META.get(
-            'HTTP_AUTHORIZATION', '').split(' ')[-1]
-        payload = {
-            'token': access_token
-        }
+    if request.method == "GET":
+        access_token = request.META.get("HTTP_AUTHORIZATION", "").split(" ")[-1]
+        payload = {"token": access_token}
 
         try:
             api_response = requests.post(
-                'http://localhost:8000/api/token/verify/',
+                "http://localhost:8000/api/token/verify/",
                 headers={
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
                 },
-                json=payload
+                json=payload,
             )
 
             data = api_response.json()
             return JsonResponse(data, status=api_response.status_code)
         except Exception as err:
-            return JsonResponse({'error': 'Something went wrong when trying to verify login status'}, status=500)
+            return JsonResponse(
+                {"error": "Something went wrong when trying to verify login status"},
+                status=500,
+            )
     else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
 def index(request):
@@ -85,9 +89,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "main/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            return render(
+                request,
+                "main/login.html",
+                {"message": "Invalid username and/or password."},
+            )
     else:
         context = {}
         return render(request, "index.html", context)
@@ -100,12 +106,26 @@ def logout_view(request):
 
 @require_GET
 def logout_api(request):
-    response = JsonResponse({'success': 'Logged out successfully'})
+    response = JsonResponse({"success": "Logged out successfully"})
 
-    response.set_cookie('access_token', '', httponly=True, expires=0, path='/api/',
-                        samesite='Strict', secure=(request.is_secure() or settings.DEBUG))
-    response.set_cookie('refresh_token', '', httponly=True, expires=0, path='/api/',
-                        samesite='Strict', secure=(request.is_secure() or settings.DEBUG))
+    response.set_cookie(
+        "access_token",
+        "",
+        httponly=True,
+        expires=0,
+        path="/api/",
+        samesite="Strict",
+        secure=(request.is_secure() or settings.DEBUG),
+    )
+    response.set_cookie(
+        "refresh_token",
+        "",
+        httponly=True,
+        expires=0,
+        path="/api/",
+        samesite="Strict",
+        secure=(request.is_secure() or settings.DEBUG),
+    )
 
     return response
 
@@ -121,16 +141,18 @@ def register_company(request):
         unique_id = uuid.uuid4()
 
         # Save company information
-        new_company = Company(company_name=company_name,
-                              company_code=unique_id)
+        new_company = Company(company_name=company_name, company_code=unique_id)
         print(Company.objects.all().filter(company_name=company_name))
         # Handle unique constraint
         if Company.objects.all().filter(company_name=company_name):
             message = "Company already exists."
         else:
             new_company.save()
-            message = "Registered successfuly! your company code is: " + \
-                str(unique_id) + ". Please write it down and do not lose it."
+            message = (
+                "Registered successfuly! your company code is: "
+                + str(unique_id)
+                + ". Please write it down and do not lose it."
+            )
 
         # return HttpResponseRedirect(reverse('register-company'))
         return render(request, "main/company.html", {"message": message})
@@ -149,15 +171,14 @@ class CompanyRegistrationView(APIView):
         unique_id = uuid.uuid4()
 
         # Save company information
-        new_company = Company(company_name=company_name,
-                              company_code=unique_id)
+        new_company = Company(company_name=company_name, company_code=unique_id)
         # Handle unique constraint
         if Company.objects.filter(company_name=company_name).exists():
             message = "Company already exists."
-            return Response({'message': message}, status=status.HTTP_409_CONFLICT)
+            return Response({"message": message}, status=status.HTTP_409_CONFLICT)
         else:
             new_company.save()
-            return Response({'code': unique_id}, status=status.HTTP_201_CREATED)
+            return Response({"code": unique_id}, status=status.HTTP_201_CREATED)
 
     def get(self, request):
         print("get request")
@@ -166,7 +187,7 @@ class CompanyRegistrationView(APIView):
 
 
 # get team members (users whose company code matches the request sender.)
-@api_view(['POST'])
+@api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def get_team(request):
     # allow only post requests
@@ -180,11 +201,10 @@ def get_team(request):
     user_object = User.objects.get(username=request.user)
 
     # filter team based on company code.
-    team = User.objects.filter(
-        employer_code=user_object.employer_code)
+    team = User.objects.filter(employer_code=user_object.employer_code)
 
     # send back json.
-    new = serializers.serialize('json', team)
+    new = serializers.serialize("json", team)
     return HttpResponse(new)
 
 
@@ -195,6 +215,7 @@ class RegisterView(APIView):
         serializer = RegisterSeriazlizer(data=data)
 
         if not serializer.is_valid():
+            print("🚀 ~ Error:", serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         user = serializer.create(serializer.validated_data)
@@ -206,7 +227,7 @@ class RegisterView(APIView):
             "refresh": str(refresh),
             "access": str(refresh.access_token),
             "user_id": user.instance.pk,
-            "username": user.instance.username
+            "username": user.instance.username,
         }
 
         return Response(token, status=status.HTTP_201_CREATED)
@@ -217,13 +238,13 @@ class RegisterView(APIView):
 
 
 class RetrieveUserView(APIView):
+    """
+    The RetrieveUserView is protected by the permissions.IsAuthenticated permission class.
+    This permission class requires a valid access token to be present in the Authorization header of the incoming request.
+    It expects a format like Bearer <token>.
+    (see getUser() in user.js)
+    """
 
-    """
-        The RetrieveUserView is protected by the permissions.IsAuthenticated permission class.
-        This permission class requires a valid access token to be present in the Authorization header of the incoming request.
-        It expects a format like Bearer <token>.
-        (see getUser() in user.js)
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
@@ -234,8 +255,8 @@ class RetrieveUserView(APIView):
 
 
 def login_api(request):
-    email = request.POST.get('email')
-    password = request.POST.get('password')
+    email = request.POST.get("email")
+    password = request.POST.get("password")
     url = f"{os.environ['API_URL']}/api/token/"
     headers = {
         "Content-Type": "application/json",
@@ -279,8 +300,7 @@ def login_api(request):
 
     except requests.exceptions.RequestException:
         return JsonResponse(
-            {"error": "Something went wrong when logging in"},
-            status=500
+            {"error": "Something went wrong when logging in"}, status=500
         )
     # except requests.exceptions.HTTPError as e:
     #     response = JsonResponse(e.response.json())
@@ -291,43 +311,47 @@ def login_api(request):
 class UpdateTimetableView(APIView):
     def post(self, request):
         user_and_timetable = request.data
-        username = user_and_timetable['username']
+        username = user_and_timetable["username"]
         employer_code = User.objects.get(username=username).employer_code
 
-        time_table_data = user_and_timetable['timeTable']
+        time_table_data = user_and_timetable["timeTable"]
 
         for time_object in time_table_data:
-            morning_shift_start = time_object['morningShift']['start']
-            morning_shift_end = time_object['morningShift']['end']
-            evening_shift_start = time_object['eveningShift']['start']
-            evening_shift_end = time_object['eveningShift']['end']
+            morning_shift_start = time_object["morningShift"]["start"]
+            morning_shift_end = time_object["morningShift"]["end"]
+            evening_shift_start = time_object["eveningShift"]["start"]
+            evening_shift_end = time_object["eveningShift"]["end"]
 
-            if (morning_shift_start != '99:99' and morning_shift_end != '99:99') or \
-                    (evening_shift_start != '99:99' and evening_shift_end != '99:99'):
+            if (morning_shift_start != "99:99" and morning_shift_end != "99:99") or (
+                evening_shift_start != "99:99" and evening_shift_end != "99:99"
+            ):
                 # Convert the date format to "YYYY-MM-DD"
-                date = time_object['date']
-                formatted_date = datetime.strptime(
-                    date, "%d-%m-%y").strftime("%Y-%m-%d")
+                date = time_object["date"]
+                formatted_date = datetime.strptime(date, "%d-%m-%y").strftime(
+                    "%Y-%m-%d"
+                )
 
                 # Create a dictionary with the data to be saved
                 timetable_data = {
-                    'username': username,
-                    'employer_code': employer_code,
-                    'date': formatted_date,
-                    'morning_shift': f"{morning_shift_start}-{morning_shift_end}",
-                    'evening_shift': f"{evening_shift_start}-{evening_shift_end}"
+                    "username": username,
+                    "employer_code": employer_code,
+                    "date": formatted_date,
+                    "morning_shift": f"{morning_shift_start}-{morning_shift_end}",
+                    "evening_shift": f"{evening_shift_start}-{evening_shift_end}",
                 }
                 print(timetable_data)
 
                 # check if shift exists for user on specified date.
                 exists = TimeTable.objects.filter(
-                    date=formatted_date, username=username).exists()
+                    date=formatted_date, username=username
+                ).exists()
 
                 if exists:
                     work_shift_object = TimeTable.objects.get(
-                        date=formatted_date, username=username)
-                    work_shift_object.morning_shift = timetable_data['morning_shift']
-                    work_shift_object.evening_shift = timetable_data['evening_shift']
+                        date=formatted_date, username=username
+                    )
+                    work_shift_object.morning_shift = timetable_data["morning_shift"]
+                    work_shift_object.evening_shift = timetable_data["evening_shift"]
                     work_shift_object.save()
                 else:
                     # Serialize and save the data
@@ -337,7 +361,9 @@ class UpdateTimetableView(APIView):
                         serializer.save()
                     except ValidationError as e:
                         print(e)
-                        return Response("BAD REQUEST", status=status.HTTP_400_BAD_REQUEST)
+                        return Response(
+                            "BAD REQUEST", status=status.HTTP_400_BAD_REQUEST
+                        )
 
         return Response("OK", status=status.HTTP_200_OK)
 
@@ -349,13 +375,17 @@ class GetMemberShiftsData(APIView):
         data = json.loads(request.body)
 
         # return user's shifts
-        shifts = TimeTable.objects.filter(username=data['username'])
+        shifts = TimeTable.objects.filter(username=data["username"])
 
-        shifts_as_dict = {'username': data['username']}
+        shifts_as_dict = {"username": data["username"]}
 
         for shift in shifts:
-            shifts_as_dict[f'{shift.date.day}-{shift.date.month}-{str(shift.date.year)[2:]}'] = {
-                'morning_shift': shift.morning_shift, 'evening_shift': shift.evening_shift}
+            shifts_as_dict[
+                f"{shift.date.day}-{shift.date.month}-{str(shift.date.year)[2:]}"
+            ] = {
+                "morning_shift": shift.morning_shift,
+                "evening_shift": shift.evening_shift,
+            }
 
         return JsonResponse(shifts_as_dict, status=status.HTTP_200_OK)
 
@@ -370,32 +400,38 @@ class RequestShiftChange(APIView):
 
         pprint(data)
 
-        user = data['user']
-        morning_shift = data['newShift']['morningShift']
-        evening_shift = data['newShift']['eveningShift']
+        user = data["user"]
+        morning_shift = data["newShift"]["morningShift"]
+        evening_shift = data["newShift"]["eveningShift"]
 
         new_morning_shift = f"{morning_shift['start']}-{morning_shift['end']}"
         new_evening_shift = f"{evening_shift['start']}-{evening_shift['end']}"
 
         date_str = "28-01-24"
 
-        date_str = data['newShift']['date']
+        date_str = data["newShift"]["date"]
         date_obj = datetime.strptime(date_str, "%d-%m-%y")
         db_formatted_date = datetime.strftime(date_obj, "%Y-%m-%d")
 
         # prevent duplicates
         is_dupicate = check_message_duplicates(
-            user, new_morning_shift, new_evening_shift)
+            user, new_morning_shift, new_evening_shift
+        )
 
         if is_dupicate:
             return JsonResponse(
-                {'message': 'Shift already exists'},
-                status=status.HTTP_400_BAD_REQUEST
+                {"message": "Shift already exists"}, status=status.HTTP_400_BAD_REQUEST
             )
 
         # Save request to database
-        new_request = Messages(from_user=user['username'], employer_code=user['employer_code'], date=db_formatted_date,
-                               message_type=settings.CHANGE_REQUEST,  morning_shift=new_morning_shift, evening_shift=new_evening_shift)
+        new_request = Messages(
+            from_user=user["username"],
+            employer_code=user["employer_code"],
+            date=db_formatted_date,
+            message_type=settings.CHANGE_REQUEST,
+            morning_shift=new_morning_shift,
+            evening_shift=new_evening_shift,
+        )
 
         new_request.save()
 
@@ -408,16 +444,17 @@ class GetChangeRequests(APIView):
 
         # validate if the user is a manager
         data = json.loads(request.body)
-        user = data['user']
+        user = data["user"]
 
-        if user['user_type'] == 'Manager':
+        if user["user_type"] == "Manager":
 
             change_requests = Messages.objects.filter(
-                employer_code=user['employer_code'])
+                employer_code=user["employer_code"]
+            )
 
-            messages = {'data': []}
+            messages = {"data": []}
             for change_request in change_requests:
-                messages['data'].append(model_to_dict(change_request))
+                messages["data"].append(model_to_dict(change_request))
 
             return JsonResponse(messages, status=status.HTTP_200_OK)
 
@@ -427,32 +464,36 @@ class AcceptChangeRequest(APIView):
     def put(self, request):
 
         data = json.loads(request.body)
-        user_that_requested_change = data['from_user']
-        put_request_user = data['user']
-        shift_data = data['shiftData']
+        user_that_requested_change = data["from_user"]
+        put_request_user = data["user"]
+        shift_data = data["shiftData"]
         print(shift_data)
 
-        if put_request_user['user_type'] == 'Manager':
+        if put_request_user["user_type"] == "Manager":
 
             print(user_that_requested_change)
             pprint(data)
 
             # change old shift
 
-            date_obj = datetime.strptime(data['date'], "%d-%m-%y")
+            date_obj = datetime.strptime(data["date"], "%d-%m-%y")
             db_formatted_date = datetime.strftime(date_obj, "%Y-%m-%d")
 
             old_shift_object = TimeTable.objects.get(
-                username=user_that_requested_change, date=db_formatted_date)
+                username=user_that_requested_change, date=db_formatted_date
+            )
 
-            old_shift_object.morning_shift = shift_data['morning_shift']
-            old_shift_object.evening_shift = shift_data['evening_shift']
+            old_shift_object.morning_shift = shift_data["morning_shift"]
+            old_shift_object.evening_shift = shift_data["evening_shift"]
 
             old_shift_object.save()
 
             # delete message
             message_to_delete = Messages.objects.get(
-                from_user=user_that_requested_change, date=db_formatted_date)
+                from_user=user_that_requested_change, date=db_formatted_date
+            )
             message_to_delete.delete()
 
-        return JsonResponse({'data': 'Shift Change Accepted'}, status=status.HTTP_200_OK)
+        return JsonResponse(
+            {"data": "Shift Change Accepted"}, status=status.HTTP_200_OK
+        )

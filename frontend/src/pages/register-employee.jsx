@@ -1,9 +1,13 @@
 import { React, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { HiOutlineUserAdd } from "react-icons/hi";
 
 import { motion } from "framer-motion";
+
+import { Navigate } from "react-router-dom";
+
+import { resetRegistered } from "../features/user";
 
 import { register } from "../features/user";
 
@@ -26,9 +30,11 @@ function RegisterEmployee() {
     window
       .matchMedia("(min-width: 768px)")
       .addEventListener("change", (e) => setMatches(e.matches));
-  }, []);
+    dispatch(resetRegistered());
+  }, [dispatch]);
 
   const { employer_code, username, email, password, user_type } = formData;
+  const registrationStatus = useSelector((state) => state.user.registered);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,6 +45,10 @@ function RegisterEmployee() {
 
     dispatch(register({ employer_code, username, email, password, user_type }));
   };
+
+  if (registrationStatus) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <motion.div
